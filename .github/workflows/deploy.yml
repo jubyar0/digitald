@@ -12,65 +12,46 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '18'
-          cache: 'pnpm'
-
-      - name: Install Dependencies (CI)
-        run: pnpm install --frozen-lockfile
-
-      - name: Setup SSH Key
-        run: |
-          echo "Setting up SSH..."
-          mkdir -p ~/.ssh/
-          echo "${{ secrets.VPS_SSH_KEY }}" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-          echo "Connecting to VPS..."
-          ssh-keyscan -H 168.231.84.38 >> ~/.ssh/known_hosts
-
-      - name: Deploy Files to VPS
-        run: |
-          # Sync files excluding heavy/unnecessary folders 
-          # We deploy to /var/www/digital-marketplace
-          rsync -avz --delete \
-            --exclude 'node_modules' \
-            --exclude '.git' \
-            --exclude '.env' \
-            --exclude '.github' \
-            ./ root@168.231.84.38:/var/www/digital-marketplace
-
-      - name: Execute Remote Commands
+      - name: Deploy to VPS via SSH
         uses: appleboy/ssh-action@master
         with:
           host: 168.231.84.38
           username: root
-          key: ${{ secrets.VPS_SSH_KEY }}
+          password: ${{ secrets.VPS_PASSWORD }}
           script: |
             # Navigate to project directory
-            cd /var/www/digital-marketplace
+            cd /var/www/digital-marketplace || mkdir -p /var/www/digital-marketplace && cd /var/www/digital-marketplace
             
-            # Load environment variables if needed (ensure .env exists on server)
-            # source .env
-
+            # Pull latest code from GitHub
+            if [ -d ".git" ]; then
+              git pull origin main
+            else
+              git clone https://github.com/jubyar0/digitald.git .
+            fi
+            
+            # Install dependencies
+            export PNPM_HOME="/root/.local/share/pnpm"
+            export PATH="$PNPM_HOME:$PATH"
+            
+            # Install pnpm if not exists
+            command -v pnpm >/dev/null 2>&1 || npm install -g pnpm
+            
             # Install dependencies
             pnpm install --frozen-lockfile
-
+            
             # Generate Prisma Client
             pnpm db:generate
-
+            
             # Run Database Migrations
             pnpm db:migrate:deploy
-
-            # Build the application on the server
+            
+            # Build the application
             pnpm build
-
+            
+            # Install PM2 if not exists
+            command -v pm2 >/dev/null 2>&1 || npm install -g pm2
+            
             # Restart the application using PM2
-            # Assuming ecosystem.config.js exists or starting explicitly
             if pm2 list | grep -q "digital-marketplace"; then
               pm2 reload digital-marketplace
             else
