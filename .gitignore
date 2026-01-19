@@ -12,3 +12,13 @@ dist
 
 # Environment
 .env.local
+
+# SSH Keys (NEVER commit these!)
+*.pem
+*.key
+*_rsa
+*_rsa.pub
+github_deploy_key
+github_deploy_key.pub
+sholexe
+sholexe.pub

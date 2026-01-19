@@ -21,7 +21,7 @@ export default function TeamSettingsPage() {
             try {
                 const result = await getAdminUsers()
                 if (result.success) {
-                    setUsers(result.data)
+                    setUsers(result.data || [])
                 }
             } catch (error) {
                 toast.error('Failed to load team members')

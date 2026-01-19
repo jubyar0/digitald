@@ -1,8 +1,7 @@
 generator client {
-  provider        = "prisma-client-js"
-  output          = "../src/generated/client"
+  provider = "prisma-client-js"
+  output   = "../src/generated/client"
   previewFeatures = ["driverAdapters"]
-  binaryTargets   = ["native", "windows", "linux-musl-openssl-3.0.x", "debian-openssl-3.0.x"]
 }
 
 datasource db {
@@ -52,12 +51,9 @@ model User {
   generatedReports                                  Report[]                  @relation("ReportGenerators")
   reviews                                           Review[]
   sellerReviews                                     SellerReview[]            @relation("UserSellerReviews")
-  assignedTickets                                   SupportTicket[]           @relation("SupportTicketAssignees")
-  support_tickets_support_tickets_resolvedByTousers SupportTicket[]           @relation("support_tickets_resolvedByTousers")
-  supportTickets                                    SupportTicket[]
-  ticket_messages                                   ticket_messages[]
+
   transactions                                      Transaction[]
-  user_payment_methods                              user_payment_methods[]
+
   vendorApplicationReviews                          VendorApplication[]       @relation("VendorApplicationReviewers")
   vendorApplicationRevisionRequests                 VendorApplication[]       @relation("VendorApplicationRevisionRequesters")
   vendorApplicationPersonaOverrides                 VendorApplication[]       @relation("VendorApplicationPersonaOverriders")
@@ -71,6 +67,10 @@ model User {
   canHandleLiveChat                                 Boolean                   @default(false)
   assignedLiveChatSessions                          LiveChatSession[]         @relation("LiveChatAssignee")
   developedApps                                     App[]                     @relation("AppDeveloper")
+  supportTickets                                    SupportTicket[]
+  supportTicketsAssigned                            SupportTicket[]           @relation("SupportTicketAssignees")
+  supportTicketsResolved                            SupportTicket[]           @relation("support_tickets_resolvedByTousers")
+  ticketMessages                                    TicketMessage[]
 
   @@index([role])
   @@index([createdAt])
@@ -121,6 +121,9 @@ model Vendor {
   withdrawals         Withdrawal[]
   giftCards           GiftCard[]
   appInstallations    MerchantAppInstallation[]
+  appReviews          AppReview[]
+  marketingCampaigns  MarketingCampaign[]
+  marketingAutomations MarketingAutomation[]
 
   @@index([userId])
   @@index([createdAt])
@@ -883,10 +886,10 @@ model SupportTicket {
   resolvedAt                              DateTime?
   resolvedBy                              String?
   tags                                    String[]          @default([])
+  ticket_messages                         TicketMessage[]
   assignee                                User?             @relation("SupportTicketAssignees", fields: [assignedTo], references: [id])
   users_support_tickets_resolvedByTousers User?             @relation("support_tickets_resolvedByTousers", fields: [resolvedBy], references: [id])
   user                                    User              @relation(fields: [userId], references: [id])
-  ticket_messages                         ticket_messages[]
 
   @@index([userId])
   @@index([status])
@@ -1626,38 +1629,11 @@ model api_settings {
   @@index([provider])
 }
 
-model ticket_messages {
-  id              String        @id @default(cuid())
-  ticketId        String
-  userId          String
-  content         String
-  attachments     Json?
-  isInternal      Boolean       @default(false)
-  createdAt       DateTime      @default(now())
-  updatedAt       DateTime      @updatedAt
-  support_tickets SupportTicket @relation(fields: [ticketId], references: [id], onDelete: Cascade)
-  users           User          @relation(fields: [userId], references: [id])
 
-  @@index([ticketId, createdAt])
-  @@index([ticketId])
-  @@index([userId])
-}
 
-model user_payment_methods {
-  id        String      @id
-  userId    String
-  type      PaymentType
-  label     String
-  details   String
-  isDefault Boolean     @default(false)
-  isActive  Boolean     @default(true)
-  createdAt DateTime    @default(now())
-  updatedAt DateTime
-  users     User        @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  @@index([userId])
-  @@index([userId, isDefault])
-}
+
+
 
 enum PaymentGateway {
   STRIPE
@@ -2341,6 +2317,7 @@ model App {
   installations   MerchantAppInstallation[]
   webhooks        AppWebhook[]
   activityLogs    AppActivityLog[]
+  reviews         AppReview[]
   
   @@index([status])
   @@index([category])
@@ -2445,29 +2422,91 @@ model AppActivityLog {
   @@map("app_activity_logs")
 }
 
-enum SupportTicketPriority {
-  LOW
-  MEDIUM
-  HIGH
-  URGENT
+model AppReview {
+  id          String   @id @default(cuid())
+  appId       String
+  vendorId    String
+  rating      Int      // 1-5
+  comment     String?  @db.Text
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  app         App      @relation(fields: [appId], references: [id], onDelete: Cascade)
+  vendor      Vendor   @relation(fields: [vendorId], references: [id], onDelete: Cascade)
+  
+  @@unique([appId, vendorId]) // One review per vendor per app
+  @@index([appId])
+  @@index([vendorId])
+  @@map("app_reviews")
 }
 
-enum SupportTicketStatus {
-  OPEN
-  IN_PROGRESS
-  RESOLVED
-  CLOSED
+model TicketMessage {
+  id          String        @id @default(cuid())
+  ticketId    String
+  userId      String
+  content     String
+  attachments Json?
+  isInternal  Boolean       @default(false)
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+
+  ticket      SupportTicket @relation(fields: [ticketId], references: [id], onDelete: Cascade)
+  user        User          @relation(fields: [userId], references: [id])
+
+  @@index([ticketId])
+  @@index([userId])
+  @@map("ticket_messages")
 }
 
-enum SupportTicketCategory {
-  GENERAL
-  TECHNICAL
-  BILLING
-  ACCOUNT
-  OTHER
+model MarketingCampaign {
+  id          String         @id @default(cuid())
+  vendorId    String
+  name        String
+  status      CampaignStatus @default(DRAFT)
+  budget      Float?
+  startDate   DateTime?
+  endDate     DateTime?
+  sessions    Int            @default(0)
+  sales       Float          @default(0)
+  orders      Int            @default(0)
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+  vendor      Vendor         @relation(fields: [vendorId], references: [id], onDelete: Cascade)
+
+  @@index([vendorId])
+  @@map("marketing_campaigns")
 }
 
+model MarketingAutomation {
+  id          String           @id @default(cuid())
+  vendorId    String
+  name        String
+  type        AutomationType
+  status      AutomationStatus @default(INACTIVE)
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+  vendor      Vendor           @relation(fields: [vendorId], references: [id], onDelete: Cascade)
 
+  @@index([vendorId])
+  @@map("marketing_automations")
+}
 
+enum CampaignStatus {
+  DRAFT
+  ACTIVE
+  PAUSED
+  COMPLETED
+}
 
+enum AutomationType {
+  ABANDONED_CART
+  ABANDONED_CHECKOUT
+  WELCOME_SERIES
+  POST_PURCHASE
+}
 
+enum AutomationStatus {
+  ACTIVE
+  INACTIVE
+}

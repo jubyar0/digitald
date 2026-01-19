@@ -1,6 +1,7 @@
 generator client {
   provider = "prisma-client-js"
   output   = "../src/generated/client"
+  previewFeatures = ["driverAdapters"]
 }
 
 datasource db {
@@ -121,6 +122,8 @@ model Vendor {
   giftCards           GiftCard[]
   appInstallations    MerchantAppInstallation[]
   appReviews          AppReview[]
+  marketingCampaigns  MarketingCampaign[]
+  marketingAutomations MarketingAutomation[]
 
   @@index([userId])
   @@index([createdAt])
@@ -2454,4 +2457,56 @@ model TicketMessage {
   @@index([ticketId])
   @@index([userId])
   @@map("ticket_messages")
+}
+
+model MarketingCampaign {
+  id          String         @id @default(cuid())
+  vendorId    String
+  name        String
+  status      CampaignStatus @default(DRAFT)
+  budget      Float?
+  startDate   DateTime?
+  endDate     DateTime?
+  sessions    Int            @default(0)
+  sales       Float          @default(0)
+  orders      Int            @default(0)
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+  vendor      Vendor         @relation(fields: [vendorId], references: [id], onDelete: Cascade)
+
+  @@index([vendorId])
+  @@map("marketing_campaigns")
+}
+
+model MarketingAutomation {
+  id          String           @id @default(cuid())
+  vendorId    String
+  name        String
+  type        AutomationType
+  status      AutomationStatus @default(INACTIVE)
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+  vendor      Vendor           @relation(fields: [vendorId], references: [id], onDelete: Cascade)
+
+  @@index([vendorId])
+  @@map("marketing_automations")
+}
+
+enum CampaignStatus {
+  DRAFT
+  ACTIVE
+  PAUSED
+  COMPLETED
+}
+
+enum AutomationType {
+  ABANDONED_CART
+  ABANDONED_CHECKOUT
+  WELCOME_SERIES
+  POST_PURCHASE
+}
+
+enum AutomationStatus {
+  ACTIVE
+  INACTIVE
 }

@@ -1,7 +1,7 @@
 // lib/page-builder/store.ts
 // Zustand store for Page Builder state management
 
-import { create } from 'zustand';
+import { create, type StoreApi, type UseBoundStore, type StateCreator } from 'zustand';
 import { immer } from 'zustand/middleware/immer';
 import { nanoid } from 'nanoid';
 import type {
@@ -120,261 +120,261 @@ export type { EditorState };
 // Create store with explicit typing to avoid immer internal type leaking
 type ImmerSet = (fn: (state: EditorState) => void) => void;
 
-export const useEditorStore = create<EditorState>()(
-    immer((set: ImmerSet, get) => ({
-        // Initial State
-        schema: null,
-        selectedId: null,
-        hoveredId: null,
-        device: 'desktop',
-        editorMode: 'edit',
-        isDirty: false,
-        history: [],
-        historyIndex: -1,
-        activeSidebarTab: 'components',
+const storeCreator: StateCreator<EditorState, [["zustand/immer", never]]> = (set, get) => ({
+    // Initial State
+    schema: null,
+    selectedId: null,
+    hoveredId: null,
+    device: 'desktop',
+    editorMode: 'edit',
+    isDirty: false,
+    history: [],
+    historyIndex: -1,
+    activeSidebarTab: 'components',
 
-        // Schema Actions
-        setSchema: (schema) => set((state) => {
-            state.schema = schema;
-            state.isDirty = false;
-            state.selectedId = null;
-            state.history = [{ elements: deepClone(schema.elements), timestamp: Date.now() }];
-            state.historyIndex = 0;
-        }),
+    // Schema Actions
+    setSchema: (schema) => set((state) => {
+        state.schema = schema;
+        state.isDirty = false;
+        state.selectedId = null;
+        state.history = [{ elements: deepClone(schema.elements), timestamp: Date.now() }];
+        state.historyIndex = 0;
+    }),
 
-        resetEditor: () => set((state) => {
-            state.schema = null;
+    resetEditor: () => set((state) => {
+        state.schema = null;
+        state.selectedId = null;
+        state.hoveredId = null;
+        state.isDirty = false;
+        state.history = [];
+        state.historyIndex = -1;
+    }),
+
+    // Selection Actions
+    selectElement: (id) => set((state) => {
+        state.selectedId = id;
+        if (id) {
+            state.activeSidebarTab = 'properties';
+        }
+    }),
+
+    hoverElement: (id) => set((state) => {
+        state.hoveredId = id;
+    }),
+
+    // View Actions
+    setDevice: (device) => set((state) => {
+        state.device = device;
+    }),
+
+    setEditorMode: (mode) => set((state) => {
+        state.editorMode = mode;
+        if (mode === 'preview') {
             state.selectedId = null;
             state.hoveredId = null;
-            state.isDirty = false;
-            state.history = [];
-            state.historyIndex = -1;
-        }),
+        }
+    }),
 
-        // Selection Actions
-        selectElement: (id) => set((state) => {
-            state.selectedId = id;
-            if (id) {
-                state.activeSidebarTab = 'properties';
-            }
-        }),
+    setActiveSidebarTab: (tab) => set((state) => {
+        state.activeSidebarTab = tab;
+    }),
 
-        hoverElement: (id) => set((state) => {
-            state.hoveredId = id;
-        }),
+    // Element CRUD
+    addElement: (element, parentId = null, index) => {
+        const newId = nanoid();
+        set((state) => {
+            if (!state.schema) return;
 
-        // View Actions
-        setDevice: (device) => set((state) => {
-            state.device = device;
-        }),
+            const newElement: PageElement = {
+                ...element,
+                id: newId,
+            };
 
-        setEditorMode: (mode) => set((state) => {
-            state.editorMode = mode;
-            if (mode === 'preview') {
-                state.selectedId = null;
-                state.hoveredId = null;
-            }
-        }),
-
-        setActiveSidebarTab: (tab) => set((state) => {
-            state.activeSidebarTab = tab;
-        }),
-
-        // Element CRUD
-        addElement: (element, parentId = null, index) => {
-            const newId = nanoid();
-            set((state) => {
-                if (!state.schema) return;
-
-                const newElement: PageElement = {
-                    ...element,
-                    id: newId,
-                };
-
-                if (parentId) {
-                    const found = findElement(state.schema.elements, parentId);
-                    if (found && found.element) {
-                        if (!found.element.children) {
-                            found.element.children = [];
-                        }
-                        const insertIndex = index ?? found.element.children.length;
-                        found.element.children.splice(insertIndex, 0, newElement);
+            if (parentId) {
+                const found = findElement(state.schema.elements, parentId);
+                if (found && found.element) {
+                    if (!found.element.children) {
+                        found.element.children = [];
                     }
-                } else {
-                    const insertIndex = index ?? state.schema.elements.length;
-                    state.schema.elements.splice(insertIndex, 0, newElement);
+                    const insertIndex = index ?? found.element.children.length;
+                    found.element.children.splice(insertIndex, 0, newElement);
                 }
-
-                state.isDirty = true;
-                state.selectedId = newId;
-            });
-            return newId;
-        },
-
-        updateElement: (id, updates) => set((state) => {
-            if (!state.schema) return;
-            const found = findElement(state.schema.elements, id);
-            if (found) {
-                Object.assign(found.element, updates);
-                state.isDirty = true;
+            } else {
+                const insertIndex = index ?? state.schema.elements.length;
+                state.schema.elements.splice(insertIndex, 0, newElement);
             }
-        }),
 
-        updateElementProp: (id, propPath, value) => set((state) => {
-            if (!state.schema) return;
-            const found = findElement(state.schema.elements, id);
-            if (found) {
-                setNestedValue(found.element.props, propPath, value);
-                state.isDirty = true;
+            state.isDirty = true;
+            state.selectedId = newId;
+        });
+        return newId;
+    },
+
+    updateElement: (id, updates) => set((state) => {
+        if (!state.schema) return;
+        const found = findElement(state.schema.elements, id);
+        if (found) {
+            Object.assign(found.element, updates);
+            state.isDirty = true;
+        }
+    }),
+
+    updateElementProp: (id, propPath, value) => set((state) => {
+        if (!state.schema) return;
+        const found = findElement(state.schema.elements, id);
+        if (found) {
+            setNestedValue(found.element.props, propPath, value);
+            state.isDirty = true;
+        }
+    }),
+
+    updateElementStyle: (id, stylePath, value) => set((state) => {
+        if (!state.schema) return;
+        const found = findElement(state.schema.elements, id);
+        if (found) {
+            setNestedValue(found.element.styles, stylePath, value);
+            state.isDirty = true;
+        }
+    }),
+
+    updateElementMeta: (id, metaPath, value) => set((state) => {
+        if (!state.schema) return;
+        const found = findElement(state.schema.elements, id);
+        if (found) {
+            setNestedValue(found.element.meta, metaPath, value);
+            state.isDirty = true;
+        }
+    }),
+
+    removeElement: (id) => set((state) => {
+        if (!state.schema) return;
+        const found = findElement(state.schema.elements, id);
+        if (found && found.parent) {
+            found.parent.splice(found.index, 1);
+            state.isDirty = true;
+            if (state.selectedId === id) {
+                state.selectedId = null;
             }
-        }),
+        }
+    }),
 
-        updateElementStyle: (id, stylePath, value) => set((state) => {
-            if (!state.schema) return;
-            const found = findElement(state.schema.elements, id);
-            if (found) {
-                setNestedValue(found.element.styles, stylePath, value);
-                state.isDirty = true;
-            }
-        }),
+    moveElement: (id, newParentId, newIndex) => set((state) => {
+        if (!state.schema) return;
+        const found = findElement(state.schema.elements, id);
+        if (!found || !found.parent) return;
 
-        updateElementMeta: (id, metaPath, value) => set((state) => {
-            if (!state.schema) return;
-            const found = findElement(state.schema.elements, id);
-            if (found) {
-                setNestedValue(found.element.meta, metaPath, value);
-                state.isDirty = true;
-            }
-        }),
+        // Remove from current position
+        const [element] = found.parent.splice(found.index, 1);
 
-        removeElement: (id) => set((state) => {
-            if (!state.schema) return;
-            const found = findElement(state.schema.elements, id);
-            if (found && found.parent) {
-                found.parent.splice(found.index, 1);
-                state.isDirty = true;
-                if (state.selectedId === id) {
-                    state.selectedId = null;
+        // Add to new position
+        if (newParentId) {
+            const newParent = findElement(state.schema.elements, newParentId);
+            if (newParent && newParent.element) {
+                if (!newParent.element.children) {
+                    newParent.element.children = [];
                 }
+                newParent.element.children.splice(newIndex, 0, element);
             }
-        }),
+        } else {
+            state.schema.elements.splice(newIndex, 0, element);
+        }
 
-        moveElement: (id, newParentId, newIndex) => set((state) => {
+        state.isDirty = true;
+    }),
+
+    duplicateElement: (id) => {
+        let newId: string | null = null;
+        set((state) => {
             if (!state.schema) return;
             const found = findElement(state.schema.elements, id);
             if (!found || !found.parent) return;
 
-            // Remove from current position
-            const [element] = found.parent.splice(found.index, 1);
+            const duplicate = updateIds(deepClone(found.element));
+            duplicate.meta.label = `${duplicate.meta.label} (Copy)`;
+            newId = duplicate.id;
 
-            // Add to new position
-            if (newParentId) {
-                const newParent = findElement(state.schema.elements, newParentId);
-                if (newParent && newParent.element) {
-                    if (!newParent.element.children) {
-                        newParent.element.children = [];
-                    }
-                    newParent.element.children.splice(newIndex, 0, element);
-                }
-            } else {
-                state.schema.elements.splice(newIndex, 0, element);
-            }
-
+            found.parent.splice(found.index + 1, 0, duplicate);
             state.isDirty = true;
-        }),
+            state.selectedId = duplicate.id;
+        });
+        return newId;
+    },
 
-        duplicateElement: (id) => {
-            let newId: string | null = null;
-            set((state) => {
-                if (!state.schema) return;
-                const found = findElement(state.schema.elements, id);
-                if (!found || !found.parent) return;
+    // Lock/Visibility
+    toggleLock: (id) => set((state) => {
+        if (!state.schema) return;
+        const found = findElement(state.schema.elements, id);
+        if (found) {
+            found.element.meta.locked = !found.element.meta.locked;
+            state.isDirty = true;
+        }
+    }),
 
-                const duplicate = updateIds(deepClone(found.element));
-                duplicate.meta.label = `${duplicate.meta.label} (Copy)`;
-                newId = duplicate.id;
+    toggleVisibility: (id) => set((state) => {
+        if (!state.schema) return;
+        const found = findElement(state.schema.elements, id);
+        if (found) {
+            found.element.meta.hidden = !found.element.meta.hidden;
+            state.isDirty = true;
+        }
+    }),
 
-                found.parent.splice(found.index + 1, 0, duplicate);
-                state.isDirty = true;
-                state.selectedId = duplicate.id;
-            });
-            return newId;
-        },
+    // History
+    undo: () => set((state) => {
+        if (state.historyIndex > 0 && state.schema) {
+            state.historyIndex--;
+            state.schema.elements = deepClone(state.history[state.historyIndex].elements);
+            state.isDirty = true;
+        }
+    }),
 
-        // Lock/Visibility
-        toggleLock: (id) => set((state) => {
-            if (!state.schema) return;
-            const found = findElement(state.schema.elements, id);
-            if (found) {
-                found.element.meta.locked = !found.element.meta.locked;
-                state.isDirty = true;
-            }
-        }),
+    redo: () => set((state) => {
+        if (state.historyIndex < state.history.length - 1 && state.schema) {
+            state.historyIndex++;
+            state.schema.elements = deepClone(state.history[state.historyIndex].elements);
+            state.isDirty = true;
+        }
+    }),
 
-        toggleVisibility: (id) => set((state) => {
-            if (!state.schema) return;
-            const found = findElement(state.schema.elements, id);
-            if (found) {
-                found.element.meta.hidden = !found.element.meta.hidden;
-                state.isDirty = true;
-            }
-        }),
+    saveToHistory: () => set((state) => {
+        if (!state.schema) return;
 
-        // History
-        undo: () => set((state) => {
-            if (state.historyIndex > 0 && state.schema) {
-                state.historyIndex--;
-                state.schema.elements = deepClone(state.history[state.historyIndex].elements);
-                state.isDirty = true;
-            }
-        }),
+        // Truncate future history if we're not at the end
+        state.history = state.history.slice(0, state.historyIndex + 1);
 
-        redo: () => set((state) => {
-            if (state.historyIndex < state.history.length - 1 && state.schema) {
-                state.historyIndex++;
-                state.schema.elements = deepClone(state.history[state.historyIndex].elements);
-                state.isDirty = true;
-            }
-        }),
+        // Add new entry
+        state.history.push({
+            elements: deepClone(state.schema.elements),
+            timestamp: Date.now(),
+        });
 
-        saveToHistory: () => set((state) => {
-            if (!state.schema) return;
+        // Limit history size
+        if (state.history.length > MAX_HISTORY) {
+            state.history = state.history.slice(-MAX_HISTORY);
+        }
 
-            // Truncate future history if we're not at the end
-            state.history = state.history.slice(0, state.historyIndex + 1);
+        state.historyIndex = state.history.length - 1;
+    }),
 
-            // Add new entry
-            state.history.push({
-                elements: deepClone(state.schema.elements),
-                timestamp: Date.now(),
-            });
+    canUndo: () => {
+        const state = get();
+        return state.historyIndex > 0;
+    },
 
-            // Limit history size
-            if (state.history.length > MAX_HISTORY) {
-                state.history = state.history.slice(-MAX_HISTORY);
-            }
+    canRedo: () => {
+        const state = get();
+        return state.historyIndex < state.history.length - 1;
+    },
 
-            state.historyIndex = state.history.length - 1;
-        }),
+    // Save State
+    markClean: () => set((state) => {
+        state.isDirty = false;
+    }),
 
-        canUndo: () => {
-            const state = get();
-            return state.historyIndex > 0;
-        },
+    getSchema: () => get().schema,
+});
 
-        canRedo: () => {
-            const state = get();
-            return state.historyIndex < state.history.length - 1;
-        },
-
-        // Save State
-        markClean: () => set((state) => {
-            state.isDirty = false;
-        }),
-
-        getSchema: () => get().schema,
-    }))
-);
+export const useEditorStore = create<EditorState>()(immer(storeCreator));
 
 // Selector hooks for optimized re-renders
 export const useSelectedElement = () => {

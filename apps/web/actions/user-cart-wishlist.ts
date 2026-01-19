@@ -21,11 +21,11 @@ export async function getUserWishlist() {
 }
 
 export async function addToWishlist(productId: string) {
-    return { success: true }
+    return { success: true, error: "" }
 }
 
 export async function removeFromWishlist(productId: string) {
-    return { success: true }
+    return { success: true, error: "" }
 }
 
 export async function clearCart() {

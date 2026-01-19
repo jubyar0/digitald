@@ -1,7 +1,6 @@
-"use client";
-
 import Link from "next/link";
-import { Folder, ArrowUpDown } from "lucide-react";
+import { Folder, ArrowUpDown, Trash2 } from "lucide-react";
+import { format } from "date-fns";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -15,8 +14,12 @@ import {
 import { Checkbox } from "@/components/ui/checkbox";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
+import { getCampaigns, deleteCampaign } from "@/actions/marketing";
 
-export default function CampaignsPage() {
+export default async function CampaignsPage() {
+    const campaignsResult = await getCampaigns();
+    const campaigns = campaignsResult.success && campaignsResult.data ? campaignsResult.data : [];
+
     return (
         <div className="flex-1 space-y-6 p-8 pt-6 max-w-6xl mx-auto w-full">
             <div className="flex items-center justify-between">
@@ -24,7 +27,7 @@ export default function CampaignsPage() {
                     <Folder className="h-5 w-5 text-muted-foreground" />
                     <h2 className="text-2xl font-bold tracking-tight">Campaigns</h2>
                 </div>
-                <Link href="/seller/marketing/campaigns/new-campaign">
+                <Link href="/seller/marketing/campaigns/new">
                     <Button>Create campaign</Button>
                 </Link>
             </div>
@@ -52,30 +55,61 @@ export default function CampaignsPage() {
                                     </TableHead>
                                     <TableHead>
                                         <Button variant="ghost" className="p-0 hover:bg-transparent font-medium text-xs text-muted-foreground uppercase tracking-wider">
-                                            Updated
+                                            Status
                                             <ArrowUpDown className="ml-2 h-3 w-3" />
                                         </Button>
                                     </TableHead>
                                     <TableHead className="font-medium text-xs text-muted-foreground uppercase tracking-wider">Created</TableHead>
-                                    <TableHead className="text-right font-medium text-xs text-muted-foreground uppercase tracking-wider">Sessions (YTD)</TableHead>
-                                    <TableHead className="text-right font-medium text-xs text-muted-foreground uppercase tracking-wider">Sales (YTD)</TableHead>
+                                    <TableHead className="text-right font-medium text-xs text-muted-foreground uppercase tracking-wider">Sessions</TableHead>
+                                    <TableHead className="text-right font-medium text-xs text-muted-foreground uppercase tracking-wider">Sales</TableHead>
+                                    <TableHead className="w-[50px]"></TableHead>
                                 </TableRow>
                             </TableHeader>
                             <TableBody>
-                                <TableRow>
-                                    <TableCell>
-                                        <Checkbox />
-                                    </TableCell>
-                                    <TableCell className="font-medium">
-                                        <Link href="/seller/marketing/campaigns/new-campaign" className="hover:underline">
-                                            dfdf
-                                        </Link>
-                                    </TableCell>
-                                    <TableCell className="text-muted-foreground">Jan 12, 2026</TableCell>
-                                    <TableCell className="text-muted-foreground">Jan 12, 2026</TableCell>
-                                    <TableCell className="text-right text-muted-foreground">—</TableCell>
-                                    <TableCell className="text-right text-muted-foreground">—</TableCell>
-                                </TableRow>
+                                {campaigns.length === 0 ? (
+                                    <TableRow>
+                                        <TableCell colSpan={7} className="text-center py-8 text-muted-foreground">
+                                            No campaigns found. Create one to get started.
+                                        </TableCell>
+                                    </TableRow>
+                                ) : (
+                                    campaigns.map((campaign) => (
+                                        <TableRow key={campaign.id}>
+                                            <TableCell>
+                                                <Checkbox />
+                                            </TableCell>
+                                            <TableCell className="font-medium">
+                                                <Link href={`/seller/marketing/campaigns/${campaign.id}`} className="hover:underline">
+                                                    {campaign.name}
+                                                </Link>
+                                            </TableCell>
+                                            <TableCell>
+                                                <Badge variant={campaign.status === 'ACTIVE' ? 'default' : 'secondary'}>
+                                                    {campaign.status}
+                                                </Badge>
+                                            </TableCell>
+                                            <TableCell className="text-muted-foreground">
+                                                {format(new Date(campaign.createdAt), "MMM d, yyyy")}
+                                            </TableCell>
+                                            <TableCell className="text-right text-muted-foreground">
+                                                {campaign.sessions}
+                                            </TableCell>
+                                            <TableCell className="text-right text-muted-foreground">
+                                                DZD {campaign.sales}
+                                            </TableCell>
+                                            <TableCell>
+                                                <form action={async () => {
+                                                    "use server"
+                                                    await deleteCampaign(campaign.id)
+                                                }}>
+                                                    <Button variant="ghost" size="icon" className="h-8 w-8 text-muted-foreground hover:text-destructive">
+                                                        <Trash2 className="h-4 w-4" />
+                                                    </Button>
+                                                </form>
+                                            </TableCell>
+                                        </TableRow>
+                                    ))
+                                )}
                             </TableBody>
                         </Table>
                     </CardContent>

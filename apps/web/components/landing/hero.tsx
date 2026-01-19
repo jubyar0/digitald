@@ -3,9 +3,6 @@
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { ArrowRightIcon } from "lucide-react";
-import { FadeIn, SlideIn, AnimatedButton } from "@/components/sera";
-import Image from "next/image";
-
 export function Hero() {
     return (
         <section className="relative bg-[#111] text-white overflow-hidden py-20 lg:py-32">
@@ -13,29 +10,29 @@ export function Hero() {
                 <div className="grid lg:grid-cols-2 gap-12 items-center">
                     {/* Left Content */}
                     <div className="space-y-8 max-w-2xl">
-                        <FadeIn delay={0.2}>
+                        <div>
                             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-tight">
                                 Make Better <br />
                                 <span className="text-white">Renders, Faster</span>
                             </h1>
-                        </FadeIn>
-                        <SlideIn delay={0.4} direction="up">
+                        </div>
+                        <div>
                             <p className="text-lg md:text-xl text-gray-400 max-w-xl leading-relaxed">
                                 Thousands of 3D textures, models and HDRIs for Blender, 3ds Max, SketchUp, Cinema 4D, Unreal Engine and more.
                             </p>
-                        </SlideIn>
-                        <SlideIn delay={0.6} direction="up">
+                        </div>
+                        <div>
                             <div className="flex flex-col sm:flex-row gap-4">
-                                <AnimatedButton asChild size="lg" className="bg-blue-500 hover:bg-blue-600 text-white px-8 h-12 text-base">
+                                <Button asChild size="lg" className="bg-blue-500 hover:bg-blue-600 text-white px-8 h-12 text-base">
                                     <Link href="/register">Create Free Account</Link>
-                                </AnimatedButton>
-                                <AnimatedButton asChild variant="outline" size="lg" className="border-gray-600 text-white hover:bg-white/10 hover:text-white px-8 h-12 text-base bg-transparent">
+                                </Button>
+                                <Button asChild variant="outline" size="lg" className="border-gray-600 text-white hover:bg-white/10 hover:text-white px-8 h-12 text-base bg-transparent">
                                     <Link href="/pricing">View Pricing</Link>
-                                </AnimatedButton>
+                                </Button>
                             </div>
-                        </SlideIn>
+                        </div>
 
-                        <FadeIn delay={0.8}>
+                        <div>
                             <div className="pt-8 flex items-center gap-6 text-sm text-gray-400">
                                 <div className="flex -space-x-2">
                                     {[
@@ -49,11 +46,10 @@ export function Hero() {
                                             <div className={`absolute -inset-0.5 bg-gradient-to-r ${avatar.ring} rounded-full blur-sm opacity-75 group-hover:opacity-100 animate-pulse transition-opacity`} />
                                             {/* Avatar image */}
                                             <div className="relative w-8 h-8 rounded-full overflow-hidden border-2 border-[#111] transform group-hover:scale-110 transition-transform duration-300">
-                                                <Image
+                                                <img
                                                     src={avatar.src}
                                                     alt={`Artist ${i + 1}`}
-                                                    fill
-                                                    className="object-cover"
+                                                    className="object-cover w-full h-full"
                                                 />
                                             </div>
                                         </div>
@@ -74,11 +70,11 @@ export function Hero() {
                                     <span>favorite software</span>
                                 </div>
                             </div>
-                        </FadeIn>
+                        </div>
                     </div>
 
                     {/* Right Content - 3D Grid Visualization */}
-                    <FadeIn delay={0.3}>
+                    <div>
                         <div className="relative">
                             <div className="grid grid-cols-4 gap-2 md:gap-4 transform rotate-[-5deg] scale-110 opacity-90">
                                 {/* Generate a grid of placeholder textures */}
@@ -106,7 +102,7 @@ export function Hero() {
                             <div className="absolute inset-0 bg-gradient-to-t from-[#111] via-transparent to-[#111] pointer-events-none" />
                             <div className="absolute inset-0 bg-gradient-to-r from-[#111] via-transparent to-[#111] pointer-events-none" />
                         </div>
-                    </FadeIn>
+                    </div>
                 </div>
             </div>
         </section>

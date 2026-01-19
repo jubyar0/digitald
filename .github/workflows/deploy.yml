@@ -52,6 +52,9 @@ jobs:
             command -v pm2 >/dev/null 2>&1 || npm install -g pm2
             
             # Restart the application using PM2
+            # Navigate to the Next.js app directory
+            cd apps/web
+            
             if pm2 list | grep -q "digital-marketplace"; then
               pm2 reload digital-marketplace
             else

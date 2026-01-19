@@ -1418,6 +1418,31 @@ exports.Prisma.TicketMessageScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.MarketingCampaignScalarFieldEnum = {
+  id: 'id',
+  vendorId: 'vendorId',
+  name: 'name',
+  status: 'status',
+  budget: 'budget',
+  startDate: 'startDate',
+  endDate: 'endDate',
+  sessions: 'sessions',
+  sales: 'sales',
+  orders: 'orders',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.MarketingAutomationScalarFieldEnum = {
+  id: 'id',
+  vendorId: 'vendorId',
+  name: 'name',
+  type: 'type',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -1853,6 +1878,25 @@ exports.InstallationStatus = exports.$Enums.InstallationStatus = {
   UNINSTALLED: 'UNINSTALLED'
 };
 
+exports.CampaignStatus = exports.$Enums.CampaignStatus = {
+  DRAFT: 'DRAFT',
+  ACTIVE: 'ACTIVE',
+  PAUSED: 'PAUSED',
+  COMPLETED: 'COMPLETED'
+};
+
+exports.AutomationType = exports.$Enums.AutomationType = {
+  ABANDONED_CART: 'ABANDONED_CART',
+  ABANDONED_CHECKOUT: 'ABANDONED_CHECKOUT',
+  WELCOME_SERIES: 'WELCOME_SERIES',
+  POST_PURCHASE: 'POST_PURCHASE'
+};
+
+exports.AutomationStatus = exports.$Enums.AutomationStatus = {
+  ACTIVE: 'ACTIVE',
+  INACTIVE: 'INACTIVE'
+};
+
 exports.Prisma.ModelName = {
   User: 'User',
   Vendor: 'Vendor',
@@ -1950,7 +1994,9 @@ exports.Prisma.ModelName = {
   AppWebhook: 'AppWebhook',
   AppActivityLog: 'AppActivityLog',
   AppReview: 'AppReview',
-  TicketMessage: 'TicketMessage'
+  TicketMessage: 'TicketMessage',
+  MarketingCampaign: 'MarketingCampaign',
+  MarketingAutomation: 'MarketingAutomation'
 };
 
 /**

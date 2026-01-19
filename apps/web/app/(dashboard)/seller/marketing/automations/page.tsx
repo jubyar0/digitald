@@ -1,16 +1,10 @@
-"use client";
-
-import { useState } from "react";
-import { Settings2, Mail, LayoutTemplate } from "lucide-react";
+import { Settings2, Mail } from "lucide-react";
 import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
 import {
     Card,
     CardContent,
-    CardDescription,
-    CardHeader,
-    CardTitle,
 } from "@/components/ui/card";
 import {
     Accordion,
@@ -18,8 +12,13 @@ import {
     AccordionItem,
     AccordionTrigger,
 } from "@/components/ui/accordion";
+import { Switch } from "@/components/ui/switch";
+import { getAutomations, toggleAutomation } from "@/actions/marketing";
 
-export default function AutomationsPage() {
+export default async function AutomationsPage() {
+    const automationsResult = await getAutomations();
+    const automations = automationsResult.success && automationsResult.data ? automationsResult.data : [];
+
     return (
         <div className="flex-1 space-y-6 p-8 pt-6 max-w-6xl mx-auto w-full">
             {/* Header */}
@@ -49,8 +48,6 @@ export default function AutomationsPage() {
                             </Button>
                         </Link>
                     </div>
-
-
                 </CardContent>
                 <div className="p-4 text-center border-t">
                     <p className="text-xs text-muted-foreground">
@@ -65,7 +62,9 @@ export default function AutomationsPage() {
             <div className="space-y-4">
                 <div className="flex items-center gap-2">
                     <div className="h-4 w-4 rounded-full border-2 border-muted-foreground/30"></div>
-                    <span className="text-sm font-medium text-muted-foreground">0 of 5 tasks complete</span>
+                    <span className="text-sm font-medium text-muted-foreground">
+                        {automations.filter(a => a.status === 'ACTIVE').length} of {automations.length} tasks active
+                    </span>
                 </div>
 
                 <div>
@@ -73,52 +72,47 @@ export default function AutomationsPage() {
                     <p className="text-xs text-muted-foreground mb-4">Automate customer communications to increase engagement, sales, and return on your marketing spend.</p>
                 </div>
 
-                <Accordion type="single" collapsible defaultValue="item-1" className="w-full space-y-2">
-                    <AccordionItem value="item-1" className="border rounded-lg px-4">
-                        <AccordionTrigger className="hover:no-underline py-4">
-                            <div className="flex items-center gap-3">
-                                <div className="h-5 w-5 rounded-full border-2 border-muted-foreground/30 flex-shrink-0"></div>
-                                <span className="text-sm font-medium">Recover abandoned checkout</span>
-                            </div>
-                        </AccordionTrigger>
-                        <AccordionContent className="pl-8 pb-4">
-                            <div className="flex flex-col md:flex-row gap-6">
-                                <div className="flex-1 space-y-4">
-                                    <p className="text-sm text-muted-foreground">
-                                        An automated email is already created for you. Take a moment to review the email and make any additional adjustments to the design, messaging, or recipient list.
-                                    </p>
-                                    <Button size="sm" className="bg-black text-white hover:bg-black/90">
-                                        Review email
-                                    </Button>
-                                </div>
-                                <div className="w-full md:w-64 bg-muted/20 rounded-lg border p-4 flex items-center justify-center">
-                                    <div className="text-center space-y-2">
-                                        <Mail className="h-8 w-8 mx-auto text-muted-foreground" />
-                                        <div className="h-2 w-20 bg-muted-foreground/20 rounded mx-auto"></div>
-                                        <div className="h-2 w-16 bg-muted-foreground/20 rounded mx-auto"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </AccordionContent>
-                    </AccordionItem>
-
-                    {[
-                        "Recover abandoned cart",
-                        "Convert abandoned product browse",
-                        "Welcome new subscribers with a discount email",
-                        "Thank customers after they purchase"
-                    ].map((task, i) => (
-                        <AccordionItem key={i} value={`item-${i + 2}`} className="border rounded-lg px-4">
+                <Accordion type="single" collapsible className="w-full space-y-2">
+                    {automations.map((automation) => (
+                        <AccordionItem key={automation.id} value={automation.id} className="border rounded-lg px-4">
                             <AccordionTrigger className="hover:no-underline py-4">
-                                <div className="flex items-center gap-3">
-                                    <div className="h-5 w-5 rounded-full border-2 border-muted-foreground/30 flex-shrink-0"></div>
-                                    <span className="text-sm font-medium">{task}</span>
+                                <div className="flex items-center justify-between w-full pr-4">
+                                    <div className="flex items-center gap-3">
+                                        <div className={`h-5 w-5 rounded-full border-2 flex-shrink-0 ${automation.status === 'ACTIVE' ? 'bg-green-500 border-green-500' : 'border-muted-foreground/30'}`}></div>
+                                        <span className="text-sm font-medium">{automation.name}</span>
+                                    </div>
+                                    <div className="flex items-center gap-2" onClick={(e) => e.stopPropagation()}>
+                                        <span className="text-xs text-muted-foreground">{automation.status}</span>
+                                        <form action={async () => {
+                                            "use server"
+                                            await toggleAutomation(automation.id, automation.status === 'ACTIVE' ? 'INACTIVE' : 'ACTIVE')
+                                        }}>
+                                            <Switch
+                                                checked={automation.status === 'ACTIVE'}
+                                                type="submit"
+                                            />
+                                        </form>
+                                    </div>
                                 </div>
                             </AccordionTrigger>
                             <AccordionContent className="pl-8 pb-4">
-                                <p className="text-sm text-muted-foreground">
-                                    Template content would go here.
-                                </p>
+                                <div className="flex flex-col md:flex-row gap-6">
+                                    <div className="flex-1 space-y-4">
+                                        <p className="text-sm text-muted-foreground">
+                                            This automation is currently {automation.status.toLowerCase()}. Toggle the switch to enable or disable it.
+                                        </p>
+                                        <Button size="sm" className="bg-black text-white hover:bg-black/90">
+                                            Edit automation
+                                        </Button>
+                                    </div>
+                                    <div className="w-full md:w-64 bg-muted/20 rounded-lg border p-4 flex items-center justify-center">
+                                        <div className="text-center space-y-2">
+                                            <Mail className="h-8 w-8 mx-auto text-muted-foreground" />
+                                            <div className="h-2 w-20 bg-muted-foreground/20 rounded mx-auto"></div>
+                                            <div className="h-2 w-16 bg-muted-foreground/20 rounded mx-auto"></div>
+                                        </div>
+                                    </div>
+                                </div>
                             </AccordionContent>
                         </AccordionItem>
                     ))}
