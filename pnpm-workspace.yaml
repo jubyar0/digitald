@@ -1,0 +1,16 @@
+packages:
+  - apps/*
+  - packages/*
+  - backend
+
+ignoredBuiltDependencies:
+  - '@prisma/client'
+  - '@prisma/engines'
+  - core-js-pure
+  - prisma
+  - unrs-resolver
+
+onlyBuiltDependencies:
+  - '@sentry/cli'
+  - esbuild
+  - msw

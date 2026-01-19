@@ -1,0 +1,15 @@
+{
+    "common": {
+        "welcome": "欢迎",
+        "login": "登录",
+        "logout": "登出",
+        "signup": "注册",
+        "settings": "设置"
+    },
+    "nav": {
+        "home": "首页",
+        "dashboard": "仪表板",
+        "profile": "个人资料",
+        "account": "我的账户"
+    }
+}

@@ -1,0 +1,38 @@
+
+> @repo/database@0.0.0 db:generate C:\Users\Hossame\Desktop\Dig\packages\database
+> prisma generate
+
+Environment variables loaded from .env
+Prisma schema loaded from prisma\schema.prisma
+Error: Prisma schema validation - (get-dmmf wasm)
+Error code: P1012
+[1;91merror[0m: [1mThe model "SupportTicket" cannot be defined because a model with that name already exists.[0m
+  [1;94m-->[0m  [4mschema.prisma:2448[0m
+[1;94m   | [0m
+[1;94m2447 | [0m
+[1;94m2448 | [0mmodel [1;91mSupportTicket[0m {
+[1;94m   | [0m
+[1;91merror[0m: [1mThe model "ticket_messages" cannot be defined because a model with that name already exists.[0m
+  [1;94m-->[0m  [4mschema.prisma:2472[0m
+[1;94m   | [0m
+[1;94m2471 | [0m
+[1;94m2472 | [0mmodel [1;91mticket_messages[0m {
+[1;94m   | [0m
+[1;91merror[0m: [1mThe enum "TicketPriority" cannot be defined because a enum with that name already exists.[0m
+  [1;94m-->[0m  [4mschema.prisma:2487[0m
+[1;94m   | [0m
+[1;94m2486 | [0m
+[1;94m2487 | [0menum [1;91mTicketPriority[0m {
+[1;94m   | [0m
+[1;91merror[0m: [1mThe enum "TicketStatus" cannot be defined because a enum with that name already exists.[0m
+  [1;94m-->[0m  [4mschema.prisma:2494[0m
+[1;94m   | [0m
+[1;94m2493 | [0m
+[1;94m2494 | [0menum [1;91mTicketStatus[0m {
+[1;94m   | [0m
+
+Validation Error Count: 4
+[Context: getDmmf]
+
+Prisma CLI Version : 5.10.2
+ ELIFECYCLE  Command failed with exit code 1.

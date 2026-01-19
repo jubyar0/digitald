@@ -1,0 +1,16 @@
+Environment variables loaded from .env
+Prisma schema loaded from prisma\schema.prisma
+
+Error: Prisma schema validation - (validate wasm)
+Error code: P1012
+[1;91merror[0m: [1mType "ticket_messages" is neither a built-in type, nor refers to another model, custom type, or enum.[0m
+  [1;94m-->[0m  [4mschema.prisma:886[0m
+[1;94m   | [0m
+[1;94m885 | [0m  user                                    User              @relation(fields: [userId], references: [id])
+[1;94m886 | [0m  ticket_messages                         [1;91mticket_messages[0m[]
+[1;94m   | [0m
+
+Validation Error Count: 1
+[Context: validate]
+
+Prisma CLI Version : 5.10.2

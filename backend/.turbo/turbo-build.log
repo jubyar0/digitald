@@ -1,0 +1,8 @@
+
+> backend@1.0.0 build C:\Users\Hossame\Desktop\Dig\backend
+> bun build src/index.ts --outdir dist
+
+Bundled 309 modules in 107ms
+
+  index.js  0.72 MB  (entry point)
+

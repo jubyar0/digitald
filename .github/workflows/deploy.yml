@@ -1,0 +1,83 @@
+name: Deploy to VPS
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 8
+
+      - name: Install Dependencies (CI)
+        run: pnpm install --frozen-lockfile
+
+      - name: Build Project (CI Verification)
+        run: pnpm build
+
+      - name: Setup SSH Key
+        run: |
+          mkdir -p ~/.ssh/
+          echo "${{ secrets.VPS_SSH_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H ${{ secrets.VPS_HOST }} >> ~/.ssh/known_hosts
+
+      - name: Deploy Files to VPS
+        run: |
+          # Sync files excluding heavy/unnecessary folders
+          # We deploy to /var/www/digital-marketplace
+          rsync -avz --delete \
+            --exclude 'node_modules' \
+            --exclude '.git' \
+            --exclude '.env' \
+            --exclude '.github' \
+            ./ ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}:/var/www/digital-marketplace
+
+      - name: Execute Remote Commands
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          script: |
+            # Navigate to project directory
+            cd /var/www/digital-marketplace
+            
+            # Load environment variables if needed (ensure .env exists on server)
+            # source .env
+
+            # Install dependencies
+            pnpm install --frozen-lockfile
+
+            # Generate Prisma Client
+            pnpm db:generate
+
+            # Run Database Migrations
+            pnpm db:migrate:deploy
+
+            # Build the application on the server
+            pnpm build
+
+            # Restart the application using PM2
+            # Assuming ecosystem.config.js exists or starting explicitly
+            if pm2 list | grep -q "digital-marketplace"; then
+              pm2 reload digital-marketplace
+            else
+              pm2 start npm --name "digital-marketplace" -- start
+            fi
+            
+            # Save PM2 list
+            pm2 save

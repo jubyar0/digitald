@@ -1,0 +1,2473 @@
+generator client {
+  provider        = "prisma-client-js"
+  output          = "../src/generated/client"
+  previewFeatures = ["driverAdapters"]
+  binaryTargets   = ["native", "windows", "linux-musl-openssl-3.0.x", "debian-openssl-3.0.x"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                                                String                    @id @default(cuid())
+  email                                             String                    @unique
+  name                                              String?
+  role                                              Role                      @default(CUSTOMER)
+  createdAt                                         DateTime                  @default(now())
+  updatedAt                                         DateTime                  @updatedAt
+  password                                          String?
+  rememberToken                                     String?
+  image                                             String?
+  accountType                                       AccountType               @default(EMAIL)
+  softwarePreferences                               Json?
+  twoFactorEnabled                                  Boolean                   @default(false)
+  twoFactorSecret                                   String?
+  addresses                                         Address[]
+  adminAccount                                      AdminAccount?
+  affiliates                                        Affiliate[]               @relation("UserAffiliates")
+  announcements                                     Announcement[]
+  auditLogs                                         AuditLog[]
+  bannedByEntries                                   BannedUser[]              @relation("BannedByUsers")
+  bannedUsers                                       BannedUser?
+  cart                                              Cart?
+  cmsPages                                          CmsPage[]
+  content                                           Content[]
+  conversations                                     ConversationParticipant[]
+  customerConversations                             Conversation[]            @relation("CustomerConversations")
+  couponUsages                                      CouponUsage[]             @relation("CouponUsers")
+  cryptoWallets                                     CryptoWallet[]
+  uploadedFiles                                     DigitalFile[]             @relation("DigitalFileUploaders")
+  disputeParticipants                               DisputeParticipant[]
+  disputesInitiated                                 Dispute[]                 @relation("UserDisputes")
+  escrowAccounts                                    EscrowAccount[]
+  following                                         Follow[]                  @relation("UserFollowing")
+  jobOffersAsCustomer                               JobOffer[]                @relation("CustomerJobOffers")
+  receivedMessages                                  Message[]                 @relation("ReceivedMessages")
+  sentMessages                                      Message[]                 @relation("SentMessages")
+  notifications                                     Notification[]
+  orders                                            Order[]                   @relation("UserOrders")
+  productVersions                                   ProductVersion[]          @relation("ProductVersionUploaders")
+  generatedReports                                  Report[]                  @relation("ReportGenerators")
+  reviews                                           Review[]
+  sellerReviews                                     SellerReview[]            @relation("UserSellerReviews")
+  assignedTickets                                   SupportTicket[]           @relation("SupportTicketAssignees")
+  support_tickets_support_tickets_resolvedByTousers SupportTicket[]           @relation("support_tickets_resolvedByTousers")
+  supportTickets                                    SupportTicket[]
+  ticket_messages                                   ticket_messages[]
+  transactions                                      Transaction[]
+  user_payment_methods                              user_payment_methods[]
+  vendorApplicationReviews                          VendorApplication[]       @relation("VendorApplicationReviewers")
+  vendorApplicationRevisionRequests                 VendorApplication[]       @relation("VendorApplicationRevisionRequesters")
+  vendorApplicationPersonaOverrides                 VendorApplication[]       @relation("VendorApplicationPersonaOverriders")
+  applicationNotes                                  ApplicationNote[]         @relation("ApplicationNoteAuthors")
+  applicationAuditLogs                              ApplicationAuditLog[]     @relation("AuditLogPerformers")
+  vendors                                           Vendor?                   @relation("UserVendors")
+  wallet                                            Wallet?
+  wishlist                                          Wishlist[]
+  processedWithdrawals                              Withdrawal[]              @relation("WithdrawalProcessors")
+  giftCardRedemptions                               GiftCardRedemption[]
+  canHandleLiveChat                                 Boolean                   @default(false)
+  assignedLiveChatSessions                          LiveChatSession[]         @relation("LiveChatAssignee")
+  developedApps                                     App[]                     @relation("AppDeveloper")
+
+  @@index([role])
+  @@index([createdAt])
+  @@index([role, createdAt])
+  @@map("users")
+}
+
+model Vendor {
+  id                  String               @id @default(cuid())
+  name                String
+  description         String?
+  userId              String               @unique
+  createdAt           DateTime             @default(now())
+  updatedAt           DateTime             @updatedAt
+  avatar              String?
+  averageRating       Float                @default(0)
+  bio                 String?
+  coverImage          String?
+  featuredLayout      String?              @default("grid")
+  location            String?
+  socialLinks         Json?
+  specializations     Json?
+  themeColor          String?              @default("#000000")
+  totalFollowers      Int                  @default(0)
+  totalReviews        Int                  @default(0)
+  isVerified          Boolean              @default(false)
+  totalSales          Int                  @default(0)
+  affiliates          Affiliate[]
+  conversations       Conversation[]       @relation("VendorConversations")
+  coupons             Coupon[]
+  discounts           Discount[]
+  escrowAccount       EscrowAccount?
+  followers           Follow[]             @relation("VendorFollowers")
+  invoices            Invoice[]
+  jobOffersAsVendor   JobOffer[]           @relation("VendorJobOffers")
+  notificationSetting NotificationSetting?
+  orders              Order[]              @relation("VendorOrders")
+  products            Product[]
+  promotions          Promotion[]
+  sellerReviews       SellerReview[]
+  shippingSetting     ShippingSetting?
+  taxSetting          TaxSetting?
+  vendorApplication   VendorApplication?
+  badges              VendorBadge[]
+  payoutMethods       VendorPayoutMethod[] @relation("VendorPayoutMethods")
+  softwareTools       VendorSoftwareTool[]
+  user                User                 @relation("UserVendors", fields: [userId], references: [id])
+  withdrawals         Withdrawal[]
+  giftCards           GiftCard[]
+  appInstallations    MerchantAppInstallation[]
+
+  @@index([userId])
+  @@index([createdAt])
+  @@index([averageRating])
+  @@map("vendors")
+}
+
+
+model VendorPayoutMethod {
+  id        String      @id @default(cuid())
+  vendorId  String
+  type      PaymentType
+  label     String
+  details   Json
+  isDefault Boolean     @default(false)
+  isActive  Boolean     @default(true)
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+  vendor    Vendor      @relation("VendorPayoutMethods", fields: [vendorId], references: [id], onDelete: Cascade)
+
+  @@index([vendorId])
+  @@index([vendorId, isDefault])
+  @@map("vendor_payout_methods")
+}
+
+model Collection {
+  id          String     @id @default(cuid())
+  name        String     @unique
+  slug        String     @unique
+  description String?
+  icon        String?
+  image       String?
+  order       Int        @default(0)
+  isActive    Boolean    @default(true)
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  categories  Category[]
+
+  @@index([isActive])
+  @@index([order])
+  @@map("collections")
+}
+
+model Category {
+  id           String      @id @default(cuid())
+  name         String      @unique
+  slug         String      @unique
+  isActive     Boolean     @default(true)
+  parentId     String?
+  collectionId String?
+  description  String?
+  collection   Collection? @relation(fields: [collectionId], references: [id])
+  parent       Category?   @relation("CategoryRelation", fields: [parentId], references: [id])
+  children     Category[]  @relation("CategoryRelation")
+  products     Product[]
+
+  @@index([isActive])
+  @@index([parentId])
+  @@index([collectionId])
+  @@map("categories")
+}
+
+model Product {
+  id                    String              @id @default(cuid())
+  name                  String
+  description           String
+  price                 Float
+  currency              String              @default("USD")
+  categoryId            String
+  vendorId              String
+  fileUrl               String
+  thumbnail             String?
+  isActive              Boolean             @default(true)
+  status                ProductStatus       @default(PENDING)
+  createdAt             DateTime            @default(now())
+  updatedAt             DateTime            @updatedAt
+  assetDetails          String?
+  includedResolution    String?
+  availableResolutions  String?
+  height                Float?
+  width                 Float?
+  depth                 Float?
+  meshCount             Int?
+  textureFiles          Json?
+  nativeFileFormats     Json?
+  universalFileFormats  Json?
+  addonSupport          Json?
+  licenseInfo           Json?
+  currentVersion        String?             @default("1.0.0")
+  images                Json?
+  isDraft               Boolean             @default(false)
+  reviewNotes           String?
+  downloads             Int                 @default(0)
+  likes                 Int                 @default(0)
+  views                 Int                 @default(0)
+  geometryType          String?
+  hasLOD                Boolean             @default(false)
+  isAnimated            Boolean             @default(false)
+  isRigged              Boolean             @default(false)
+  lodLevels             Int?
+  materialType          String?
+  polygonCount          Int?
+  renderEngine          String?
+  softwareCompatibility Json?
+  verticesCount         Int?
+  aiIssuesDetected      Json?
+  aiLodGenerated        Boolean             @default(false)
+  aiProcessedAt         DateTime?
+  aiProcessingStatus    AIProcessingStatus? @default(PENDING)
+  aiTagsSuggested       Json?
+  aiThumbnailGenerated  Boolean             @default(false)
+  aiTopologyScore       Float?
+  aiUvQualityScore      Float?
+  aiProcessingJobs      AIProcessingJob[]
+  cartItems             CartItem[]
+  digitalFiles          DigitalFile[]
+  disputes              Dispute[]
+  orders                OrderItem[]
+  badges                ProductBadge[]
+  productIssues         ProductIssue[]
+  productTags           ProductTag[]
+  versions              ProductVersion[]
+  category              Category            @relation(fields: [categoryId], references: [id])
+  vendor                Vendor              @relation(fields: [vendorId], references: [id])
+  reviews               Review[]
+  wishlistedBy          Wishlist[]
+  tags                  Tag[]               @relation("ProductTags")
+
+  // Dynamic Collections Relation
+  featuredCollections  FeaturedCollection[] @relation("ProductFeaturedCollections")
+
+  @@index([status])
+  @@index([categoryId])
+  @@index([vendorId])
+  @@index([createdAt])
+  @@index([isActive])
+  @@index([status, categoryId])
+  @@index([status, vendorId])
+  @@index([isRigged])
+  @@index([isAnimated])
+  @@index([aiProcessingStatus])
+  @@map("products")
+}
+
+model FeaturedCollection {
+  id          String    @id @default(cuid())
+  title       String
+  identifier  String    @unique // e.g., "holiday-finds", "picks-inspired"
+  description String?
+  isActive    Boolean   @default(true)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  products    Product[] @relation("ProductFeaturedCollections")
+
+  @@map("featured_collections")
+}
+
+model EscrowAccount {
+  id               String              @id @default(cuid())
+  userId           String?
+  vendorId         String?             @unique
+  balance          Float               @default(0)
+  currency         String              @default("USD")
+  createdAt        DateTime            @default(now())
+  updatedAt        DateTime            @updatedAt
+  availableBalance Float               @default(0)
+  holdUntil        DateTime?
+  user             User?               @relation(fields: [userId], references: [id])
+  vendor           Vendor?             @relation(fields: [vendorId], references: [id])
+  transactions     EscrowTransaction[]
+
+  @@unique([userId, vendorId])
+  @@index([userId])
+  @@index([vendorId])
+  @@map("escrow_accounts")
+}
+
+model EscrowTransaction {
+  id              String                  @id @default(cuid())
+  escrowAccountId String
+  orderId         String?                 @unique
+  amount          Float
+  type            EscrowTransactionType
+  status          EscrowTransactionStatus
+  description     String?
+  createdAt       DateTime                @default(now())
+  updatedAt       DateTime                @updatedAt
+  escrowAccount   EscrowAccount           @relation(fields: [escrowAccountId], references: [id])
+  order           Order?                  @relation(fields: [orderId], references: [id])
+
+  @@index([escrowAccountId])
+  @@index([status])
+  @@index([createdAt])
+  @@map("escrow_transactions")
+}
+
+model Order {
+  id                String             @id @default(cuid())
+  userId            String
+  vendorId          String
+  totalAmount       Float
+  currency          String             @default("USD")
+  status            OrderStatus        @default(PENDING)
+  paymentId         String?
+  createdAt         DateTime           @default(now())
+  updatedAt         DateTime           @updatedAt
+  cryptoPayment     CryptoPayment?
+  dispute           Dispute?
+  escrowTransaction EscrowTransaction?
+  items             OrderItem[]
+  user              User               @relation("UserOrders", fields: [userId], references: [id])
+  vendor            Vendor             @relation("VendorOrders", fields: [vendorId], references: [id])
+  payment           Payment?
+  refunds           Refund[]
+  sellerReviews     SellerReview[]     @relation("OrderSellerReviews")
+
+  @@index([userId])
+  @@index([vendorId])
+  @@index([status])
+  @@index([createdAt])
+  @@index([status, vendorId])
+  @@index([status, userId])
+  @@map("orders")
+}
+
+model Payment {
+  id            String         @id @default(cuid())
+  orderId       String         @unique
+  amount        Float
+  currency      String         @default("USD")
+  provider      PaymentGateway
+  status        PaymentStatus  @default(PENDING)
+  transactionId String?
+  metadata      Json?
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  order         Order          @relation(fields: [orderId], references: [id])
+
+  @@index([status])
+  @@index([provider])
+  @@map("payments")
+}
+
+model Transaction {
+  id          String            @id @default(cuid())
+  type        TransactionType
+  amount      Float
+  currency    String            @default("USD")
+  status      TransactionStatus @default(COMPLETED)
+  description String?
+  referenceId String?
+  userId      String?
+  metadata    Json?
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+  user        User?             @relation(fields: [userId], references: [id])
+
+  @@index([type])
+  @@index([userId])
+  @@index([createdAt])
+  @@map("transactions")
+}
+
+model OrderItem {
+  id        String   @id @default(cuid())
+  orderId   String
+  productId String
+  quantity  Int
+  price     Float
+  order     Order    @relation(fields: [orderId], references: [id])
+  product   Product  @relation(fields: [productId], references: [id])
+  refunds   Refund[]
+
+  @@index([orderId])
+  @@index([productId])
+  @@map("order_items")
+}
+
+model Conversation {
+  id           String                    @id @default(cuid())
+  createdAt    DateTime                  @default(now())
+  updatedAt    DateTime                  @updatedAt
+  customerId   String?
+  vendorId     String?
+  participants ConversationParticipant[]
+  customer     User?                     @relation("CustomerConversations", fields: [customerId], references: [id])
+  vendor       Vendor?                   @relation("VendorConversations", fields: [vendorId], references: [id])
+  dispute      Dispute?                  @relation("ConversationDispute")
+  jobOffer     JobOffer?
+  messages     Message[]
+
+  @@map("conversations")
+}
+
+model ConversationParticipant {
+  id             String       @id @default(cuid())
+  userId         String
+  conversationId String
+  createdAt      DateTime     @default(now())
+  conversation   Conversation @relation(fields: [conversationId], references: [id])
+  user           User         @relation(fields: [userId], references: [id])
+
+  @@unique([userId, conversationId])
+  @@map("conversation_participants")
+}
+
+model Message {
+  id             String       @id @default(cuid())
+  conversationId String
+  senderId       String
+  receiverId     String?
+  content        String
+  createdAt      DateTime     @default(now())
+  read           Boolean      @default(false)
+  readAt         DateTime?
+  messageType    MessageType  @default(USER)
+  metadata       Json?
+  conversation   Conversation @relation(fields: [conversationId], references: [id])
+  receiver       User?        @relation("ReceivedMessages", fields: [receiverId], references: [id])
+  sender         User         @relation("SentMessages", fields: [senderId], references: [id])
+
+  @@index([conversationId])
+  @@index([senderId])
+  @@index([receiverId])
+  @@index([conversationId, createdAt])
+  @@index([messageType])
+  @@map("messages")
+}
+
+model Dispute {
+  id                     String               @id @default(cuid())
+  orderId                String               @unique
+  productId              String
+  initiatorId            String
+  status                 DisputeStatus        @default(PENDING)
+  reason                 String
+  resolution             String?
+  resolvedByAdmin        Boolean              @default(false)
+  conversationId         String?              @unique
+  createdAt              DateTime             @default(now())
+  updatedAt              DateTime             @updatedAt
+  buyerResponseDeadline  DateTime?
+  disputeReason          DisputeReason?
+  evidenceFiles          Json?
+  refundAmount           Float?
+  refundProcessed        Boolean              @default(false)
+  sellerResponseDeadline DateTime?
+  participants           DisputeParticipant[]
+  conversation           Conversation?        @relation("ConversationDispute", fields: [conversationId], references: [id])
+  initiator              User                 @relation("UserDisputes", fields: [initiatorId], references: [id])
+  order                  Order                @relation(fields: [orderId], references: [id])
+  product                Product              @relation(fields: [productId], references: [id])
+
+  @@index([status])
+  @@index([initiatorId])
+  @@index([productId])
+  @@index([createdAt])
+  @@index([status, createdAt])
+  @@map("disputes")
+}
+
+model DisputeParticipant {
+  id        String      @id @default(cuid())
+  disputeId String
+  userId    String
+  role      DisputeRole
+  createdAt DateTime    @default(now())
+  dispute   Dispute     @relation(fields: [disputeId], references: [id])
+  user      User        @relation(fields: [userId], references: [id])
+
+  @@unique([disputeId, userId])
+  @@map("dispute_participants")
+}
+
+model Tag {
+  id          String       @id @default(cuid())
+  name        String       @unique
+  slug        String       @unique
+  isActive    Boolean      @default(true)
+  productTags ProductTag[]
+  products    Product[]    @relation("ProductTags")
+
+  @@map("tags")
+}
+
+model ProductTag {
+  productId  String
+  tagId      String
+  assignedAt DateTime @default(now())
+  assignedBy String
+  product    Product  @relation(fields: [productId], references: [id])
+  tag        Tag      @relation(fields: [tagId], references: [id])
+
+  @@id([productId, tagId])
+  @@map("product_tags")
+}
+
+model PlatformSetting {
+  id                   String   @id @default(cuid())
+  platformFeePercent   Float    @default(30.0)
+  cryptoPaymentEnabled Boolean  @default(true)
+  createdAt            DateTime @default(now())
+  updatedAt            DateTime @updatedAt
+  disputePeriodDays    Int      @default(14)
+  escrowHoldDays       Int      @default(7)
+
+  @@map("platform_settings")
+}
+
+model CryptoWallet {
+  id        String   @id @default(cuid())
+  userId    String
+  address   String   @unique
+  chain     String
+  currency  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  user      User     @relation(fields: [userId], references: [id])
+
+  @@map("crypto_wallets")
+}
+
+model CryptoPayment {
+  id                String              @id @default(cuid())
+  orderId           String              @unique
+  amount            Float
+  currency          String
+  chain             String
+  fromAddress       String
+  toAddress         String
+  transactionHash   String              @unique
+  status            CryptoPaymentStatus @default(PENDING)
+  webhookReceivedAt DateTime?
+  confirmedAt       DateTime?
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
+  order             Order               @relation(fields: [orderId], references: [id])
+
+  @@map("crypto_payments")
+}
+
+model DashboardStat {
+  id        String   @id @default(cuid())
+  key       String   @unique
+  value     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("dashboard_stats")
+}
+
+model BannedUser {
+  id           String    @id @default(cuid())
+  userId       String    @unique
+  reason       String
+  bannedBy     String
+  banStart     DateTime  @default(now())
+  banEnd       DateTime?
+  isActive     Boolean   @default(true)
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  bannedByUser User      @relation("BannedByUsers", fields: [bannedBy], references: [id])
+  user         User      @relation(fields: [userId], references: [id])
+
+  @@index([isActive])
+  @@index([createdAt])
+  @@map("banned_users")
+}
+
+model VendorApplication {
+  id                    String                  @id @default(cuid())
+  vendorId              String                  @unique
+  status                VendorApplicationStatus @default(PENDING)
+  currentStep           Int                     @default(1)
+  totalSteps            Int                     @default(4)
+  
+  // Submission & Review tracking
+  submittedAt           DateTime?
+  reviewedBy            String?
+  reviewedAt            DateTime?
+  approvedAt            DateTime?
+  rejectedAt            DateTime?
+  rejectionReason       String?
+  
+  // Revision tracking
+  revisionRequested     Boolean                 @default(false)
+  revisionRequestedAt   DateTime?
+  revisionRequestedBy   String?
+  revisionReason        String?
+  revisionCompletedAt   DateTime?
+  
+  // Legacy notes field (for backward compatibility)
+  notes                 String?
+  
+  // Persona Verification
+  personaInquiryId      String?                 @unique
+  personaStatus         PersonaStatus           @default(NOT_STARTED)
+  personaVerifiedAt     DateTime?
+  personaOverridden     Boolean                 @default(false)
+  personaOverrideReason String?
+  personaOverriddenBy   String?
+  personaOverriddenAt   DateTime?
+  
+  // Metadata
+  ipAddress             String?
+  userAgent             String?
+  country               String?
+  
+  // Timestamps
+  createdAt             DateTime                @default(now())
+  updatedAt             DateTime                @updatedAt
+  deletedAt             DateTime?
+  
+  // Relations
+  vendor                Vendor                  @relation(fields: [vendorId], references: [id])
+  reviewer              User?                   @relation("VendorApplicationReviewers", fields: [reviewedBy], references: [id])
+  revisionRequestedByUser User?                 @relation("VendorApplicationRevisionRequesters", fields: [revisionRequestedBy], references: [id])
+  personaOverriddenByUser User?                 @relation("VendorApplicationPersonaOverriders", fields: [personaOverriddenBy], references: [id])
+  steps                 ApplicationStep[]
+  applicationNotes      ApplicationNote[]
+  auditLogs             ApplicationAuditLog[]
+  personaVerification   PersonaVerification?
+
+  @@index([status])
+  @@index([createdAt])
+  @@index([personaStatus])
+  @@index([status, createdAt])
+  @@index([reviewedBy])
+  @@index([deletedAt])
+  @@map("vendor_applications")
+}
+
+model ApplicationStep {
+  id               String             @id @default(cuid())
+  applicationId    String
+  stepNumber       Int
+  stepName         String
+  stepSlug         String             // e.g., "business-info", "documents", "verification"
+  status           StepStatus         @default(PENDING)
+  data             Json?              // Step-specific data (form fields, etc.)
+  files            Json?              // Uploaded files for this step [{name, url, size, type}]
+  completedAt      DateTime?
+  revisionRequired Boolean            @default(false)
+  revisionNotes    String?
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
+  
+  application      VendorApplication  @relation(fields: [applicationId], references: [id], onDelete: Cascade)
+  
+  @@unique([applicationId, stepNumber])
+  @@index([applicationId])
+  @@index([status])
+  @@index([stepSlug])
+  @@map("application_steps")
+}
+
+model ApplicationNote {
+  id            String            @id @default(cuid())
+  applicationId String
+  type          NoteType          // ADMIN_INTERNAL, USER_FACING, SYSTEM
+  content       String            @db.Text
+  metadata      Json?             // Additional context (e.g., related step, action type)
+  createdBy     String?
+  createdAt     DateTime          @default(now())
+  updatedAt     DateTime          @updatedAt
+  
+  application   VendorApplication @relation(fields: [applicationId], references: [id], onDelete: Cascade)
+  author        User?             @relation("ApplicationNoteAuthors", fields: [createdBy], references: [id])
+  
+  @@index([applicationId])
+  @@index([type])
+  @@index([createdAt])
+  @@index([applicationId, type])
+  @@map("application_notes")
+}
+
+model ApplicationAuditLog {
+  id            String            @id @default(cuid())
+  applicationId String
+  action        AuditAction       // CREATED, APPROVED, REJECTED, REVISION_REQUESTED, etc.
+  performedBy   String
+  metadata      Json?             // Additional context about the action
+  ipAddress     String?
+  userAgent     String?
+  createdAt     DateTime          @default(now())
+  
+  application   VendorApplication @relation(fields: [applicationId], references: [id], onDelete: Cascade)
+  admin         User              @relation("AuditLogPerformers", fields: [performedBy], references: [id])
+  
+  @@index([applicationId])
+  @@index([action])
+  @@index([createdAt])
+  @@index([performedBy])
+  @@index([applicationId, createdAt])
+  @@map("application_audit_logs")
+}
+
+model PersonaVerification {
+  id                String            @id @default(cuid())
+  applicationId     String            @unique
+  inquiryId         String            @unique  // Persona inquiry ID
+  status            PersonaStatus     @default(PENDING)
+  webhookData       Json?             // Store raw webhook data
+  verificationUrl   String?           // URL for user to complete verification
+  lastCheckedAt     DateTime?
+  failureReason     String?
+  createdAt         DateTime          @default(now())
+  updatedAt         DateTime          @updatedAt
+  
+  application       VendorApplication @relation(fields: [applicationId], references: [id], onDelete: Cascade)
+  
+  @@index([status])
+  @@index([inquiryId])
+  @@map("persona_verifications")
+}
+
+model Withdrawal {
+  id          String           @id @default(cuid())
+  vendorId    String
+  amount      Float
+  currency    String           @default("USD")
+  status      WithdrawalStatus @default(PENDING)
+  method      String
+  details     String
+  processedBy String?
+  processedAt DateTime?
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+  processor   User?            @relation("WithdrawalProcessors", fields: [processedBy], references: [id])
+  vendor      Vendor           @relation(fields: [vendorId], references: [id])
+
+  @@index([vendorId])
+  @@index([status])
+  @@index([createdAt])
+  @@index([vendorId, status])
+  @@map("withdrawals")
+}
+
+model DigitalFile {
+  id          String     @id @default(cuid())
+  name        String
+  description String?
+  url         String
+  size        Int
+  mimeType    String
+  productId   String?
+  uploadedBy  String
+  status      FileStatus @default(ACTIVE)
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  product     Product?   @relation(fields: [productId], references: [id])
+  uploader    User       @relation("DigitalFileUploaders", fields: [uploadedBy], references: [id])
+
+  @@map("digital_files")
+}
+
+model Report {
+  id          String    @id @default(cuid())
+  name        String
+  type        String
+  data        Json
+  generatedBy String
+  startDate   DateTime?
+  endDate     DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  generator   User      @relation("ReportGenerators", fields: [generatedBy], references: [id])
+
+  @@map("reports")
+}
+
+model Setting {
+  id          String   @id @default(cuid())
+  key         String   @unique
+  value       String
+  type        String   @default("string")
+  description String?
+  group       String   @default("general")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("settings")
+}
+
+model SeoSetting {
+  id          String   @id @default(cuid())
+  page        String   @unique
+  title       String?
+  description String?
+  keywords    String?
+  author      String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("seo_settings")
+}
+
+// ============================================
+// PAGE BUILDER TABLES
+// ============================================
+
+model builder_pages {
+  id           String                 @id @default(cuid())
+  slug         String                 @unique
+  title        String
+  description  String?
+  content      Json
+  status       String                 @default("draft") // draft, published, archived
+  version      Int                    @default(1)
+  published_at DateTime?
+  created_at   DateTime               @default(now())
+  updated_at   DateTime               @updatedAt
+  versions     builder_page_versions[]
+
+  @@index([status])
+  @@index([slug])
+  @@index([updated_at])
+}
+
+model builder_page_versions {
+  id         String        @id @default(cuid())
+  page_id    String
+  content    Json
+  version    Int
+  created_at DateTime      @default(now())
+  page       builder_pages @relation(fields: [page_id], references: [id], onDelete: Cascade)
+
+  @@index([page_id])
+  @@index([version])
+}
+
+model CmsPage {
+  id          String     @id @default(cuid())
+  title       String
+  slug        String     @unique
+  content     String
+  status      PageStatus @default(DRAFT)
+  authorId    String
+  publishedAt DateTime?
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  author      User       @relation(fields: [authorId], references: [id])
+
+  @@map("cms_pages")
+}
+
+model SupportTicket {
+  id                                      String            @id @default(cuid())
+  subject                                 String
+  description                             String
+  userId                                  String
+  status                                  TicketStatus      @default(OPEN)
+  priority                                TicketPriority    @default(MEDIUM)
+  assignedTo                              String?
+  category                                String
+  closedAt                                DateTime?
+  createdAt                               DateTime          @default(now())
+  updatedAt                               DateTime          @updatedAt
+  attachments                             Json?
+  resolvedAt                              DateTime?
+  resolvedBy                              String?
+  tags                                    String[]          @default([])
+  assignee                                User?             @relation("SupportTicketAssignees", fields: [assignedTo], references: [id])
+  users_support_tickets_resolvedByTousers User?             @relation("support_tickets_resolvedByTousers", fields: [resolvedBy], references: [id])
+  user                                    User              @relation(fields: [userId], references: [id])
+  ticket_messages                         ticket_messages[]
+
+  @@index([userId])
+  @@index([status])
+  @@index([assignedTo])
+  @@index([userId, status])
+  @@index([status, priority])
+  @@index([category])
+  @@map("support_tickets")
+}
+
+model SystemLog {
+  id        String   @id @default(cuid())
+  level     String
+  message   String
+  metadata  Json?
+  timestamp DateTime @default(now())
+
+  @@map("system_logs")
+}
+
+model Announcement {
+  id        String             @id @default(cuid())
+  title     String
+  content   String
+  status    AnnouncementStatus @default(DRAFT)
+  priority  Int                @default(0)
+  startDate DateTime?
+  endDate   DateTime?
+  createdBy String
+  createdAt DateTime           @default(now())
+  updatedAt DateTime           @updatedAt
+  author    User               @relation(fields: [createdBy], references: [id])
+
+  @@map("announcements")
+}
+
+model AdminAccount {
+  id           String    @id @default(cuid())
+  userId       String    @unique
+  permissions  Json?
+  lastLogin    DateTime?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  isSuperAdmin Boolean   @default(false)
+  user         User      @relation(fields: [userId], references: [id])
+
+  @@map("admin_accounts")
+}
+
+model NavigationItem {
+  id          String           @id @default(cuid())
+  label       String
+  url         String
+  order       Int
+  isActive    Boolean          @default(true)
+  isSection   Boolean          @default(false)
+  parentId    String?
+  icon        String?
+  description String?
+  image       String?
+  isFeatured  Boolean          @default(false)
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+  parent      NavigationItem?  @relation("NavigationItems", fields: [parentId], references: [id])
+  children    NavigationItem[] @relation("NavigationItems")
+
+  @@map("navigation_items")
+}
+
+model Content {
+  id              String        @id @default(cuid())
+  title           String
+  slug            String        @unique
+  content         String
+  excerpt         String?
+  status          ContentStatus @default(DRAFT)
+  contentType     String
+  authorId        String
+  parentId        String?
+  featuredImage   String?
+  metaTitle       String?
+  metaDescription String?
+  tags            String[]
+  categories      String[]
+  publishedAt     DateTime?
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+  author          User          @relation(fields: [authorId], references: [id])
+  parent          Content?      @relation("ContentRelation", fields: [parentId], references: [id])
+  children        Content[]     @relation("ContentRelation")
+
+  @@map("content")
+}
+
+model Discount {
+  id          String       @id @default(cuid())
+  vendorId    String
+  name        String
+  description String?
+  type        DiscountType
+  value       Float
+  minPurchase Float?
+  maxDiscount Float?
+  startDate   DateTime
+  endDate     DateTime
+  isActive    Boolean      @default(true)
+  usageLimit  Int?
+  usageCount  Int          @default(0)
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  vendor      Vendor       @relation(fields: [vendorId], references: [id])
+
+  @@map("discounts")
+}
+
+model Coupon {
+  id          String        @id @default(cuid())
+  vendorId    String
+  code        String        @unique
+  description String?
+  type        CouponType
+  value       Float
+  minPurchase Float?
+  maxDiscount Float?
+  startDate   DateTime
+  endDate     DateTime
+  isActive    Boolean       @default(true)
+  usageLimit  Int?
+  usageCount  Int           @default(0)
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  usedBy      CouponUsage[]
+  vendor      Vendor        @relation(fields: [vendorId], references: [id])
+
+  @@map("coupons")
+}
+
+model Refund {
+  id          String       @id @default(cuid())
+  orderId     String
+  orderItemId String?
+  amount      Float
+  status      RefundStatus @default(PENDING)
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  notes       String?
+  processedBy String?
+  reason      RefundReason
+  order       Order        @relation(fields: [orderId], references: [id])
+  orderItem   OrderItem?   @relation(fields: [orderItemId], references: [id])
+
+  @@index([orderId])
+  @@index([orderItemId])
+  @@index([status])
+  @@index([processedBy])
+  @@map("refunds")
+}
+
+model CouponUsage {
+  id       String   @id @default(cuid())
+  couponId String
+  userId   String
+  orderId  String
+  usedAt   DateTime @default(now())
+  coupon   Coupon   @relation(fields: [couponId], references: [id])
+  user     User     @relation("CouponUsers", fields: [userId], references: [id])
+
+  @@index([couponId])
+  @@index([userId])
+  @@map("coupon_usage")
+}
+
+model Promotion {
+  id          String        @id @default(cuid())
+  vendorId    String
+  name        String
+  description String?
+  type        PromotionType
+  conditions  Json
+  rewards     Json
+  startDate   DateTime
+  endDate     DateTime
+  isActive    Boolean       @default(true)
+  priority    Int           @default(0)
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  vendor      Vendor        @relation(fields: [vendorId], references: [id])
+
+  @@map("promotions")
+}
+
+model Affiliate {
+  id             String              @id @default(cuid())
+  vendorId       String
+  userId         String
+  code           String              @unique
+  commissionRate Float
+  totalEarnings  Float               @default(0)
+  status         AffiliateStatus     @default(PENDING)
+  createdAt      DateTime            @default(now())
+  updatedAt      DateTime            @updatedAt
+  referrals      AffiliateReferral[]
+  user           User                @relation("UserAffiliates", fields: [userId], references: [id])
+  vendor         Vendor              @relation(fields: [vendorId], references: [id])
+
+  @@index([vendorId])
+  @@index([userId])
+  @@index([status])
+  @@map("affiliates")
+}
+
+model AffiliateReferral {
+  id          String         @id @default(cuid())
+  affiliateId String
+  orderId     String
+  commission  Float
+  status      ReferralStatus @default(PENDING)
+  paidAt      DateTime?
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+  affiliate   Affiliate      @relation(fields: [affiliateId], references: [id])
+
+  @@map("affiliate_referrals")
+}
+
+model Invoice {
+  id            String        @id @default(cuid())
+  vendorId      String
+  orderId       String        @unique
+  invoiceNumber String        @unique
+  amount        Float
+  tax           Float         @default(0)
+  total         Float
+  status        InvoiceStatus @default(PENDING)
+  dueDate       DateTime?
+  paidAt        DateTime?
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+  vendor        Vendor        @relation(fields: [vendorId], references: [id])
+
+  @@map("invoices")
+}
+
+model ShippingSetting {
+  id                    String   @id @default(cuid())
+  vendorId              String   @unique
+  freeShippingThreshold Float?
+  flatRate              Float?
+  zones                 Json?
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @updatedAt
+  vendor                Vendor   @relation(fields: [vendorId], references: [id])
+
+  @@map("shipping_settings")
+}
+
+model TaxSetting {
+  id        String   @id @default(cuid())
+  vendorId  String   @unique
+  taxRate   Float    @default(0)
+  taxNumber String?
+  regions   Json?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  vendor    Vendor   @relation(fields: [vendorId], references: [id])
+
+  @@map("tax_settings")
+}
+
+model NotificationSetting {
+  id                     String   @id @default(cuid())
+  vendorId               String   @unique
+  emailNotifications     Boolean  @default(true)
+  orderNotifications     Boolean  @default(true)
+  productNotifications   Boolean  @default(true)
+  marketingNotifications Boolean  @default(false)
+  createdAt              DateTime @default(now())
+  updatedAt              DateTime @updatedAt
+  vendor                 Vendor   @relation(fields: [vendorId], references: [id])
+
+  @@map("notification_settings")
+}
+
+model Wishlist {
+  id        String   @id @default(cuid())
+  userId    String
+  productId String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  product   Product  @relation(fields: [productId], references: [id])
+  user      User     @relation(fields: [userId], references: [id])
+
+  @@unique([userId, productId])
+  @@map("wishlists")
+}
+
+model Review {
+  id        String   @id @default(cuid())
+  userId    String
+  productId String
+  rating    Int
+  comment   String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  product   Product  @relation(fields: [productId], references: [id])
+  user      User     @relation(fields: [userId], references: [id])
+
+  @@unique([userId, productId])
+  @@index([productId, rating])
+  @@map("reviews")
+}
+
+model Wallet {
+  id             String              @id @default(cuid())
+  userId         String              @unique
+  balance        Float               @default(0)
+  currency       String              @default("USD")
+  createdAt      DateTime            @default(now())
+  updatedAt      DateTime            @updatedAt
+  pendingBalance Float               @default(0)
+  transactions   WalletTransaction[]
+  user           User                @relation(fields: [userId], references: [id])
+
+  @@map("wallets")
+}
+
+model WalletTransaction {
+  id        String                  @id @default(cuid())
+  walletId  String
+  amount    Float
+  type      WalletTransactionType
+  status    WalletTransactionStatus @default(COMPLETED)
+  reference String?
+  createdAt DateTime                @default(now())
+  updatedAt DateTime                @updatedAt
+  wallet    Wallet                  @relation(fields: [walletId], references: [id])
+
+  @@index([walletId])
+  @@index([type])
+  @@index([status])
+  @@map("wallet_transactions")
+}
+
+model GiftCard {
+  id          String           @id @default(cuid())
+  code        String           @unique
+  amount      Float
+  currency    String           @default("USD")
+  balance     Float
+  status      GiftCardStatus   @default(ACTIVE)
+  expiresAt   DateTime?
+  createdById String?
+  vendorId    String?
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+  redemptions GiftCardRedemption[]
+  vendor      Vendor?          @relation(fields: [vendorId], references: [id])
+
+  @@index([code])
+  @@index([status])
+  @@index([vendorId])
+  @@map("gift_cards")
+}
+
+model GiftCardRedemption {
+  id         String   @id @default(cuid())
+  giftCardId String
+  userId     String
+  amount     Float
+  createdAt  DateTime @default(now())
+  giftCard   GiftCard @relation(fields: [giftCardId], references: [id])
+  user       User     @relation(fields: [userId], references: [id])
+
+  @@index([giftCardId])
+  @@index([userId])
+  @@map("gift_card_redemptions")
+}
+
+model Address {
+  id        String   @id @default(cuid())
+  userId    String
+  name      String
+  street    String
+  city      String
+  state     String
+  zip       String
+  country   String
+  isDefault Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  user      User     @relation(fields: [userId], references: [id])
+
+  @@index([userId])
+  @@index([isDefault])
+  @@map("addresses")
+}
+
+model Cart {
+  id        String     @id @default(cuid())
+  userId    String     @unique
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  items     CartItem[]
+  user      User       @relation(fields: [userId], references: [id])
+
+  @@map("carts")
+}
+
+model CartItem {
+  id        String   @id @default(cuid())
+  cartId    String
+  productId String
+  quantity  Int      @default(1)
+  createdAt DateTime @default(now())
+  cart      Cart     @relation(fields: [cartId], references: [id], onDelete: Cascade)
+  product   Product  @relation(fields: [productId], references: [id])
+
+  @@unique([cartId, productId])
+  @@index([cartId])
+  @@index([productId])
+  @@map("cart_items")
+}
+
+model ProductVersion {
+  id         String   @id @default(cuid())
+  productId  String
+  version    String
+  fileUrl    String
+  changelog  String?
+  uploadedBy String
+  createdAt  DateTime @default(now())
+  product    Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  uploader   User     @relation("ProductVersionUploaders", fields: [uploadedBy], references: [id])
+
+  @@index([productId])
+  @@index([uploadedBy])
+  @@index([createdAt])
+  @@map("product_versions")
+}
+
+model Notification {
+  id        String           @id @default(cuid())
+  userId    String
+  type      NotificationType
+  title     String
+  message   String
+  data      Json?
+  isRead    Boolean          @default(false)
+  createdAt DateTime         @default(now())
+  user      User             @relation(fields: [userId], references: [id])
+
+  @@index([userId])
+  @@index([type])
+  @@index([userId, isRead])
+  @@index([userId, createdAt])
+  @@map("notifications")
+}
+
+model AuditLog {
+  id        String   @id @default(cuid())
+  userId    String?
+  action    String
+  entity    String
+  entityId  String?
+  changes   Json?
+  ipAddress String?
+  userAgent String?
+  createdAt DateTime @default(now())
+  user      User?    @relation(fields: [userId], references: [id])
+
+  @@index([userId])
+  @@index([entity])
+  @@index([createdAt])
+  @@map("audit_logs")
+}
+
+model PaymentMethod {
+  id        String      @id @default(cuid())
+  name      String
+  type      PaymentType
+  isActive  Boolean     @default(true)
+  config    Json?
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+
+  @@map("payment_methods")
+}
+
+model ProductBadge {
+  id         String    @id @default(cuid())
+  productId  String
+  badgeType  BadgeType
+  assignedAt DateTime  @default(now())
+  assignedBy String?
+  product    Product   @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@index([productId])
+  @@index([badgeType])
+  @@map("product_badges")
+}
+
+model ThemeSetting {
+  id                       String   @id @default(cuid())
+  primaryColor             String   @default("#3b82f6")
+  secondaryColor           String   @default("#f4f4f5")
+  accentColor              String   @default("#f4f4f5")
+  backgroundColor          String   @default("#ffffff")
+  foregroundColor          String   @default("#09090b")
+  cardColor                String   @default("#ffffff")
+  cardForegroundColor      String   @default("#09090b")
+  borderColor              String   @default("#e4e4e7")
+  inputColor               String   @default("#e4e4e7")
+  mutedColor               String   @default("#f4f4f5")
+  mutedForegroundColor     String   @default("#71717a")
+  destructiveColor         String   @default("#dc2626")
+  darkPrimaryColor         String   @default("#2563eb")
+  darkSecondaryColor       String   @default("#27272a")
+  darkAccentColor          String   @default("#18181b")
+  darkBackgroundColor      String   @default("#09090b")
+  darkForegroundColor      String   @default("#fafafa")
+  darkCardColor            String   @default("#09090b")
+  darkCardForegroundColor  String   @default("#fafafa")
+  darkBorderColor          String   @default("#27272a")
+  darkInputColor           String   @default("#27272a")
+  darkMutedColor           String   @default("#18181b")
+  darkMutedForegroundColor String   @default("#71717a")
+  darkDestructiveColor     String   @default("#dc2626")
+  fontFamily               String   @default("Inter")
+  fontSize                 String   @default("14px")
+  headingFontFamily        String?
+  borderRadius             String   @default("0.5rem")
+  sidebarWidth             String   @default("280px")
+  headerHeight             String   @default("70px")
+  logoUrl                  String?
+  logoLightUrl             String?
+  logoDarkUrl              String?
+  faviconUrl               String?
+  logoWidth                String   @default("150px")
+  logoHeight               String   @default("40px")
+  siteName                 String   @default("Digital Marketplace")
+  siteTagline              String?
+  siteDescription          String?
+  copyrightText            String?
+  metaTitle                String?
+  metaDescription          String?
+  metaKeywords             String?
+  ogImage                  String?
+  facebookUrl              String?
+  twitterUrl               String?
+  instagramUrl             String?
+  linkedinUrl              String?
+  youtubeUrl               String?
+  githubUrl                String?
+  contactEmail             String?
+  contactPhone             String?
+  contactAddress           String?
+  supportEmail             String?
+  footerText               String?
+  showSocialLinks          Boolean  @default(true)
+  showContactInfo          Boolean  @default(true)
+  defaultMode              String   @default("light")
+  createdAt                DateTime @default(now())
+  updatedAt                DateTime @updatedAt
+
+  @@map("theme_settings")
+}
+
+model SellerBadge {
+  id          String        @id @default(cuid())
+  name        String        @unique
+  description String?
+  icon        String
+  color       String        @default("#3b82f6")
+  isActive    Boolean       @default(true)
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  vendors     VendorBadge[]
+
+  @@map("seller_badges")
+}
+
+model VendorBadge {
+  id         String      @id @default(cuid())
+  vendorId   String
+  badgeId    String
+  assignedBy String
+  assignedAt DateTime    @default(now())
+  badge      SellerBadge @relation(fields: [badgeId], references: [id], onDelete: Cascade)
+  vendor     Vendor      @relation(fields: [vendorId], references: [id], onDelete: Cascade)
+
+  @@unique([vendorId, badgeId])
+  @@index([vendorId])
+  @@index([badgeId])
+  @@index([assignedBy])
+  @@map("vendor_badges")
+}
+
+model SoftwareTool {
+  id          String               @id @default(cuid())
+  name        String               @unique
+  description String?
+  logoUrl     String
+  category    String?
+  isActive    Boolean              @default(true)
+  createdAt   DateTime             @default(now())
+  updatedAt   DateTime             @updatedAt
+  vendors     VendorSoftwareTool[]
+
+  @@index([isActive])
+  @@map("software_tools")
+}
+
+model VendorSoftwareTool {
+  id             String       @id @default(cuid())
+  vendorId       String
+  softwareToolId String
+  addedAt        DateTime     @default(now())
+  softwareTool   SoftwareTool @relation(fields: [softwareToolId], references: [id], onDelete: Cascade)
+  vendor         Vendor       @relation(fields: [vendorId], references: [id], onDelete: Cascade)
+
+  @@unique([vendorId, softwareToolId])
+  @@index([vendorId])
+  @@index([softwareToolId])
+  @@map("vendor_software_tools")
+}
+
+model Follow {
+  id          String   @id @default(cuid())
+  followerId  String
+  followingId String
+  createdAt   DateTime @default(now())
+  follower    User     @relation("UserFollowing", fields: [followerId], references: [id], onDelete: Cascade)
+  following   Vendor   @relation("VendorFollowers", fields: [followingId], references: [id], onDelete: Cascade)
+
+  @@unique([followerId, followingId])
+  @@index([followerId])
+  @@index([followingId])
+  @@map("follows")
+}
+
+model SellerReview {
+  id        String   @id @default(cuid())
+  userId    String
+  vendorId  String
+  rating    Int
+  comment   String?
+  orderId   String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  order     Order?   @relation("OrderSellerReviews", fields: [orderId], references: [id])
+  user      User     @relation("UserSellerReviews", fields: [userId], references: [id], onDelete: Cascade)
+  vendor    Vendor   @relation(fields: [vendorId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, vendorId])
+  @@index([userId])
+  @@index([vendorId])
+  @@index([orderId])
+  @@index([rating])
+  @@index([createdAt])
+  @@index([vendorId, rating])
+  @@map("seller_reviews")
+}
+
+model AIProcessingJob {
+  id          String             @id @default(cuid())
+  productId   String
+  jobType     AIJobType
+  status      AIProcessingStatus @default(PENDING)
+  progress    Int                @default(0)
+  result      Json?
+  error       String?
+  startedAt   DateTime?
+  completedAt DateTime?
+  createdAt   DateTime           @default(now())
+  updatedAt   DateTime           @updatedAt
+  product     Product            @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@index([productId])
+  @@index([status])
+  @@index([jobType])
+  @@index([createdAt])
+  @@map("ai_processing_jobs")
+}
+
+model ProductIssue {
+  id          String        @id @default(cuid())
+  productId   String
+  issueType   IssueType
+  severity    IssueSeverity
+  description String
+  location    Json?
+  autoFixed   Boolean       @default(false)
+  fixedAt     DateTime?
+  createdAt   DateTime      @default(now())
+  product     Product       @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@index([productId])
+  @@index([issueType])
+  @@index([severity])
+  @@map("product_issues")
+}
+
+model JobOffer {
+  id             String         @id @default(cuid())
+  conversationId String         @unique
+  vendorId       String
+  customerId     String
+  title          String
+  description    String
+  budget         Float
+  currency       String         @default("USD")
+  status         JobOfferStatus @default(PENDING)
+  acceptedAt     DateTime?
+  completedAt    DateTime?
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+  conversation   Conversation   @relation(fields: [conversationId], references: [id])
+  customer       User           @relation("CustomerJobOffers", fields: [customerId], references: [id])
+  vendor         Vendor         @relation("VendorJobOffers", fields: [vendorId], references: [id])
+
+  @@index([vendorId])
+  @@index([customerId])
+  @@index([status])
+  @@index([createdAt])
+  @@map("job_offers")
+}
+
+model api_settings {
+  id            String   @id
+  provider      String   @unique
+  settings      String
+  isActive      Boolean  @default(true)
+  lastUpdatedBy String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime
+
+  @@index([provider])
+}
+
+model ticket_messages {
+  id              String        @id @default(cuid())
+  ticketId        String
+  userId          String
+  content         String
+  attachments     Json?
+  isInternal      Boolean       @default(false)
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+  support_tickets SupportTicket @relation(fields: [ticketId], references: [id], onDelete: Cascade)
+  users           User          @relation(fields: [userId], references: [id])
+
+  @@index([ticketId, createdAt])
+  @@index([ticketId])
+  @@index([userId])
+}
+
+model user_payment_methods {
+  id        String      @id
+  userId    String
+  type      PaymentType
+  label     String
+  details   String
+  isDefault Boolean     @default(false)
+  isActive  Boolean     @default(true)
+  createdAt DateTime    @default(now())
+  updatedAt DateTime
+  users     User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([userId, isDefault])
+}
+
+enum PaymentGateway {
+  STRIPE
+  PAYPAL
+  CRYPTOMUS
+  BALANCE
+}
+
+enum PaymentStatus {
+  PENDING
+  COMPLETED
+  FAILED
+  REFUNDED
+}
+
+enum TransactionType {
+  PAYMENT_IN
+  PAYMENT_OUT
+  COMMISSION_PLATFORM
+  COMMISSION_SELLER
+  REFUND
+  ADJUSTMENT
+}
+
+enum TransactionStatus {
+  PENDING
+  COMPLETED
+  FAILED
+  CANCELLED
+}
+
+enum RefundStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  COMPLETED
+}
+
+enum Role {
+  ADMIN
+  VENDOR
+  CUSTOMER
+}
+
+enum EscrowTransactionType {
+  DEPOSIT
+  RELEASE
+  REFUND
+  HOLD
+  UNHOLD
+  PLATFORM_FEE
+}
+
+enum EscrowTransactionStatus {
+  PENDING
+  COMPLETED
+  FAILED
+  CANCELLED
+}
+
+enum OrderStatus {
+  PENDING
+  PAID
+  SHIPPED
+  DELIVERED
+  CANCELLED
+  COMPLETED
+}
+
+enum DisputeStatus {
+  PENDING
+  IN_REVIEW
+  RESOLVED
+  CANCELLED
+}
+
+enum DisputeRole {
+  BUYER
+  SELLER
+  ADMIN
+}
+
+enum ProductStatus {
+  PENDING
+  PUBLISHED
+  SUSPENDED
+  REJECTED
+  DRAFT
+}
+
+enum CryptoPaymentStatus {
+  PENDING
+  CONFIRMED
+  FAILED
+}
+
+enum VendorApplicationStatus {
+  PENDING
+  UNDER_REVIEW
+  NEEDS_REVISION
+  APPROVED
+  REJECTED
+  CLOSED
+}
+
+enum WithdrawalStatus {
+  PENDING
+  PROCESSING
+  COMPLETED
+  FAILED
+  CANCELLED
+}
+
+enum FileStatus {
+  ACTIVE
+  INACTIVE
+  DELETED
+}
+
+enum PageStatus {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+}
+
+enum TicketStatus {
+  OPEN
+  IN_PROGRESS
+  RESOLVED
+  CLOSED
+}
+
+enum TicketPriority {
+  LOW
+  MEDIUM
+  HIGH
+  URGENT
+}
+
+enum AnnouncementStatus {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+}
+
+enum ContentStatus {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+}
+
+enum DiscountType {
+  PERCENTAGE
+  FIXED_AMOUNT
+}
+
+enum CouponType {
+  PERCENTAGE
+  FIXED_AMOUNT
+  FREE_SHIPPING
+}
+
+enum PromotionType {
+  BUY_X_GET_Y
+  BUNDLE
+  FLASH_SALE
+  SEASONAL
+}
+
+enum AffiliateStatus {
+  PENDING
+  ACTIVE
+  SUSPENDED
+  TERMINATED
+}
+
+enum ReferralStatus {
+  PENDING
+  APPROVED
+  PAID
+  CANCELLED
+}
+
+enum InvoiceStatus {
+  PENDING
+  PAID
+  OVERDUE
+  CANCELLED
+}
+
+enum WalletTransactionType {
+  DEPOSIT
+  WITHDRAWAL
+  PURCHASE
+  REFUND
+  GIFT_CARD_REDEMPTION
+  CREDIT_ADJUSTMENT
+}
+
+enum WalletTransactionStatus {
+  PENDING
+  COMPLETED
+  FAILED
+}
+
+enum RefundReason {
+  DEFECTIVE_PRODUCT
+  NOT_AS_DESCRIBED
+  CHANGED_MIND
+  DUPLICATE_ORDER
+  OTHER
+}
+
+enum BadgeType {
+  GAME_READY
+  PBR_CERTIFIED
+  PRINT_READY
+  QUALITY_VERIFIED
+  LOW_POLY
+  HIGH_DETAIL
+  ANIMATION_READY
+  VR_OPTIMIZED
+}
+
+enum DisputeReason {
+  FILE_CORRUPTED
+  NOT_AS_DESCRIBED
+  WRONG_DESCRIPTION
+  LICENSE_ISSUE
+  SELLER_UNRESPONSIVE
+  OTHER
+}
+
+enum NotificationType {
+  NEW_SALE
+  DISPUTE_OPENED
+  DISPUTE_RESPONSE
+  DISPUTE_RESOLVED
+  PAYOUT_REQUESTED
+  PAYOUT_PROCESSED
+  REVIEW_RECEIVED
+  PRODUCT_APPROVED
+  PRODUCT_REJECTED
+  ORDER_COMPLETED
+  APPLICATION_SUBMITTED
+  APPLICATION_APPROVED
+  APPLICATION_REJECTED
+  APPLICATION_REVISION_REQUESTED
+}
+
+enum PaymentType {
+  STRIPE
+  PAYPAL
+  BANK_TRANSFER
+  CRYPTO
+  LOCAL_GATEWAY
+}
+
+enum AIProcessingStatus {
+  PENDING
+  PROCESSING
+  COMPLETED
+  FAILED
+}
+
+enum AIJobType {
+  THUMBNAIL_GENERATION
+  TOPOLOGY_OPTIMIZATION
+  TAG_SUGGESTION
+  ISSUE_DETECTION
+  LOD_GENERATION
+  UV_OPTIMIZATION
+}
+
+enum IssueType {
+  NON_MANIFOLD_GEOMETRY
+  OVERLAPPING_FACES
+  FLIPPED_NORMALS
+  MISSING_UVS
+  UV_OVERLAP
+  ZERO_AREA_FACES
+  DUPLICATE_VERTICES
+  ISOLATED_VERTICES
+}
+
+enum IssueSeverity {
+  LOW
+  MEDIUM
+  HIGH
+  CRITICAL
+}
+
+enum JobOfferStatus {
+  PENDING
+  ACCEPTED
+  REJECTED
+  COMPLETED
+  CANCELLED
+}
+
+enum MessageType {
+  USER
+  SYSTEM
+  JOB_OFFER
+  DISPUTE_UPDATE
+  ADMIN
+}
+
+enum AccountType {
+  EMAIL
+  GOOGLE
+  BOTH
+}
+
+enum GiftCardStatus {
+  ACTIVE
+  REDEEMED
+  EXPIRED
+  VOIDED
+}
+
+enum StepStatus {
+  PENDING
+  IN_PROGRESS
+  COMPLETED
+  NEEDS_REVISION
+  SKIPPED
+}
+
+enum NoteType {
+  ADMIN_INTERNAL
+  USER_FACING
+  SYSTEM
+}
+
+enum AuditAction {
+  CREATED
+  SUBMITTED
+  APPROVED
+  REJECTED
+  REVISION_REQUESTED
+  REVISION_COMPLETED
+  REOPENED
+  CLOSED
+  PERSONA_INITIATED
+  PERSONA_COMPLETED
+  PERSONA_FAILED
+  PERSONA_OVERRIDDEN
+  STEP_COMPLETED
+  STEP_REVISION_REQUESTED
+  NOTE_ADDED
+  STATUS_CHANGED
+}
+
+enum PersonaStatus {
+  NOT_STARTED
+  PENDING
+  UNDER_REVIEW
+  VERIFIED
+  FAILED
+  OVERRIDDEN
+}
+
+// ============================================
+// LIVECHAT SYSTEM
+// ============================================
+
+model LiveChatSession {
+  id            String            @id @default(cuid())
+  sessionId     String            @unique
+  visitorId     String
+  visitorName   String?
+  visitorEmail  String?
+  status        ChatSessionStatus @default(WAITING)
+  assignedTo    String?
+  department    String?
+  startedAt     DateTime          @default(now())
+  endedAt       DateTime?
+  rating        Int?
+  feedback      String?
+  metadata      Json?
+  updatedAt     DateTime          @default(now()) @updatedAt
+  
+  messages      LiveChatMessage[]
+  assignee      User?             @relation("LiveChatAssignee", fields: [assignedTo], references: [id])
+  visitor       LiveChatVisitor   @relation(fields: [visitorId], references: [id])
+  
+  @@index([status])
+  @@index([assignedTo])
+  @@index([startedAt])
+  @@map("livechat_sessions")
+}
+
+model LiveChatMessage {
+  id          String          @id @default(cuid())
+  sessionId   String
+  senderId    String?
+  senderType  ChatSenderType
+  content     String
+  messageType ChatMessageType @default(TEXT)
+  attachments Json?
+  createdAt   DateTime        @default(now())
+  isRead      Boolean         @default(false)
+  
+  session     LiveChatSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  
+  @@index([sessionId])
+  @@index([createdAt])
+  @@map("livechat_messages")
+}
+
+model LiveChatVisitor {
+  id          String    @id @default(cuid())
+  fingerprint String    @unique
+  name        String?
+  email       String?
+  phone       String?
+  country     String?
+  city        String?
+  userAgent   String?
+  ipAddress   String?
+  firstVisit  DateTime  @default(now())
+  lastVisit   DateTime  @updatedAt
+  pageViews   Int       @default(0)
+  totalChats  Int       @default(0)
+  isOnline    Boolean   @default(true)
+  currentPage String?
+  metadata    Json?
+  
+  sessions    LiveChatSession[]
+  pageHistory PageVisitHistory[]
+  
+  @@index([isOnline])
+  @@index([lastVisit])
+  @@map("livechat_visitors")
+}
+
+model PageVisitHistory {
+  id        String    @id @default(cuid())
+  visitorId String
+  pageUrl   String
+  pageTitle String?
+  duration  Int?
+  visitedAt DateTime  @default(now())
+  
+  visitor   LiveChatVisitor @relation(fields: [visitorId], references: [id], onDelete: Cascade)
+  
+  @@index([visitorId])
+  @@index([visitedAt])
+  @@map("page_visit_history")
+}
+
+model CannedResponse {
+  id        String    @id @default(cuid())
+  title     String
+  shortcut  String    @unique
+  content   String
+  category  String?
+  isActive  Boolean   @default(true)
+  createdBy String?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  
+  @@index([shortcut])
+  @@index([category])
+  @@map("canned_responses")
+}
+
+model LiveChatSettings {
+  id                    String    @id @default(cuid())
+  
+  // Appearance
+  widgetColor           String?   @default("#f97316")
+  widgetPosition        String?   @default("bottom-right")
+  widgetIcon            String?
+  welcomeMessage        String?   @default("Hi! How can we help you today?")
+  offlineMessage        String?   @default("We're currently offline. Leave a message!")
+  
+  // Eye Catcher
+  eyeCatcherEnabled     Boolean   @default(true)
+  eyeCatcherText        String?   @default("Need help? Chat with us!")
+  eyeCatcherDelay       Int       @default(3000)
+  
+  // Operating Hours
+  operatingHoursEnabled Boolean   @default(false)
+  operatingHours        Json?
+  timezone              String?   @default("UTC")
+  
+  // Features
+  soundEnabled          Boolean   @default(true)
+  fileShareEnabled      Boolean   @default(true)
+  maxFileSize           Int       @default(10)
+  allowedFileTypes      String[]  @default(["image/*", "application/pdf"])
+  
+  // AI & Translation
+  aiEnabled             Boolean   @default(false)
+  aiModel               String?   @default("gpt-4")
+  aiSystemPrompt        String?
+  autoTranslateEnabled  Boolean   @default(false)
+  defaultLanguage       String?   @default("en")
+  
+  // Voice/Video
+  voiceEnabled          Boolean   @default(false)
+  videoEnabled          Boolean   @default(false)
+  
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+  
+  @@map("livechat_settings")
+}
+
+model EmailCampaign {
+  id            String              @id @default(cuid())
+  name          String
+  subject       String
+  content       String
+  status        EmailCampaignStatus @default(DRAFT)
+  recipientType String?             @default("all")
+  recipients    Json?
+  scheduledAt   DateTime?
+  sentAt        DateTime?
+  totalSent     Int                 @default(0)
+  totalOpened   Int                 @default(0)
+  totalClicked  Int                 @default(0)
+  createdBy     String?
+  createdAt     DateTime            @default(now())
+  updatedAt     DateTime            @updatedAt
+  
+  @@index([status])
+  @@index([scheduledAt])
+  @@map("email_campaigns")
+}
+
+model SmtpSettings {
+  id            String    @id @default(cuid())
+  host          String?
+  port          Int?      @default(587)
+  username      String?
+  password      String?
+  encryption    String?   @default("tls")
+  fromEmail     String?
+  fromName      String?
+  isActive      Boolean   @default(false)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  
+  @@map("smtp_settings")
+}
+
+model SocialIntegration {
+  id            String    @id @default(cuid())
+  platform      String    @unique
+  isEnabled     Boolean   @default(false)
+  apiKey        String?
+  apiSecret     String?
+  accessToken   String?
+  refreshToken  String?
+  webhookUrl    String?
+  config        Json?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  
+  @@map("social_integrations")
+}
+
+model SecuritySettings {
+  id                      String    @id @default(cuid())
+  
+  // Country Restrictions
+  countryRestrictions     Boolean   @default(false)
+  allowedCountries        String[]  @default([])
+  blockedCountries        String[]  @default([])
+  
+  // DoS Protection
+  dosProtectionEnabled    Boolean   @default(true)
+  maxRequestsPerMinute    Int       @default(100)
+  blockDuration           Int       @default(3600)
+  
+  // Domain Settings
+  allowedDomains          String[]  @default([])
+  
+  createdAt               DateTime  @default(now())
+  updatedAt               DateTime  @updatedAt
+  
+  @@map("security_settings")
+}
+
+// Livechat Enums
+enum ChatSessionStatus {
+  WAITING
+  ACTIVE
+  CLOSED
+  MISSED
+}
+
+enum ChatSenderType {
+  VISITOR
+  AGENT
+  BOT
+  SYSTEM
+}
+
+enum ChatMessageType {
+  TEXT
+  IMAGE
+  FILE
+  VOICE
+  VIDEO
+  SYSTEM
+}
+
+enum EmailCampaignStatus {
+  DRAFT
+  SCHEDULED
+  SENDING
+  SENT
+  CANCELLED
+}
+
+// ============================================================================
+// App System Module
+// ============================================================================
+
+enum AppStatus {
+  PENDING
+  APPROVED
+  SUSPENDED
+  REJECTED
+}
+
+enum InstallationStatus {
+  ACTIVE
+  SUSPENDED
+  UNINSTALLED
+}
+
+model App {
+  id              String      @id @default(cuid())
+  name            String
+  slug            String      @unique
+  description     String?     @db.Text
+  shortDescription String?
+  icon            String?
+  screenshots     Json?       // Array of screenshot URLs
+  status          AppStatus   @default(PENDING)
+  category        String?     // e.g., "marketing", "analytics", "shipping"
+  
+  // Developer Info
+  createdByAdmin  Boolean     @default(false)
+  developerId     String?
+  developer       User?       @relation("AppDeveloper", fields: [developerId], references: [id])
+  developerName   String?
+  developerEmail  String?
+  developerUrl    String?
+  privacyPolicyUrl String?
+  termsOfServiceUrl String?
+  
+  // Webhook Configuration
+  webhookSecret   String?     // For signing webhook payloads
+  
+  // Pricing
+  pricingType     String?     @default("free") // free, paid, freemium
+  price           Float?
+  
+  // Stats
+  installCount    Int         @default(0)
+  rating          Float       @default(0)
+  reviewCount     Int         @default(0)
+  
+  // Review/Moderation
+  reviewedBy      String?
+  reviewedAt      DateTime?
+  rejectionReason String?
+  suspensionReason String?
+  
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+  
+  // Relations
+  permissions     AppPermission[]
+  installations   MerchantAppInstallation[]
+  webhooks        AppWebhook[]
+  activityLogs    AppActivityLog[]
+  
+  @@index([status])
+  @@index([category])
+  @@index([createdAt])
+  @@index([slug])
+  @@map("apps")
+}
+
+model AppPermission {
+  id          String   @id @default(cuid())
+  appId       String
+  permission  String   // e.g., "read_orders", "write_products"
+  description String?  // Human-readable description
+  isRequired  Boolean  @default(true)
+  
+  app         App      @relation(fields: [appId], references: [id], onDelete: Cascade)
+  
+  @@unique([appId, permission])
+  @@index([appId])
+  @@map("app_permissions")
+}
+
+model MerchantAppInstallation {
+  id                  String             @id @default(cuid())
+  vendorId            String
+  appId               String
+  accessToken         String             // Hashed token
+  accessTokenPrefix   String?            // First 8 chars for identification
+  permissionsSnapshot Json               // Permissions at installation time
+  status              InstallationStatus @default(ACTIVE)
+  
+  // Suspension info
+  suspendedAt         DateTime?
+  suspendedBy         String?            // Admin user ID
+  suspensionReason    String?
+  
+  installedAt         DateTime           @default(now())
+  uninstalledAt       DateTime?
+  lastUsedAt          DateTime?
+  
+  // Relations
+  vendor              Vendor             @relation(fields: [vendorId], references: [id], onDelete: Cascade)
+  app                 App                @relation(fields: [appId], references: [id], onDelete: Cascade)
+  activityLogs        AppActivityLog[]
+  
+  @@unique([vendorId, appId])
+  @@index([vendorId])
+  @@index([appId])
+  @@index([status])
+  @@index([accessToken])
+  @@map("merchant_app_installations")
+}
+
+model AppWebhook {
+  id          String   @id @default(cuid())
+  appId       String
+  event       String   // e.g., "order.created", "product.updated"
+  targetUrl   String
+  isActive    Boolean  @default(true)
+  
+  // Delivery stats
+  lastDeliveredAt DateTime?
+  failureCount    Int      @default(0)
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  app         App      @relation(fields: [appId], references: [id], onDelete: Cascade)
+  
+  @@unique([appId, event])
+  @@index([appId])
+  @@index([event])
+  @@index([isActive])
+  @@map("app_webhooks")
+}
+
+model AppActivityLog {
+  id              String   @id @default(cuid())
+  vendorId        String?
+  appId           String
+  installationId  String?
+  
+  action          String   // e.g., "api_call", "webhook_sent", "token_regenerated"
+  endpoint        String?  // API endpoint accessed
+  method          String?  // HTTP method
+  statusCode      Int?     // Response status code
+  metadata        Json?    // Additional context
+  
+  ipAddress       String?
+  userAgent       String?
+  
+  createdAt       DateTime @default(now())
+  
+  app             App      @relation(fields: [appId], references: [id], onDelete: Cascade)
+  installation    MerchantAppInstallation? @relation(fields: [installationId], references: [id], onDelete: SetNull)
+  
+  @@index([appId])
+  @@index([vendorId])
+  @@index([installationId])
+  @@index([action])
+  @@index([createdAt])
+  @@map("app_activity_logs")
+}
+
+enum SupportTicketPriority {
+  LOW
+  MEDIUM
+  HIGH
+  URGENT
+}
+
+enum SupportTicketStatus {
+  OPEN
+  IN_PROGRESS
+  RESOLVED
+  CLOSED
+}
+
+enum SupportTicketCategory {
+  GENERAL
+  TECHNICAL
+  BILLING
+  ACCOUNT
+  OTHER
+}
+
+
+
+
+

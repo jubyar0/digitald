@@ -1,0 +1,114 @@
+
+> web@1.0.0 build C:\Users\Hossame\Desktop\Dig\apps\web
+> next build
+
+ ⚠ Invalid next.config.js options detected: 
+ ⚠     Unrecognized key(s) in object: 'turbopack'
+ ⚠ See more info here: https://nextjs.org/docs/messages/invalid-next-config
+  ▲ Next.js 14.2.35
+  - Environments: .env.local, .env
+
+   Creating an optimized production build ...
+[MDX] generated files in 8.798199999999952ms
+ ⚠ Compiled with warnings
+
+./app/(dashboard)/seller/settings/general/order-id-card.tsx
+Attempted import error: 'updateOrderIdFormat' is not exported from '@/actions/seller' (imported as 'updateOrderIdFormat').
+
+Import trace for requested module:
+./app/(dashboard)/seller/settings/general/order-id-card.tsx
+
+./app/(dashboard)/seller/settings/general/order-processing-card.tsx
+Attempted import error: 'updateOrderProcessing' is not exported from '@/actions/seller' (imported as 'updateOrderProcessing').
+
+Import trace for requested module:
+./app/(dashboard)/seller/settings/general/order-processing-card.tsx
+
+./app/(dashboard)/seller/settings/general/store-defaults-card.tsx
+Attempted import error: 'updateStoreDefaults' is not exported from '@/actions/seller' (imported as 'updateStoreDefaults').
+
+Import trace for requested module:
+./app/(dashboard)/seller/settings/general/store-defaults-card.tsx
+
+./app/(dashboard)/seller/settings/general/store-details-card.tsx
+Attempted import error: 'updateStoreDetails' is not exported from '@/actions/seller' (imported as 'updateStoreDetails').
+
+Import trace for requested module:
+./app/(dashboard)/seller/settings/general/store-details-card.tsx
+   Linting and checking validity of types ...
+
+./app/(dashboard)/seller/settings/general/store-details-card.tsx
+Attempted import error: 'updateStoreDetails' is not exported from '@/actions/seller' (imported as 'updateStoreDetails').
+
+Import trace for requested module:
+./app/(dashboard)/seller/settings/general/store-details-card.tsx
+
+./components/admin/digital-product-form.tsx
+Attempted import error: 'createDigitalProductByAdmin' is not exported from '@/actions/admin' (imported as 'createDigitalProductByAdmin').
+
+Import trace for requested module:
+./components/admin/digital-product-form.tsx
+
+./components/admin/product-form.tsx
+Attempted import error: 'createProductByAdmin' is not exported from '@/actions/admin' (imported as 'createProductByAdmin').
+
+Import trace for requested module:
+./components/admin/product-form.tsx
+
+./app/(dashboard)/seller/settings/general/order-id-card.tsx
+Attempted import error: 'updateOrderIdFormat' is not exported from '@/actions/seller' (imported as 'updateOrderIdFormat').
+
+Import trace for requested module:
+./app/(dashboard)/seller/settings/general/order-id-card.tsx
+
+./app/(dashboard)/seller/settings/general/order-processing-card.tsx
+Attempted import error: 'updateOrderProcessing' is not exported from '@/actions/seller' (imported as 'updateOrderProcessing').
+
+Import trace for requested module:
+./app/(dashboard)/seller/settings/general/order-processing-card.tsx
+
+./app/(dashboard)/seller/settings/general/store-defaults-card.tsx
+Attempted import error: 'updateStoreDefaults' is not exported from '@/actions/seller' (imported as 'updateStoreDefaults').
+
+Import trace for requested module:
+./app/(dashboard)/seller/settings/general/store-defaults-card.tsx
+
+./app/(dashboard)/seller/settings/general/store-details-card.tsx
+Attempted import error: 'updateStoreDetails' is not exported from '@/actions/seller' (imported as 'updateStoreDetails').
+
+Import trace for requested module:
+./app/(dashboard)/seller/settings/general/store-details-card.tsx
+
+./app/(dashboard)/seller/settings/general/store-details-card.tsx
+Attempted import error: 'updateStoreDetails' is not exported from '@/actions/seller' (imported as 'updateStoreDetails').
+
+Import trace for requested module:
+./app/(dashboard)/seller/settings/general/store-details-card.tsx
+
+./components/admin/digital-product-form.tsx
+Attempted import error: 'createDigitalProductByAdmin' is not exported from '@/actions/admin' (imported as 'createDigitalProductByAdmin').
+
+Import trace for requested module:
+./components/admin/digital-product-form.tsx
+
+./components/admin/product-form.tsx
+Attempted import error: 'createProductByAdmin' is not exported from '@/actions/admin' (imported as 'createProductByAdmin').
+
+Import trace for requested module:
+./components/admin/product-form.tsx
+
+ ⨯ ESLint: Cannot read config file: C:\Users\Hossame\Desktop\Dig\apps\web\.eslintrc.js Error: module is not defined
+Failed to compile.
+
+./app/(dashboard)/admin/sections/page.tsx:149:68
+Type error: Property 'identifier' does not exist on type 'never'.
+
+[0m [90m 147 |[39m                 setSections(sectionsResult[33m.[39mdata)[0m
+[0m [90m 148 |[39m                 [90m// Initialize forms[39m[0m
+[0m[31m[1m>[22m[39m[90m 149 |[39m                 [36mconst[39m giftBanner [33m=[39m sectionsResult[33m.[39mdata[33m.[39mfind(s [33m=>[39m s[33m.[39midentifier [33m===[39m [32m'gift-banner'[39m)[0m
+[0m [90m     |[39m                                                                    [31m[1m^[22m[39m[0m
+[0m [90m 150 |[39m                 [36mif[39m (giftBanner) {[0m
+[0m [90m 151 |[39m                     setGiftBannerForm({[0m
+[0m [90m 152 |[39m                         title[33m:[39m giftBanner[33m.[39mtitle [33m||[39m [32m''[39m[33m,[39m[0m
+Next.js build worker exited with code: 1 and signal: null
+ ELIFECYCLE  Command failed with exit code 1.

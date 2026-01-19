@@ -1,0 +1,1 @@
+self.__REACT_LOADABLE_MANIFEST="{\"components\\\\ui\\\\card-spotlight.tsx -> @/components/ui/canvas-reveal-effect\":{\"id\":\"components\\\\ui\\\\card-spotlight.tsx -> @/components/ui/canvas-reveal-effect\",\"files\":[\"static/chunks/_app-pages-browser_components_ui_canvas-reveal-effect_tsx.js\"]}}"

@@ -1,0 +1,15 @@
+{
+    "common": {
+        "welcome": "Bienvenido",
+        "login": "Iniciar sesión",
+        "logout": "Cerrar sesión",
+        "signup": "Registrarse",
+        "settings": "Configuración"
+    },
+    "nav": {
+        "home": "Inicio",
+        "dashboard": "Panel",
+        "profile": "Perfil",
+        "account": "Mi cuenta"
+    }
+}

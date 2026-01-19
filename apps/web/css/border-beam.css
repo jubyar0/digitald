@@ -1,0 +1,13 @@
+/* Border beam animation for animated border effects */
+@keyframes border-beam {
+  0% {
+    offset-distance: 0%;
+  }
+  100% {
+    offset-distance: 100%;
+  }
+}
+
+.animate-border-beam {
+  animation: border-beam var(--duration) linear infinite;
+}

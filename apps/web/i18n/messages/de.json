@@ -1,0 +1,15 @@
+{
+    "common": {
+        "welcome": "Willkommen",
+        "login": "Anmelden",
+        "logout": "Abmelden",
+        "signup": "Registrieren",
+        "settings": "Einstellungen"
+    },
+    "nav": {
+        "home": "Startseite",
+        "dashboard": "Dashboard",
+        "profile": "Profil",
+        "account": "Mein Konto"
+    }
+}

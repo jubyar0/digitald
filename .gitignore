@@ -1,0 +1,14 @@
+node_modules
+
+# Build artifacts
+*.tsbuildinfo
+.next
+.turbo
+dist
+
+# Output files
+*_output.txt
+*.log
+
+# Environment
+.env.local

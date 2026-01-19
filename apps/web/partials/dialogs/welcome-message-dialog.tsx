@@ -1,0 +1,68 @@
+'use client';
+
+import Link from 'next/link';
+import { Button } from '@/components/dashboard/ui/button';
+import { toAbsoluteUrl } from '@/lib/helpers';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/dashboard/ui/dialog';
+
+export function WelcomeMessageDialog({
+  open,
+  onOpenChange,
+}: {
+  open: boolean;
+  onOpenChange: () => void;
+}) {
+  return (
+    <Dialog open={open} onOpenChange={onOpenChange}>
+      <DialogContent className="sm:max-w-[600px] p-0 overflow-hidden">
+        <div className="p-6 pt-0">
+          <DialogTitle></DialogTitle>
+          <DialogDescription></DialogDescription>
+        </div>
+        <div className="flex flex-col items-center pt-10 pb-10">
+          <div className="mb-10">
+            <img
+              src={toAbsoluteUrl('/media/illustrations/21.svg')}
+              className="dark:hidden max-h-[140px]"
+              alt="image"
+            />
+            <img
+              src={toAbsoluteUrl('/media/illustrations/21-dark.svg')}
+              className="light:hidden max-h-[140px]"
+              alt="image"
+            />
+          </div>
+
+          <h3 className="text-lg font-medium text-mono text-center mb-3">
+            Welcome to Metronic
+          </h3>
+
+          <div className="text-sm text-center text-secondary-foreground mb-7">
+            We're thrilled to have you on board and excited for <br />
+            the journey ahead together.
+          </div>
+
+          <div className="flex justify-center mb-2">
+            <Link href="/" className="btn btn-primary flex justify-center">
+              Show me around
+            </Link>
+          </div>
+
+          <Link
+            href="/"
+            className="text-sm font-medium text-secondary-foreground hover:text-primary py-3"
+          >
+            Skip the tour
+          </Link>
+        </div>
+      </DialogContent>
+    </Dialog>
+  );
+}
