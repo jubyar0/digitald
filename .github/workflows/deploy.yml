@@ -25,16 +25,13 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Setup SSH Key
-        env:
-          VPS_HOST: ${{ secrets.VPS_HOST }}
-          VPS_SSH_KEY: ${{ secrets.VPS_SSH_KEY }}
         run: |
           echo "Setting up SSH..."
           mkdir -p ~/.ssh/
-          echo "$VPS_SSH_KEY" > ~/.ssh/id_rsa
+          echo "${{ secrets.VPS_SSH_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
-          echo "Scanning SSH host: $VPS_HOST"
-          ssh-keyscan -H "$VPS_HOST" >> ~/.ssh/known_hosts
+          echo "Connecting to VPS..."
+          ssh-keyscan -H 168.231.84.38 >> ~/.ssh/known_hosts
 
       - name: Deploy Files to VPS
         run: |
@@ -45,12 +42,12 @@ jobs:
             --exclude '.git' \
             --exclude '.env' \
             --exclude '.github' \
-            ./ ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}:/var/www/digital-marketplace
+            ./ ${{ secrets.VPS_USER }}@168.231.84.38:/var/www/digital-marketplace
 
       - name: Execute Remote Commands
         uses: appleboy/ssh-action@master
         with:
-          host: ${{ secrets.VPS_HOST }}
+          host: 168.231.84.38
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.VPS_SSH_KEY }}
           script: |
