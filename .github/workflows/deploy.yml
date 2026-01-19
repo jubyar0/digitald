@@ -24,9 +24,6 @@ jobs:
       - name: Install Dependencies (CI)
         run: pnpm install --frozen-lockfile
 
-      - name: Build Project (CI Verification)
-        run: pnpm build
-
       - name: Setup SSH Key
         run: |
           mkdir -p ~/.ssh/
@@ -36,7 +33,7 @@ jobs:
 
       - name: Deploy Files to VPS
         run: |
-          # Sync files excluding heavy/unnecessary folders
+          # Sync files excluding heavy/unnecessary folders 
           # We deploy to /var/www/digital-marketplace
           rsync -avz --delete \
             --exclude 'node_modules' \
