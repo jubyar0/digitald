@@ -15,6 +15,8 @@ import {
 import { Switch } from "@/components/ui/switch";
 import { getAutomations, toggleAutomation } from "@/actions/marketing";
 
+export const dynamic = 'force-dynamic'
+
 export default async function AutomationsPage() {
     const automationsResult = await getAutomations();
     const automations = automationsResult.success && automationsResult.data ? automationsResult.data : [];

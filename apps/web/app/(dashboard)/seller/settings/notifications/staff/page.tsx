@@ -6,6 +6,8 @@ import { Switch } from "@/components/ui/switch"
 import { ChevronRight, ArrowLeft, PlusCircle, MoreHorizontal, Mail } from "lucide-react"
 import Link from "next/link"
 
+export const dynamic = 'force-dynamic'
+
 export default function StaffNotificationsPage() {
     return (
         <div className="p-6 max-w-5xl space-y-6">

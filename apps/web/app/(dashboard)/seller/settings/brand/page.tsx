@@ -15,6 +15,8 @@ import { toast } from "sonner"
 import { getBrandSettings, updateBrandSettings } from "@/actions/seller"
 import { ImageUploadCard } from "@/components/seller/image-upload-card"
 
+export const dynamic = 'force-dynamic'
+
 const brandFormSchema = z.object({
     name: z.string().min(1, "Store name is required"),
     description: z.string().optional(), // Slogan

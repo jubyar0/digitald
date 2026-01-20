@@ -4,6 +4,8 @@ import { Badge } from "@/components/ui/badge"
 import { AppWindow, ExternalLink, Package } from "lucide-react"
 import Image from "next/image"
 
+export const dynamic = 'force-dynamic'
+
 export default function AppsPage() {
     return (
         <div className="p-6 max-w-4xl">

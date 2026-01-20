@@ -18,6 +18,8 @@ import { StoreDefaultsCard } from "./store-defaults-card"
 import { OrderIdCard } from "./order-id-card"
 import { OrderProcessingCard } from "./order-processing-card"
 
+export const dynamic = 'force-dynamic'
+
 export default async function GeneralSettingsPage() {
     const profile = await getSellerProfile()
 

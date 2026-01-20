@@ -16,6 +16,8 @@ import { formatDistanceToNow } from "date-fns"
 import { Clock, Eye, Package } from "lucide-react"
 import { FulfillOrderButton } from "./_components/fulfill-order-button"
 
+export const dynamic = 'force-dynamic'
+
 export default async function PendingOrdersPage() {
     const { data: orders, total } = await getSellerOrders(1, 50, 'PENDING')
 

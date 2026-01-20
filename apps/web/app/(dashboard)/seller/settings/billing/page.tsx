@@ -6,6 +6,8 @@ import Link from "next/link"
 import { Input } from "@/components/ui/input"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
+export const dynamic = 'force-dynamic'
+
 export default function BillingPage() {
     return (
         <div className="p-6 max-w-5xl">

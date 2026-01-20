@@ -2,6 +2,8 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Button } from "@/components/ui/button"
 import { Database, Plus, ChevronRight, Box, Tag } from "lucide-react"
 
+export const dynamic = 'force-dynamic'
+
 export default function MetafieldsPage() {
     return (
         <div className="p-6 max-w-4xl">

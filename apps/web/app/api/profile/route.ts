@@ -4,6 +4,8 @@ import { authOptions } from '@/app/api/auth/[...nextauth]/auth-options'
 import { prisma } from '@/lib/prisma'
 import { VendorSoftwareTool } from '@repo/database'
 
+export const dynamic = 'force-dynamic'
+
 export async function PUT(request: NextRequest) {
     try {
         const session = await getServerSession(authOptions)

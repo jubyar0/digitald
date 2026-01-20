@@ -6,6 +6,8 @@ import { StarIcon, MessageSquareIcon } from "lucide-react"
 import { getSellerReviews, replyToReview } from "@/actions/reviews"
 import { format } from "date-fns"
 
+export const dynamic = 'force-dynamic'
+
 export default async function ReviewsPage() {
     const reviewsResult = await getSellerReviews()
     const reviews = reviewsResult.success && reviewsResult.data ? reviewsResult.data.reviews : []

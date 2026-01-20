@@ -16,6 +16,8 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { getCampaigns, deleteCampaign } from "@/actions/marketing";
 
+export const dynamic = 'force-dynamic'
+
 export default async function CampaignsPage() {
     const campaignsResult = await getCampaigns();
     const campaigns = campaignsResult.success && campaignsResult.data ? campaignsResult.data : [];

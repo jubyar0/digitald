@@ -15,6 +15,8 @@ import { formatCurrency } from "@/lib/utils"
 import { formatDistanceToNow } from "date-fns"
 import { CheckCircle, Eye, Package } from "lucide-react"
 
+export const dynamic = 'force-dynamic'
+
 export default async function CompletedOrdersPage() {
     const { data: orders, total } = await getSellerOrders(1, 50, 'COMPLETED')
 

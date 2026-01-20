@@ -4,6 +4,8 @@ import { TrendingUpIcon, DollarSignIcon, ShoppingCartIcon, UsersIcon } from "luc
 import { getSellerAnalytics } from "@/actions/seller"
 import { SalesChart } from "./sales-chart"
 
+export const dynamic = 'force-dynamic'
+
 export default async function AnalyticsPage() {
     const {
         salesData,

@@ -4,6 +4,8 @@ import { FileText, ChevronRight, Plus } from "lucide-react"
 import { getSellerPolicies, generatePolicyTemplate } from "@/actions/seller-policies"
 import { PoliciesClient } from "./policies-client"
 
+export const dynamic = 'force-dynamic'
+
 export default async function PoliciesPage() {
     const policiesData = await getSellerPolicies()
     const policies = policiesData.data || {

@@ -1,6 +1,8 @@
 import { getStoreUsers, getStoreRoles } from "@/actions/seller-users"
 import UsersClient from "./users-client"
 
+export const dynamic = 'force-dynamic'
+
 export default async function UsersPage() {
     const [usersResult, rolesResult] = await Promise.all([
         getStoreUsers(),

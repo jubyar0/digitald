@@ -14,6 +14,8 @@ import { formatDistanceToNow } from "date-fns"
 import { Check, X } from "lucide-react"
 import { RefundActionButtons } from "./refund-action-buttons"
 
+export const dynamic = 'force-dynamic'
+
 export default async function ReturnsPage() {
     const refunds = await getSellerRefunds()
 

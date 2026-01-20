@@ -3,6 +3,8 @@ import { Button } from "@/components/ui/button"
 import { Switch } from "@/components/ui/switch"
 import { Shield, ChevronRight, Cookie, Eye } from "lucide-react"
 
+export const dynamic = 'force-dynamic'
+
 export default function CustomerPrivacyPage() {
     return (
         <div className="p-6 max-w-4xl">

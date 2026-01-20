@@ -14,6 +14,8 @@ import {
     TabsTrigger,
 } from "@/components/ui/tabs"
 
+export const dynamic = 'force-dynamic'
+
 interface SalesChannel {
     id: string
     name: string

@@ -3,6 +3,8 @@ import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Globe, Plus, ExternalLink, ChevronRight, Check } from "lucide-react"
 
+export const dynamic = 'force-dynamic'
+
 export default function DomainsPage() {
     return (
         <div className="p-6 max-w-4xl">

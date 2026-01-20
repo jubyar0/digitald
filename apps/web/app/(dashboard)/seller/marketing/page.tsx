@@ -5,6 +5,8 @@ import { CalendarDays, CreditCard, DollarSign, Users, ArrowUpRight, ArrowDownRig
 import Link from "next/link"
 import { getMarketingStats } from "@/actions/marketing"
 
+export const dynamic = 'force-dynamic'
+
 export default async function MarketingPage() {
     const statsResult = await getMarketingStats()
     const stats = statsResult.success && statsResult.data ? statsResult.data : {

@@ -5,6 +5,8 @@ import { Button } from "@/components/ui/button"
 import { ArrowLeft } from "lucide-react"
 import Link from "next/link"
 
+export const dynamic = 'force-dynamic'
+
 export default function FulfillmentNotificationPage() {
     return (
         <div className="p-6 max-w-5xl space-y-6">

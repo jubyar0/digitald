@@ -1,6 +1,8 @@
 import { getStorefrontSettings } from "@/actions/storefront"
 import { StorefrontCustomizer } from "./storefront-customizer"
 
+export const dynamic = 'force-dynamic'
+
 export default async function StorefrontPage() {
     const settings = await getStorefrontSettings()
 

@@ -3,6 +3,8 @@ import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
 import { Switch } from "@/components/ui/switch"
 
+export const dynamic = 'force-dynamic'
+
 export default function NotificationsPage() {
     return (
         <div className="flex flex-1 flex-col container mx-auto">

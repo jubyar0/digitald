@@ -4,6 +4,8 @@ import { Badge } from "@/components/ui/badge"
 import { CreditCard, ChevronRight } from "lucide-react"
 import Link from "next/link"
 
+export const dynamic = 'force-dynamic'
+
 export default function PlanPage() {
     return (
         <div className="p-6 max-w-4xl">

@@ -7,6 +7,8 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { Switch } from "@/components/ui/switch"
 import Link from "next/link"
 
+export const dynamic = 'force-dynamic'
+
 export default function CheckoutPage() {
     return (
         <div className="p-6 max-w-5xl">

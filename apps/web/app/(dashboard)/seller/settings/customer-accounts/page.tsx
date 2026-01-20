@@ -6,6 +6,8 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Label } from "@/components/ui/label"
 import Link from "next/link"
 
+export const dynamic = 'force-dynamic'
+
 export default function CustomerAccountsPage() {
     return (
         <div className="p-6 max-w-5xl">

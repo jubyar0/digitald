@@ -3,6 +3,8 @@ import { getSellerDiscounts } from "@/actions/seller"
 import { DiscountsTable } from "./discounts-table"
 import { CreateDiscountDialog } from "./create-discount-dialog"
 
+export const dynamic = 'force-dynamic'
+
 export default async function DiscountsPage() {
     const discounts = await getSellerDiscounts()
 

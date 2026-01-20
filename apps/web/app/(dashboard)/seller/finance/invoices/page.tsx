@@ -6,6 +6,8 @@ import { getSellerInvoices } from "@/actions/seller"
 import { InvoiceCreateDialog } from "./invoice-create-dialog"
 import { Button } from "@/components/ui/button"
 
+export const dynamic = 'force-dynamic'
+
 export default async function InvoicesPage() {
     const { data: invoices, total } = await getSellerInvoices()
 

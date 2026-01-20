@@ -2,6 +2,8 @@ import { Card, CardContent } from "@/components/ui/card"
 import { getSellerProfile } from "@/actions/seller"
 import { ProfileForm } from "./profile-form"
 
+export const dynamic = 'force-dynamic'
+
 export default async function ProfilePage() {
     const profile = await getSellerProfile()
 

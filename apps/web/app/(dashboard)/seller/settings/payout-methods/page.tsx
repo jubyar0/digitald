@@ -4,6 +4,8 @@ import { Plus } from "lucide-react"
 import { getPayoutMethods } from "@/actions/seller"
 import { PayoutMethodsList } from "./payout-methods-list"
 
+export const dynamic = 'force-dynamic'
+
 export default async function PayoutMethodsPage() {
     const methods = await getPayoutMethods()
 

@@ -7,6 +7,8 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { Check, X, ChevronLeft, Store, ShoppingBag } from "lucide-react"
 import Link from "next/link"
 
+export const dynamic = 'force-dynamic'
+
 export default function PickPlanPage() {
     return (
         <div className="min-h-screen bg-muted/40 pb-20">

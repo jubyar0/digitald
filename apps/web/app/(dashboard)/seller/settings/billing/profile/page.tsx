@@ -20,6 +20,8 @@ import {
     SelectValue,
 } from "@/components/ui/select"
 
+export const dynamic = 'force-dynamic'
+
 export default function BillingProfilePage() {
     return (
         <div className="p-6 max-w-4xl">
