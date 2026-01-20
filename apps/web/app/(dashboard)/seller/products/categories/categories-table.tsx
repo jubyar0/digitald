@@ -30,10 +30,10 @@ import {
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { MoreHorizontal, ArrowUpDown, Plus, Search } from 'lucide-react';
-import { adminApi } from '@repo/lib/api';
 import { toast } from 'sonner';
 import { Badge } from '@/components/ui/badge';
 import { CategoryForm } from '@/components/category-form';
+import { getProductCategories } from '@/actions/vendor-products';
 
 interface Category {
     id: string;
@@ -56,9 +56,8 @@ export function CategoriesTable() {
     const fetchCategories = async () => {
         setLoading(true);
         try {
-            // Using adminApi.getCategories as vendor might not have specific endpoint or it's shared
-            const response = await adminApi.getCategories();
-            setData(response);
+            const response = await getProductCategories();
+            setData(response as Category[]);
         } catch (error) {
             console.error('Failed to fetch categories:', error);
             toast.error('Failed to load categories');
