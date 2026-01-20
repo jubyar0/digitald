@@ -374,7 +374,8 @@ const storeCreator: StateCreator<EditorState, [["zustand/immer", never]]> = (set
     getSchema: () => get().schema,
 });
 
-export const useEditorStore = create<EditorState>()(immer(storeCreator));
+// Explicitly type the store to avoid Immer internal types leaking
+export const useEditorStore: UseBoundStore<StoreApi<EditorState>> = create<EditorState>()(immer(storeCreator));
 
 // Selector hooks for optimized re-renders
 export const useSelectedElement = () => {
