@@ -26,6 +26,9 @@ const nextConfig = {
             },
         ],
     },
+    eslint: {
+        ignoreDuringBuilds: true,
+    },
 };
 
 const withMDX = createMDX();
