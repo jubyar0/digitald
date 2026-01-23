@@ -97,7 +97,7 @@ export function RecaptchaPopover({
             <div ref={containerRef} className="min-h-[78px]" />
             <Button
               type="button"
-              variant="primary"
+              variant="default"
               onClick={handleVerify}
               className="w-full"
             >

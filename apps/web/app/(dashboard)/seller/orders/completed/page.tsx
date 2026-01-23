@@ -1,6 +1,7 @@
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import Link from "next/link"
+import Image from "next/image"
 import {
     Table,
     TableBody,
@@ -61,10 +62,19 @@ export default async function CompletedOrdersPage() {
                                     {orders.length === 0 ? (
                                         <TableRow>
                                             <TableCell colSpan={7} className="text-center py-12">
-                                                <div className="flex flex-col items-center gap-2 text-muted-foreground">
-                                                    <Package className="h-12 w-12" />
-                                                    <p className="text-lg font-medium">No completed orders yet</p>
-                                                    <p className="text-sm">Completed orders will appear here</p>
+                                                <div className="flex flex-col items-center gap-4">
+                                                    <Image
+                                                        src="/media/illustrations/25.svg"
+                                                        alt="No completed orders"
+                                                        width={128}
+                                                        height={128}
+                                                        className="object-contain dark:opacity-80"
+                                                        priority
+                                                    />
+                                                    <div>
+                                                        <p className="text-lg font-medium">No completed orders yet</p>
+                                                        <p className="text-sm text-muted-foreground">Completed orders will appear here</p>
+                                                    </div>
                                                 </div>
                                             </TableCell>
                                         </TableRow>

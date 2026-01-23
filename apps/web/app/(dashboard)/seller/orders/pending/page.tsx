@@ -61,10 +61,16 @@ export default async function PendingOrdersPage() {
                                     {orders.length === 0 ? (
                                         <TableRow>
                                             <TableCell colSpan={6} className="text-center py-12">
-                                                <div className="flex flex-col items-center gap-2 text-muted-foreground">
-                                                    <Package className="h-12 w-12" />
-                                                    <p className="text-lg font-medium">No pending orders</p>
-                                                    <p className="text-sm">All orders have been fulfilled</p>
+                                                <div className="flex flex-col items-center gap-4">
+                                                    <img
+                                                        src="/media/illustrations/23.svg"
+                                                        alt="No pending orders"
+                                                        className="h-32 w-32 object-contain dark:opacity-80"
+                                                    />
+                                                    <div>
+                                                        <p className="text-lg font-medium">No pending orders</p>
+                                                        <p className="text-sm text-muted-foreground">All orders have been fulfilled</p>
+                                                    </div>
                                                 </div>
                                             </TableCell>
                                         </TableRow>

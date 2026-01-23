@@ -80,8 +80,7 @@ body.demo1.sidebar-collapse.header-fixed .header {
 
 /* ===========================
    shadcn/ui Theme Variables
-   =========================== */
-
+===========================*/
 @layer base {
   :root {
     --header-height: 64px;

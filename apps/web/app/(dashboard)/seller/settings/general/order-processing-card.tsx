@@ -66,7 +66,7 @@ export function OrderProcessingCard({ settings }: OrderProcessingCardProps) {
             </CardHeader>
             <CardContent className="space-y-6">
                 <div className="space-y-3">
-                    <Label className="text-base font-normal">After an order has been paid</Label>
+                    <span className="text-base font-normal">After an order has been paid</span>
                     <RadioGroup value={radioValue} onValueChange={(val) => handleUpdate("radio", val)}>
                         <div className="flex items-center space-x-2">
                             <RadioGroupItem value="auto-fulfill" id="auto-fulfill" />
@@ -84,7 +84,7 @@ export function OrderProcessingCard({ settings }: OrderProcessingCardProps) {
                 </div>
 
                 <div className="space-y-3 pt-4 border-t">
-                    <Label className="text-base font-normal">After an order has been fulfilled and paid, or when all items have been refunded</Label>
+                    <span className="text-base font-normal">After an order has been fulfilled and paid, or when all items have been refunded</span>
                     <div className="flex items-start space-x-2">
                         <Checkbox
                             id="archive"

@@ -12,7 +12,8 @@ import { NavigationProgress } from "@/components/navigation-progress";
 import { QueryProvider } from "@/providers/query-provider";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Toaster } from "sonner";
-import LiveChatWidget from "@/components/livechat/livechat-widget";
+import { ChatbotProvider } from "@/components/chatbot/chatbot-context";
+
 
 // Inter font for body text
 const inter = Inter({
@@ -84,10 +85,12 @@ export default function RootLayout({
           <QueryProvider>
             <SettingsProvider>
               <ThemeProvider>
-                {children}
-                <Toaster richColors position="top-center" />
-                <SpeedInsights />
-                <LiveChatWidget />
+                <ChatbotProvider>
+                  {children}
+                  <Toaster richColors position="top-center" />
+                  <SpeedInsights />
+
+                </ChatbotProvider>
               </ThemeProvider>
             </SettingsProvider>
           </QueryProvider>

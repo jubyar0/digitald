@@ -10,7 +10,7 @@ import {
     SelectTrigger,
     SelectValue,
 } from '@/components/ui/select'
-import { getLivechatStats } from '@/actions/livechat'
+import { getLivechatStats } from '@/actions/chatbot'
 import { getTicketStats } from '@/actions/tickets'
 import {
     BarChart3, MessageCircle, Users, Clock, Star,

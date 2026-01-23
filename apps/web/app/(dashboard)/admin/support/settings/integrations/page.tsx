@@ -7,7 +7,7 @@ import { Input } from '@/components/ui/input'
 import { Switch } from '@/components/ui/switch'
 import { Label } from '@/components/ui/label'
 import { Badge } from '@/components/ui/badge'
-import { getSocialIntegrations, updateSocialIntegration } from '@/actions/livechat-settings'
+import { getSocialIntegrations, updateSocialIntegration } from '@/actions/chatbot-settings'
 import { toast } from 'sonner'
 import { Globe, MessageCircle, Instagram, Save, ExternalLink } from 'lucide-react'
 

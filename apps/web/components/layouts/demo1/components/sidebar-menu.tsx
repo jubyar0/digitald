@@ -1,10 +1,10 @@
 'use client';
 
-import { JSX, useCallback, useState, useEffect } from 'react';
+import { JSX, useCallback, useMemo } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useSettings } from '@/providers/settings-provider';
-import { MENU_SIDEBAR } from '@/config/menu.config';
+import { MENU_SIDEBAR, ADMIN_MENU, SELLER_MENU, DEVELOPER_MENU } from '@/config/menu.config';
 import { MenuConfig, MenuItem } from '@/config/types';
 import { cn } from '@/lib/utils';
 import {
@@ -25,7 +25,14 @@ export function SidebarMenu() {
 
   // Memoize matchPath to prevent unnecessary re-renders
   const matchPath = useCallback(
-    (path: string): boolean => path === pathname,
+    (path: string): boolean => {
+      // Exact match for root paths to avoid everything matching "/"
+      if (path === '/' || path === '/seller' || path === '/admin' || path === '/developer') {
+        return path === pathname;
+      }
+      // Starts with match for other paths to handle sub-pages
+      return pathname.startsWith(path);
+    },
     [pathname],
   );
 
@@ -86,7 +93,6 @@ export function SidebarMenu() {
           <Link
             href={item.path || '#'}
             className="flex items-center grow gap-2"
-            prefetch={true}
           >
             {item.icon && <item.icon data-slot="accordion-menu-icon" />}
             <span data-slot="accordion-menu-title">{item.title}</span>
@@ -181,7 +187,7 @@ export function SidebarMenu() {
           value={item.path || ''}
           className="text-[13px]"
         >
-          <Link href={item.path || '#'} prefetch={true}>{item.title}</Link>
+          <Link href={item.path || '#'}>{item.title}</Link>
         </AccordionMenuItem>
       );
     }
@@ -212,33 +218,26 @@ export function SidebarMenu() {
     return <AccordionMenuLabel key={index}>{item.heading}</AccordionMenuLabel>;
   };
 
-
-
-  const [menuConfig, setMenuConfig] = useState<MenuConfig>(() => {
-    // Initialize synchronously if possible
-    if (pathname.startsWith('/admin')) return []; // Should import ADMIN_MENU if we want Sync
-    if (pathname.startsWith('/seller')) return [];
-    if (pathname.startsWith('/developer')) return [];
+  // Use useMemo for synchronous menu selection - no async loading needed
+  const menuConfig = useMemo<MenuConfig>(() => {
+    if (pathname.startsWith('/admin')) return ADMIN_MENU;
+    if (pathname.startsWith('/seller')) return SELLER_MENU;
+    if (pathname.startsWith('/developer')) return DEVELOPER_MENU;
     return MENU_SIDEBAR;
-  });
+  }, [pathname]);
 
-  useEffect(() => {
-    // Only load if not already matching the default
-    if (pathname.startsWith('/admin')) {
-      import('@/config/menu.config').then(m => setMenuConfig(m.ADMIN_MENU));
-    } else if (pathname.startsWith('/seller')) {
-      import('@/config/menu.config').then(m => setMenuConfig(m.SELLER_MENU));
-    } else if (pathname.startsWith('/developer')) {
-      import('@/config/menu.config').then(m => setMenuConfig(m.DEVELOPER_MENU));
-    } else {
-      setMenuConfig(MENU_SIDEBAR);
-    }
+  // Stable key based on menu type, not pathname - prevents remounting on navigation
+  const menuType = useMemo(() => {
+    if (pathname.startsWith('/admin')) return 'admin';
+    if (pathname.startsWith('/seller')) return 'seller';
+    if (pathname.startsWith('/developer')) return 'developer';
+    return 'default';
   }, [pathname]);
 
   return (
     <div className="kt-scrollable-y-hover flex grow shrink-0 py-5 px-5 lg:max-h-[calc(100vh-5.5rem)]">
       <AccordionMenu
-        key={pathname}
+        key={menuType}
         selectedValue={pathname}
         matchPath={matchPath}
         type="single"

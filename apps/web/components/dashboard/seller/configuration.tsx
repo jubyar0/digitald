@@ -7,72 +7,136 @@ import Image from 'next/image'
 
 export function Configuration() {
     return (
-        <div className="grid gap-6 md:grid-cols-3 mb-6 mt-14">
+        <div className="grid gap-6 md:grid-cols-3 mb-4 mt-8">
             {/* Payment Provider */}
-            <Card className="flex flex-col bg-card border-border shadow-sm">
-                <CardHeader className="pb-2 pt-5 px-5">
-                    <CardTitle className="text-base font-medium leading-tight">Configurer un fournisseur de services de paiement</CardTitle>
+            <Card className="flex flex-col bg-[#f7f7f7] dark:bg-[hsl(213.33deg_11.11%_15.88%)] border-border shadow-sm overflow-hidden rounded-[20px]">
+                <CardHeader className="pb-2 pt-4 px-4">
+                    <CardTitle className="text-sm font-medium leading-tight">Set up a payment provider</CardTitle>
                 </CardHeader>
-                <CardContent className="flex-1 flex flex-col px-5 pb-5">
-                    <div className="flex space-x-3 mb-5 mt-2">
-                        {/* Payment Icons */}
-                        <div className="h-6 w-10 bg-blue-100 dark:bg-blue-900/30 rounded flex items-center justify-center">
-                            <span className="text-blue-600 dark:text-blue-400 font-bold italic text-xs">Pay</span>
-                        </div>
-                        <div className="h-6 w-10 bg-background border rounded flex items-center justify-center">
-                            <span className="text-blue-800 dark:text-blue-300 font-bold text-[10px]">VISA</span>
-                        </div>
-                        <div className="h-6 w-10 bg-background border rounded flex items-center justify-center">
-                            <div className="flex -space-x-1">
-                                <div className="w-3 h-3 rounded-full bg-red-500 opacity-80"></div>
-                                <div className="w-3 h-3 rounded-full bg-yellow-500 opacity-80"></div>
-                            </div>
-                        </div>
+                <CardContent className="flex-1 flex flex-col px-4 pb-4">
+                    <div className="flex items-center justify-center my-4">
+                        <Image
+                            src="/media/illustrations/18.svg"
+                            alt="Payment illustration"
+                            width={120}
+                            height={100}
+                            className="h-16 w-auto object-contain dark:hidden"
+                        />
+                        <Image
+                            src="/media/illustrations/18-dark.svg"
+                            alt="Payment illustration"
+                            width={120}
+                            height={100}
+                            className="h-16 w-auto object-contain hidden dark:block"
+                        />
                     </div>
-                    <div className="mt-auto">
+                    <div className="mt-auto flex items-center justify-between">
+                        <div className="flex items-center flex-nowrap gap-3">
+                            {/* Payment Logos */}
+                            <Image
+                                src="/media/brand-logos/paypal.svg"
+                                alt="PayPal"
+                                width={0}
+                                height={0}
+                                unoptimized
+                                className="h-5 w-auto object-contain brightness-0 dark:brightness-0 dark:invert"
+                                style={{ width: 'auto' }}
+                            />
+                            <Image
+                                src="/media/brand-logos/visa.svg"
+                                alt="Visa"
+                                width={0}
+                                height={0}
+                                unoptimized
+                                className="h-5 w-auto object-contain brightness-0 dark:brightness-0 dark:invert"
+                                style={{ width: 'auto' }}
+                            />
+                            <Image
+                                src="/media/brand-logos/american-express.svg"
+                                alt="American Express"
+                                width={0}
+                                height={0}
+                                unoptimized
+                                className="h-5 w-auto object-contain brightness-0 dark:brightness-0 dark:invert"
+                                style={{ width: 'auto' }}
+                            />
+                        </div>
                         <Button variant="outline" size="sm" className="h-8" asChild>
-                            <Link href="/seller/settings/payments">Activer</Link>
+                            <Link href="/seller/settings/payments">Activate</Link>
                         </Button>
                     </div>
                 </CardContent>
             </Card>
 
             {/* Shipping Rates */}
-            <Card className="flex flex-col bg-muted/20 border-border shadow-sm">
-                <CardHeader className="pb-2 pt-5 px-5">
+            <Card className="flex flex-col bg-[#f7f7f7] dark:bg-[hsl(213.33deg_11.11%_15.88%)] border-border shadow-sm overflow-hidden rounded-[20px]">
+                <CardHeader className="pb-2 pt-4 px-4">
                     <div className="flex items-center space-x-2">
                         <CheckCircle2 className="h-5 w-5 fill-green-600 text-white dark:text-black" />
-                        <CardTitle className="text-base font-medium">Tarifs d'expédition vérifiés</CardTitle>
+                        <CardTitle className="text-sm font-medium">Verified shipping rates</CardTitle>
                     </div>
                 </CardHeader>
-                <CardContent className="flex-1 flex flex-col px-5 pb-5">
-                    <div className="flex items-center space-x-3 mb-5 mt-2">
-                        <div className="h-6 w-8 bg-green-800 rounded flex items-center justify-center text-white text-[8px] font-bold">DZ</div>
-                        <span className="text-sm font-medium bg-background px-3 py-1 rounded-full border shadow-sm text-foreground">National</span>
+                <CardContent className="flex-1 flex flex-col px-4 pb-4">
+                    <div className="flex items-center justify-center my-4">
+                        <Image
+                            src="/media/illustrations/21.svg"
+                            alt="Shipping illustration"
+                            width={120}
+                            height={100}
+                            className="h-16 w-auto object-contain dark:hidden"
+                        />
+                        <Image
+                            src="/media/illustrations/21-dark.svg"
+                            alt="Shipping illustration"
+                            width={120}
+                            height={100}
+                            className="h-16 w-auto object-contain hidden dark:block"
+                        />
                     </div>
-                    <div className="mt-auto">
-                        <Button variant="outline" size="sm" className="bg-background h-8" asChild>
-                            <Link href="/seller/settings/shipping">Modifier</Link>
+                    <div className="mt-auto flex items-center space-x-3">
+                        <Image
+                            src="/media/flags/algeria.svg"
+                            alt="Algeria Flag"
+                            width={32}
+                            height={24}
+                            className="h-6 w-8 rounded object-cover"
+                        />
+                        <span className="text-sm font-medium bg-background px-3 py-1 rounded-full border shadow-sm text-foreground">National</span>
+                        <Button variant="outline" size="sm" className="bg-background h-8 ml-auto" asChild>
+                            <Link href="/seller/settings/shipping">Edit</Link>
                         </Button>
                     </div>
                 </CardContent>
             </Card>
 
-            {/* Domain Customization */}
-            <Card className="flex flex-col bg-card border-border shadow-sm">
-                <CardHeader className="pb-2 pt-5 px-5">
-                    <CardTitle className="text-base font-medium">Personnalisez votre domaine</CardTitle>
+            {/* Your plan can pay for itself */}
+            <Card className="flex flex-col bg-[#f7f7f7] dark:bg-[hsl(213.33deg_11.11%_15.88%)] border-border shadow-sm overflow-hidden rounded-[20px]">
+                <CardHeader className="pb-2 pt-4 px-4">
+                    <CardTitle className="text-sm font-medium">Your plan can pay for itself</CardTitle>
                 </CardHeader>
-                <CardContent className="flex-1 flex flex-col px-5 pb-5">
-                    <div className="mb-5 mt-2">
-                        <div className="flex items-center justify-between bg-muted/30 rounded-full px-3 py-1.5 border">
-                            <span className="text-sm text-muted-foreground truncate max-w-[120px] underline decoration-muted-foreground/50 underline-offset-2">qwjdd1-19.myshopify.com</span>
-                            <ShoppingBag className="h-3 w-3 text-muted-foreground" />
-                        </div>
+                <CardContent className="flex-1 flex flex-col px-4 pb-4">
+                    <div className="flex items-center justify-center my-4">
+                        <Image
+                            src="/media/illustrations/19.svg"
+                            alt="Plan illustration"
+                            width={120}
+                            height={100}
+                            className="h-16 w-auto object-contain dark:hidden"
+                        />
+                        <Image
+                            src="/media/illustrations/19-dark.svg"
+                            alt="Plan illustration"
+                            width={120}
+                            height={100}
+                            className="h-16 w-auto object-contain hidden dark:block"
+                        />
                     </div>
+                    <p className="text-sm text-muted-foreground mb-4">
+                        Discover how to maximize your store's potential
+                    </p>
                     <div className="mt-auto">
                         <Button variant="outline" size="sm" className="h-8" asChild>
-                            <Link href="/seller/settings/domains">Personnaliser</Link>
+                            <Link href="/seller/settings/billing">Learn more</Link>
                         </Button>
                     </div>
                 </CardContent>

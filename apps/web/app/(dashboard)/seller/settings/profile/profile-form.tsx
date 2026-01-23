@@ -7,6 +7,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { Badge } from "@/components/ui/badge"
 import { ImageUpload } from "@/components/ui/image-upload"
 import { useState } from "react"
+import { useSession } from "next-auth/react"
 import { updateSellerProfile } from "@/actions/seller"
 import { toast } from "sonner"
 import { useRouter } from "next/navigation"
@@ -49,6 +50,7 @@ export function ProfileForm({ profile }: ProfileFormProps) {
     const [avatar, setAvatar] = useState(profile.avatar)
     const [coverImage, setCoverImage] = useState(profile.coverImage)
     const router = useRouter()
+    const { update: updateSession } = useSession()
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
@@ -80,6 +82,8 @@ export function ProfileForm({ profile }: ProfileFormProps) {
 
             if (result.success) {
                 toast.success("Profile updated successfully")
+                // Update the session to reflect the new avatar/name
+                await updateSession()
                 router.refresh()
             } else {
                 toast.error(result.error || "Failed to update profile")
@@ -124,28 +128,40 @@ export function ProfileForm({ profile }: ProfileFormProps) {
         setSocialLinks(newLinks)
     }
 
+
     return (
         <form onSubmit={handleSubmit} className="space-y-8">
-            {/* Profile Images */}
+            {/* Store Images */}
             <div className="space-y-6">
-                <h4 className="font-semibold text-lg">Profile Images</h4>
+                <div>
+                    <h4 className="font-semibold text-lg">Store Images</h4>
+                    <p className="text-sm text-muted-foreground mt-1">
+                        These images will be displayed on your public store page for customers
+                    </p>
+                </div>
 
                 <div className="grid gap-6 md:grid-cols-2">
-                    <ImageUpload
-                        value={avatar}
-                        onChange={setAvatar}
-                        label="Profile Picture"
-                        aspectRatio="square"
-                        maxSize={5}
-                    />
+                    <div className="space-y-2">
+                        <ImageUpload
+                            value={avatar}
+                            onChange={setAvatar}
+                            label="Profile Picture"
+                            aspectRatio="square"
+                            maxSize={5}
+                            description="Your profile picture displayed on the public storefront"
+                        />
+                    </div>
 
-                    <ImageUpload
-                        value={coverImage}
-                        onChange={setCoverImage}
-                        label="Cover Image"
-                        aspectRatio="wide"
-                        maxSize={10}
-                    />
+                    <div className="space-y-2">
+                        <ImageUpload
+                            value={coverImage}
+                            onChange={setCoverImage}
+                            label="Store Cover Image"
+                            aspectRatio="wide"
+                            maxSize={10}
+                            description="Banner image at the top of your store page"
+                        />
+                    </div>
                 </div>
             </div>
 

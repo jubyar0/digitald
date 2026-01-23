@@ -104,7 +104,7 @@ export default function PendingProductsPage() {
                                                 <TableCell>{new Date(product.createdAt).toLocaleDateString()}</TableCell>
                                                 <TableCell className="text-right">
                                                     <div className="flex justify-end gap-2">
-                                                        <Button variant="primary" size="sm" onClick={() => handleApprove(product.id)}>
+                                                        <Button variant="default" size="sm" onClick={() => handleApprove(product.id)}>
                                                             Approve
                                                         </Button>
                                                         <Button variant="destructive" size="sm" onClick={() => handleReject(product.id)}>

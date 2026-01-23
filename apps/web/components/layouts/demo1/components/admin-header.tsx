@@ -61,7 +61,7 @@ export function AdminHeader() {
             <Container className="flex justify-between items-stretch lg:gap-4">
                 {/* Left Section - Logo & Mobile Menu */}
                 <div className="flex gap-1 lg:hidden items-center gap-2.5">
-                    <Link href="/admin" className="shrink-0 flex items-center gap-2" prefetch={true}>
+                    <Link href="/admin" className="shrink-0 flex items-center gap-2">
                         <LayoutDashboard className="h-6 w-6 text-primary" />
                         <span className="font-bold text-lg hidden sm:inline-block">
                             Admin Dashboard
@@ -96,9 +96,9 @@ export function AdminHeader() {
                 {/* Center Section - Quick Actions (Desktop) */}
                 {!mobileMode && (
                     <div className="flex items-center gap-2">
-                        <Link href="/admin/users" prefetch={true}>
+                        <Link href="/admin/users">
                             <Button
-                                variant="primary"
+                                variant="default"
                                 size="sm"
                                 className="gap-2 bg-primary hover:bg-primary/90"
                             >
@@ -106,13 +106,13 @@ export function AdminHeader() {
                                 <span>Users</span>
                             </Button>
                         </Link>
-                        <Link href="/admin/products" prefetch={true}>
+                        <Link href="/admin/products">
                             <Button variant="outline" size="sm" className="gap-2">
                                 <Package className="size-4" />
                                 <span>Products</span>
                             </Button>
                         </Link>
-                        <Link href="/admin/orders" prefetch={true}>
+                        <Link href="/admin/orders">
                             <Button variant="outline" size="sm" className="gap-2">
                                 <ShoppingCart className="size-4" />
                                 <span>Orders</span>
@@ -124,19 +124,19 @@ export function AdminHeader() {
                                 </BadgeComponent>
                             </Button>
                         </Link>
-                        <Link href="/admin/reports" prefetch={true}>
+                        <Link href="/admin/reports">
                             <Button variant="outline" size="sm" className="gap-2">
                                 <BarChart className="size-4" />
                                 <span>Reports</span>
                             </Button>
                         </Link>
-                        <Link href="/admin/support" prefetch={true}>
+                        <Link href="/admin/support">
                             <Button variant="outline" size="sm" className="gap-2">
                                 <Headphones className="size-4" />
                                 <span>Support</span>
                             </Button>
                         </Link>
-                        <Link href="/admin/page-builder" prefetch={true}>
+                        <Link href="/admin/page-builder">
                             <Button variant="outline" size="sm" className="gap-2 border-primary/50 text-primary hover:bg-primary/10">
                                 <LayoutTemplate className="size-4" />
                                 <span>Page Builder</span>
@@ -164,7 +164,7 @@ export function AdminHeader() {
 
                     {/* Quick Actions Mobile */}
                     {mobileMode && (
-                        <Link href="/admin/users" prefetch={true}>
+                        <Link href="/admin/users">
                             <Button
                                 variant="ghost"
                                 mode="icon"
@@ -189,7 +189,7 @@ export function AdminHeader() {
                         }
                     />
 
-                    <Link href="/" prefetch={true}>
+                    <Link href="/">
                         <Button
                             variant="ghost"
                             mode="icon"

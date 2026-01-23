@@ -38,10 +38,10 @@ export default async function OrdersPage({ searchParams }: PageProps) {
                                 <Input placeholder="Search orders..." className="pl-10" />
                             </div>
                             <div className="flex gap-2">
-                                <Link href="/seller/orders"><Button variant={status === 'ALL' ? 'primary' : 'outline'}>All</Button></Link>
-                                <Link href="/seller/orders?status=PENDING"><Button variant={status === 'PENDING' ? 'primary' : 'outline'}>Pending</Button></Link>
-                                <Link href="/seller/orders?status=COMPLETED"><Button variant={status === 'COMPLETED' ? 'primary' : 'outline'}>Completed</Button></Link>
-                                <Link href="/seller/orders?status=CANCELLED"><Button variant={status === 'CANCELLED' ? 'primary' : 'outline'}>Cancelled</Button></Link>
+                                <Link href="/seller/orders"><Button variant={status === 'ALL' ? 'default' : 'outline'}>All</Button></Link>
+                                <Link href="/seller/orders?status=PENDING"><Button variant={status === 'PENDING' ? 'default' : 'outline'}>Pending</Button></Link>
+                                <Link href="/seller/orders?status=COMPLETED"><Button variant={status === 'COMPLETED' ? 'default' : 'outline'}>Completed</Button></Link>
+                                <Link href="/seller/orders?status=CANCELLED"><Button variant={status === 'CANCELLED' ? 'default' : 'outline'}>Cancelled</Button></Link>
                             </div>
                         </div>
                     </div>

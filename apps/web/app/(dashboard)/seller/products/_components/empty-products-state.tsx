@@ -51,8 +51,12 @@ export function EmptyProductsState({ type }: EmptyProductsStateProps) {
 
     return (
         <div className="flex flex-col items-center justify-center py-16 px-4 bg-card rounded-lg border">
-            <div className="w-12 h-12 rounded-full bg-muted flex items-center justify-center mb-4">
-                <Icon className="h-5 w-5 text-muted-foreground" />
+            <div className="w-32 h-32 mb-4">
+                <img
+                    src="/media/illustrations/21.svg"
+                    alt={title}
+                    className="w-full h-full object-contain dark:opacity-80"
+                />
             </div>
             <h3 className="text-base font-semibold mb-1">{title}</h3>
             <p className="text-sm text-muted-foreground text-center mb-4 max-w-sm">

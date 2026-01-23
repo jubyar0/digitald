@@ -22,7 +22,7 @@ export async function getSellerDashboardStats() {
         // Get vendor ID for the user
         const vendor = await prisma.vendor.findUnique({
             where: { userId },
-            select: { id: true }
+            select: { id: true, name: true }
         })
 
         if (!vendor) {
@@ -49,7 +49,8 @@ export async function getSellerDashboardStats() {
             unpublishedProductsCount,
             customersCount,
             earnings,
-            recentOrders
+            recentOrders,
+            latestProduct
         ] = await Promise.all([
             // Total Sales (Revenue) - optimized with single field
             prisma.order.aggregate({
@@ -113,6 +114,17 @@ export async function getSellerDashboardStats() {
                         }
                     }
                 }
+            }),
+            // Latest Product
+            prisma.product.findFirst({
+                where: { vendorId },
+                orderBy: { createdAt: 'desc' },
+                select: {
+                    id: true,
+                    name: true,
+                    thumbnail: true,
+                    price: true
+                }
             })
         ])
 
@@ -121,6 +133,7 @@ export async function getSellerDashboardStats() {
 
         return {
             storeId: vendorId,
+            storeName: vendor.name,
             sales: {
                 total: totalRevenue,
                 growth: 12 // TODO: Calculate actual growth
@@ -151,20 +164,23 @@ export async function getSellerDashboardStats() {
                 amount: order.totalAmount,
                 status: order.status,
                 date: order.createdAt
-            }))
+            })),
+            latestProduct: latestProduct
         }
     } catch (error) {
         console.error('Error fetching seller dashboard stats:', error)
         // Return safe fallback data instead of throwing to prevent app crashes
         return {
             storeId: '',
+            storeName: '',
             sales: { total: 0, growth: 0 },
             orders: { total: 0, pending: 0 },
             products: { total: 0, unpublished: 0 },
             customers: { total: 0, new: 0 },
             revenue: { total: 0, growth: 0 },
             conversionRate: { value: 0, growth: 0 },
-            recentOrders: []
+            recentOrders: [],
+            latestProduct: null
         }
     }
 }
@@ -183,6 +199,51 @@ export async function getSellerStoreId() {
         return vendor?.id || null
     } catch (error) {
         return null
+    }
+}
+
+export async function getStoreName() {
+    try {
+        const session = await getServerSession(authOptions)
+        if (!session?.user?.id) return null
+
+        const vendor = await prisma.vendor.findUnique({
+            where: { userId: session.user.id },
+            select: { name: true }
+        })
+
+        return vendor?.name || null
+    } catch (error) {
+        return null
+    }
+}
+
+export async function updateStoreName(name: string) {
+    try {
+        const session = await getServerSession(authOptions)
+        if (!session?.user?.id) {
+            throw new Error('Unauthorized')
+        }
+
+        const vendor = await prisma.vendor.findUnique({
+            where: { userId: session.user.id },
+            select: { id: true }
+        })
+
+        if (!vendor) {
+            throw new Error('Vendor not found')
+        }
+
+        await prisma.vendor.update({
+            where: { id: vendor.id },
+            data: { name: name }
+        })
+
+        revalidatePath('/seller')
+        return { success: true }
+    } catch (error) {
+        console.error('Error updating store name:', error)
+        return { success: false, error: 'Failed to update store name' }
     }
 }
 
@@ -1303,10 +1364,6 @@ export async function getSellerCustomers(page: number = 1, pageSize: number = 10
             return { data: [], total: 0, stats: { total: 0, new: 0, returning: 0 } }
         }
 
-        // Get unique customers who have ordered from this vendor
-        // Since we can't easily do distinct on user with pagination in one query with Prisma + relations
-        // We'll fetch orders grouped by user
-
         // 1. Get total count of unique customers
         const uniqueCustomersCount = await prisma.order.groupBy({
             by: ['userId'],
@@ -1315,50 +1372,63 @@ export async function getSellerCustomers(page: number = 1, pageSize: number = 10
         })
         const total = uniqueCustomersCount.length
 
-        // 2. Get paginated customers
-        // This is tricky with Prisma. We'll fetch distinct userIds from orders first
-        // Note: This might be inefficient for large datasets, but works for now
+        // 2. Get paginated distinct userIds
         const distinctUserIds = await prisma.order.findMany({
             where: { vendorId: vendor.id },
             select: { userId: true },
             distinct: ['userId'],
-            orderBy: { createdAt: 'desc' }, // Most recent customers first
+            orderBy: { createdAt: 'desc' },
             skip: (page - 1) * pageSize,
             take: pageSize
         })
 
         const userIds = distinctUserIds.map((o: { userId: string }) => o.userId)
 
-        // 3. Fetch user details and their stats for this vendor
-        const customersData = await Promise.all(userIds.map(async (userId: string) => {
-            const user = await prisma.user.findUnique({
-                where: { id: userId },
-                select: { name: true, email: true, createdAt: true }
-            })
+        if (userIds.length === 0) {
+            return {
+                data: [],
+                total,
+                stats: { total, new: 0, returning: total }
+            }
+        }
 
-            const orderStats = await prisma.order.aggregate({
-                where: { vendorId: vendor.id, userId },
+        // 3. Batch fetch users and stats in parallel
+        const [users, orderStats] = await Promise.all([
+            // Fetch all user details in one query
+            prisma.user.findMany({
+                where: { id: { in: userIds } },
+                select: { id: true, name: true, email: true, createdAt: true }
+            }),
+            // Fetch all order stats in one query
+            prisma.order.groupBy({
+                by: ['userId'],
+                where: {
+                    vendorId: vendor.id,
+                    userId: { in: userIds }
+                },
                 _count: { id: true },
                 _sum: { totalAmount: true }
             })
+        ])
+
+        // Create lookups for faster mapping
+        const userMap = new Map(users.map(u => [u.id, u]))
+        const statsMap = new Map(orderStats.map(s => [s.userId, s]))
+
+        // 4. Map data
+        const customersData = userIds.map(userId => {
+            const user = userMap.get(userId)
+            const stats = statsMap.get(userId)
 
             return {
                 id: userId,
                 name: user?.name || 'Unknown',
                 email: user?.email,
-                orders: orderStats._count.id,
-                totalSpent: orderStats._sum.totalAmount || 0,
-                joined: user?.createdAt // Platform join date
+                orders: stats?._count.id || 0,
+                totalSpent: stats?._sum.totalAmount || 0,
+                joined: user?.createdAt
             }
-        }))
-
-        // Calculate stats
-        const now = new Date()
-        const firstDayOfMonth = new Date(now.getFullYear(), now.getMonth(), 1)
-
-        // New customers this month (first order this month)
-        // This is an approximation. Ideally we check the date of their FIRST order with this vendor.
-        // For now, let's just return placeholders or simple counts
+        })
 
         return {
             data: customersData,
@@ -2412,5 +2482,345 @@ export async function updateOrderIdFormat(data: any) {
     } catch (error) {
         console.error('Error updating order ID format:', error)
         return { success: false, error: 'Failed to update order ID format' }
+    }
+}
+
+// ============================================================================
+// Coupon Management
+// ============================================================================
+
+export async function getSellerCoupons() {
+    try {
+        const session = await getServerSession(authOptions)
+        if (!session?.user?.id) {
+            return { coupons: [], total: 0 }
+        }
+
+        const vendor = await prisma.vendor.findUnique({
+            where: { userId: session.user.id },
+            select: { id: true }
+        })
+
+        if (!vendor) {
+            return { coupons: [], total: 0 }
+        }
+
+        const coupons = await prisma.coupon.findMany({
+            where: { vendorId: vendor.id },
+            orderBy: { createdAt: 'desc' }
+        })
+
+        return {
+            coupons: coupons.map(c => ({
+                id: c.id,
+                code: c.code,
+                type: c.type,
+                value: c.value,
+                usageCount: c.usageCount,
+                usageLimit: c.usageLimit,
+                isActive: c.isActive,
+                startDate: c.startDate.toISOString(),
+                endDate: c.endDate.toISOString()
+            })),
+            total: coupons.length
+        }
+    } catch (error) {
+        console.error('Error fetching seller coupons:', error)
+        return { coupons: [], total: 0 }
+    }
+}
+
+export async function createCoupon(data: {
+    code: string
+    type: string
+    value: number
+    minPurchase?: number
+    maxDiscount?: number
+    startDate: Date
+    endDate: Date
+    usageLimit?: number
+    description?: string
+}) {
+    try {
+        const session = await getServerSession(authOptions)
+        if (!session?.user?.id) {
+            return { success: false, error: 'Unauthorized' }
+        }
+
+        const vendor = await prisma.vendor.findUnique({
+            where: { userId: session.user.id },
+            select: { id: true }
+        })
+
+        if (!vendor) {
+            return { success: false, error: 'Vendor not found' }
+        }
+
+        await prisma.coupon.create({
+            data: {
+                vendorId: vendor.id,
+                code: data.code.toUpperCase(),
+                type: data.type as any,
+                value: data.value,
+                minPurchase: data.minPurchase,
+                maxDiscount: data.maxDiscount,
+                startDate: new Date(data.startDate),
+                endDate: new Date(data.endDate),
+                usageLimit: data.usageLimit,
+                description: data.description,
+                isActive: true
+            }
+        })
+
+        revalidatePath('/seller/marketing/coupons')
+        return { success: true }
+    } catch (error) {
+        console.error('Error creating coupon:', error)
+        return { success: false, error: 'Failed to create coupon' }
+    }
+}
+
+// ============================================================================
+// Affiliate Management
+// ============================================================================
+
+export async function getSellerAffiliates() {
+    try {
+        const session = await getServerSession(authOptions)
+        if (!session?.user?.id) {
+            return { affiliates: [], total: 0 }
+        }
+
+        const vendor = await prisma.vendor.findUnique({
+            where: { userId: session.user.id },
+            select: { id: true }
+        })
+
+        if (!vendor) {
+            return { affiliates: [], total: 0 }
+        }
+
+        const affiliates = await prisma.affiliate.findMany({
+            where: { vendorId: vendor.id },
+            include: {
+                user: {
+                    select: { name: true, email: true }
+                },
+                _count: {
+                    select: { referrals: true }
+                }
+            },
+            orderBy: { createdAt: 'desc' }
+        })
+
+        return {
+            affiliates: affiliates.map(a => ({
+                id: a.id,
+                name: a.user.name || a.user.email || 'Unknown',
+                code: a.code,
+                commissionRate: a.commissionRate,
+                totalEarnings: a.totalEarnings,
+                referrals: a._count.referrals,
+                status: a.status,
+                createdAt: a.createdAt.toISOString()
+            })),
+            total: affiliates.length
+        }
+    } catch (error) {
+        console.error('Error fetching seller affiliates:', error)
+        return { affiliates: [], total: 0 }
+    }
+}
+
+// ============================================================================
+// Promotion Management
+// ============================================================================
+
+export async function getSellerPromotions() {
+    try {
+        const session = await getServerSession(authOptions)
+        if (!session?.user?.id) {
+            return { promotions: [], total: 0 }
+        }
+
+        const vendor = await prisma.vendor.findUnique({
+            where: { userId: session.user.id },
+            select: { id: true }
+        })
+
+        if (!vendor) {
+            return { promotions: [], total: 0 }
+        }
+
+        const promotions = await prisma.promotion.findMany({
+            where: { vendorId: vendor.id },
+            orderBy: { createdAt: 'desc' }
+        })
+
+        return {
+            promotions: promotions.map(p => ({
+                id: p.id,
+                name: p.name,
+                type: p.type,
+                startDate: p.startDate.toISOString(),
+                endDate: p.endDate.toISOString(),
+                isActive: p.isActive,
+                priority: p.priority
+            })),
+            total: promotions.length
+        }
+    } catch (error) {
+        console.error('Error fetching seller promotions:', error)
+        return { promotions: [], total: 0 }
+    }
+}
+
+// ============================================================================
+// Shipping Settings
+// ============================================================================
+
+export async function getShippingSettings() {
+    try {
+        const session = await getServerSession(authOptions)
+        if (!session?.user?.id) {
+            return null
+        }
+
+        const vendor = await prisma.vendor.findUnique({
+            where: { userId: session.user.id },
+            select: { id: true }
+        })
+
+        if (!vendor) {
+            return null
+        }
+
+        const settings = await prisma.shippingSetting.findUnique({
+            where: { vendorId: vendor.id }
+        })
+
+        return settings ? {
+            freeShippingThreshold: settings.freeShippingThreshold,
+            flatRate: settings.flatRate,
+            zones: settings.zones
+        } : null
+    } catch (error) {
+        console.error('Error fetching shipping settings:', error)
+        return null
+    }
+}
+
+export async function updateShippingSettings(data: {
+    freeShippingThreshold?: number
+    flatRate?: number
+}) {
+    try {
+        const session = await getServerSession(authOptions)
+        if (!session?.user?.id) {
+            return { success: false, error: 'Unauthorized' }
+        }
+
+        const vendor = await prisma.vendor.findUnique({
+            where: { userId: session.user.id },
+            select: { id: true }
+        })
+
+        if (!vendor) {
+            return { success: false, error: 'Vendor not found' }
+        }
+
+        await prisma.shippingSetting.upsert({
+            where: { vendorId: vendor.id },
+            update: {
+                freeShippingThreshold: data.freeShippingThreshold,
+                flatRate: data.flatRate
+            },
+            create: {
+                vendorId: vendor.id,
+                freeShippingThreshold: data.freeShippingThreshold,
+                flatRate: data.flatRate
+            }
+        })
+
+        revalidatePath('/seller/settings/shipping')
+        return { success: true }
+    } catch (error) {
+        console.error('Error updating shipping settings:', error)
+        return { success: false, error: 'Failed to update shipping settings' }
+    }
+}
+
+// ============================================================================
+// Tax Settings
+// ============================================================================
+
+export async function getTaxSettings() {
+    try {
+        const session = await getServerSession(authOptions)
+        if (!session?.user?.id) {
+            return null
+        }
+
+        const vendor = await prisma.vendor.findUnique({
+            where: { userId: session.user.id },
+            select: { id: true }
+        })
+
+        if (!vendor) {
+            return null
+        }
+
+        const settings = await prisma.taxSetting.findUnique({
+            where: { vendorId: vendor.id }
+        })
+
+        return settings ? {
+            taxRate: settings.taxRate,
+            taxNumber: settings.taxNumber,
+            regions: settings.regions
+        } : null
+    } catch (error) {
+        console.error('Error fetching tax settings:', error)
+        return null
+    }
+}
+
+export async function updateTaxSettings(data: {
+    taxRate?: number
+    taxNumber?: string
+}) {
+    try {
+        const session = await getServerSession(authOptions)
+        if (!session?.user?.id) {
+            return { success: false, error: 'Unauthorized' }
+        }
+
+        const vendor = await prisma.vendor.findUnique({
+            where: { userId: session.user.id },
+            select: { id: true }
+        })
+
+        if (!vendor) {
+            return { success: false, error: 'Vendor not found' }
+        }
+
+        await prisma.taxSetting.upsert({
+            where: { vendorId: vendor.id },
+            update: {
+                taxRate: data.taxRate,
+                taxNumber: data.taxNumber
+            },
+            create: {
+                vendorId: vendor.id,
+                taxRate: data.taxRate || 0,
+                taxNumber: data.taxNumber
+            }
+        })
+
+        revalidatePath('/seller/settings/tax')
+        return { success: true }
+    } catch (error) {
+        console.error('Error updating tax settings:', error)
+        return { success: false, error: 'Failed to update tax settings' }
     }
 }

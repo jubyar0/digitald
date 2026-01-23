@@ -124,6 +124,11 @@ model Vendor {
   appReviews          AppReview[]
   marketingCampaigns  MarketingCampaign[]
   marketingAutomations MarketingAutomation[]
+  shippingProfiles    ShippingProfile[]
+  localDeliverySettings LocalDeliverySetting?
+  pickupSettings      PickupSetting?
+  savedPackages       SavedPackage[]
+  segments            Segment[]
 
   @@index([userId])
   @@index([createdAt])
@@ -251,6 +256,8 @@ model Product {
   reviews               Review[]
   wishlistedBy          Wishlist[]
   tags                  Tag[]               @relation("ProductTags")
+  shippingProfileId     String?
+  shippingProfile       ShippingProfile?    @relation(fields: [shippingProfileId], references: [id])
 
   // Dynamic Collections Relation
   featuredCollections  FeaturedCollection[] @relation("ProductFeaturedCollections")
@@ -2015,6 +2022,9 @@ model LiveChatSession {
   rating        Int?
   feedback      String?
   metadata      Json?
+  isAIHandled   Boolean           @default(false)
+  sentimentScore Float?
+  escalationReason String?
   updatedAt     DateTime          @default(now()) @updatedAt
   
   messages      LiveChatMessage[]
@@ -2037,6 +2047,8 @@ model LiveChatMessage {
   attachments Json?
   createdAt   DateTime        @default(now())
   isRead      Boolean         @default(false)
+  isAI        Boolean         @default(false)
+  tokensUsed  Int?
   
   session     LiveChatSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
   
@@ -2143,6 +2155,47 @@ model LiveChatSettings {
   updatedAt             DateTime  @updatedAt
   
   @@map("livechat_settings")
+}
+
+model KnowledgeBaseArticle {
+  id        String   @id @default(cuid())
+  title     String
+  content   String   @db.Text
+  category  String?
+  tags      String[]
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("knowledge_base_articles")
+}
+
+model AIModelConfig {
+  id            String   @id @default(cuid())
+  modelName     String   // e.g., "gpt-4", "claude-3"
+  provider      String   // "openai", "anthropic"
+  apiKey        String?  // Encrypted or reference to env var
+  temperature   Float    @default(0.7)
+  maxTokens     Int      @default(1000)
+  systemPrompt  String   @db.Text
+  isActive      Boolean  @default(false)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@map("ai_model_configs")
+}
+
+model ChatbotAnalytics {
+  id             String   @id @default(cuid())
+  date           DateTime @default(now()) @db.Date
+  totalSessions  Int      @default(0)
+  aiHandled      Int      @default(0)
+  escalated      Int      @default(0)
+  avgResponseTime Float   @default(0)
+  sentimentScore Float    @default(0)
+
+  @@unique([date])
+  @@map("chatbot_analytics")
 }
 
 model EmailCampaign {
@@ -2509,4 +2562,158 @@ enum AutomationType {
 enum AutomationStatus {
   ACTIVE
   INACTIVE
+}
+
+model Segment {
+  id          String   @id @default(cuid())
+  vendorId    String
+  name        String
+  query       String   @db.Text
+  description String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  vendor      Vendor   @relation(fields: [vendorId], references: [id], onDelete: Cascade)
+
+  @@index([vendorId])
+  @@map("segments")
+}
+
+// ============================================
+// SHIPPING SYSTEM
+// ============================================
+
+model ShippingProfile {
+  id          String   @id @default(cuid())
+  vendorId    String
+  name        String   // "General Profile" or custom
+  isGeneral   Boolean  @default(false)
+  
+  originAddress Json?  // { country, state, city, zip, address1, address2, phone }
+  
+  zones       ShippingZone[]
+  products    Product[] // Relation to products assigned to this profile (needs update in Product model if not using default)
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  vendor      Vendor   @relation(fields: [vendorId], references: [id], onDelete: Cascade)
+
+  @@index([vendorId])
+  @@map("shipping_profiles")
+}
+
+model ShippingZone {
+  id          String   @id @default(cuid())
+  profileId   String
+  name        String
+  countries   String[] // Array of country codes ["US", "CA"]
+  regions     Json?    // Specific regions/states if needed
+  
+  rates       ShippingRate[]
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  profile     ShippingProfile @relation(fields: [profileId], references: [id], onDelete: Cascade)
+
+  @@index([profileId])
+  @@map("shipping_zones")
+}
+
+model ShippingRate {
+  id              String   @id @default(cuid())
+  zoneId          String
+  name            String   // "Standard", "Express"
+  type            String   // "price", "weight", "calculated"
+  
+  price           Float    @default(0)
+  currency        String   @default("USD")
+  
+  minCondition    Float?   // Min weight or price
+  maxCondition    Float?   // Max weight or price
+  
+  // For calculated rates (Carrier)
+  carrierService  String?
+  
+  // Delivery time
+  minDeliveryDays Int?
+  maxDeliveryDays Int?
+  
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  
+  zone            ShippingZone @relation(fields: [zoneId], references: [id], onDelete: Cascade)
+
+  @@index([zoneId])
+  @@map("shipping_rates")
+}
+
+model LocalDeliverySetting {
+  id                  String   @id @default(cuid())
+  vendorId            String   @unique
+  isEnabled           Boolean  @default(false)
+  
+  deliveryZoneType    String   @default("radius") // "radius" or "postal"
+  
+  // Radius settings
+  radiusValue         Float?
+  radiusUnit          String?  @default("km") // "km" or "mi"
+  includeNeighboring  Boolean  @default(false)
+  
+  // Postal settings
+  postalCodes         String[]
+  
+  // Pricing
+  price               Float    @default(0)
+  currency            String   @default("USD")
+  minOrderPrice       Float?
+  deliveryInfo        String?  @db.Text
+  
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+  
+  vendor              Vendor   @relation(fields: [vendorId], references: [id], onDelete: Cascade)
+
+  @@map("local_delivery_settings")
+}
+
+model PickupSetting {
+  id                  String   @id @default(cuid())
+  vendorId            String   @unique
+  isEnabled           Boolean  @default(false)
+  
+  expectedPickupTime  String   @default("24hours") // "1hour", "24hours", "2days", etc.
+  pickupInstructions  String?  @db.Text
+  
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+  
+  vendor              Vendor   @relation(fields: [vendorId], references: [id], onDelete: Cascade)
+
+  @@map("pickup_settings")
+}
+
+model SavedPackage {
+  id              String   @id @default(cuid())
+  vendorId        String
+  name            String
+  type            String   // "box", "envelope", "soft"
+  
+  length          Float?
+  width           Float?
+  height          Float?
+  dimensionUnit   String   @default("cm") // "cm", "in"
+  
+  weight          Float?
+  weightUnit      String   @default("kg") // "kg", "g", "lb", "oz"
+  
+  isDefault       Boolean  @default(false)
+  
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  
+  vendor          Vendor   @relation(fields: [vendorId], references: [id], onDelete: Cascade)
+
+  @@index([vendorId])
+  @@map("saved_packages")
 }

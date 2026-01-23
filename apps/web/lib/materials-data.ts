@@ -50,13 +50,13 @@ export const materials: Material[] = [
         id: "1",
         name: "Ink Spot Glazed Ceramic Pottery Texture, Beige",
         category: "Metal",
-        imageUrl: "https://images.unsplash.com/photo-1611080626919-7cf5a9dbab5b?w=400&h=400&fit=crop",
+        imageUrl: "/media/illustrations/19.svg",
         tags: ["metal", "steel", "brushed"],
         images: [
-            "https://images.unsplash.com/photo-1611080626919-7cf5a9dbab5b?w=800&h=800&fit=crop",
-            "https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?w=800&h=800&fit=crop",
-            "https://images.unsplash.com/photo-1589939705384-5185137a7f0f?w=800&h=800&fit=crop",
-            "https://images.unsplash.com/photo-1610375461246-83df859d849d?w=800&h=800&fit=crop",
+            "/media/illustrations/19.svg",
+            "/media/illustrations/20.svg",
+            "/media/illustrations/21.svg",
+            "/media/illustrations/22.svg",
         ],
         description: "This is a texture of a beige ceramic pottery with ink spots. It has a smooth surface with some imperfections. It can be used for realistic 3D models of pottery, vases, and other ceramic objects.",
         type: "Texture",
@@ -85,68 +85,68 @@ export const materials: Material[] = [
             { label: "Method", value: "Scanning" },
         ]
     },
-    { id: "2", name: "Copper Patina", category: "Metal", imageUrl: "https://images.unsplash.com/photo-1589939705384-5185137a7f0f?w=400&h=400&fit=crop", tags: ["metal", "copper", "aged"] },
-    { id: "3", name: "Gold Leaf", category: "Metal", imageUrl: "https://images.unsplash.com/photo-1610375461246-83df859d849d?w=400&h=400&fit=crop", tags: ["metal", "gold", "luxury"] },
-    { id: "4", name: "Chrome", category: "Metal", imageUrl: "https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?w=400&h=400&fit=crop", tags: ["metal", "chrome", "reflective"] },
+    { id: "2", name: "Copper Patina", category: "Metal", imageUrl: "/media/illustrations/23.svg", tags: ["metal", "copper", "aged"] },
+    { id: "3", name: "Gold Leaf", category: "Metal", imageUrl: "/media/illustrations/24.svg", tags: ["metal", "gold", "luxury"] },
+    { id: "4", name: "Chrome", category: "Metal", imageUrl: "/media/illustrations/25.svg", tags: ["metal", "chrome", "reflective"] },
 
 
     // Wood materials
-    { id: "5", name: "Oak Wood", category: "Wood", imageUrl: "https://images.unsplash.com/photo-1615971677499-5467cbab01c0?w=400&h=400&fit=crop", tags: ["wood", "oak", "natural"] },
-    { id: "6", name: "Walnut", category: "Wood", imageUrl: "https://images.unsplash.com/photo-1611080626919-7cf5a9dbab5b?w=400&h=400&fit=crop", tags: ["wood", "walnut", "dark"] },
-    { id: "7", name: "Pine", category: "Wood", imageUrl: "https://images.unsplash.com/photo-1615876234886-fd9a39fda97f?w=400&h=400&fit=crop", tags: ["wood", "pine", "light"] },
-    { id: "8", name: "Bamboo", category: "Wood", imageUrl: "https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?w=400&h=400&fit=crop", tags: ["wood", "bamboo", "sustainable"] },
+    { id: "5", name: "Oak Wood", category: "Wood", imageUrl: "/media/illustrations/26.svg", tags: ["wood", "oak", "natural"] },
+    { id: "6", name: "Walnut", category: "Wood", imageUrl: "/media/illustrations/27.svg", tags: ["wood", "walnut", "dark"] },
+    { id: "7", name: "Pine", category: "Wood", imageUrl: "/media/illustrations/28.svg", tags: ["wood", "pine", "light"] },
+    { id: "8", name: "Bamboo", category: "Wood", imageUrl: "/media/illustrations/29.svg", tags: ["wood", "bamboo", "sustainable"] },
 
     // Stone materials
-    { id: "9", name: "Granite", category: "Stone", imageUrl: "https://images.unsplash.com/photo-1615963244664-5b845b2025ee?w=400&h=400&fit=crop", tags: ["stone", "granite", "rough"] },
-    { id: "10", name: "Limestone", category: "Stone", imageUrl: "https://images.unsplash.com/photo-1615963244664-5b845b2025ee?w=400&h=400&fit=crop", tags: ["stone", "limestone", "smooth"] },
-    { id: "11", name: "Slate", category: "Stone", imageUrl: "https://images.unsplash.com/photo-1615963244664-5b845b2025ee?w=400&h=400&fit=crop", tags: ["stone", "slate", "dark"] },
-    { id: "12", name: "Sandstone", category: "Stone", imageUrl: "https://images.unsplash.com/photo-1615963244664-5b845b2025ee?w=400&h=400&fit=crop", tags: ["stone", "sandstone", "beige"] },
+    { id: "9", name: "Granite", category: "Stone", imageUrl: "/media/illustrations/30.svg", tags: ["stone", "granite", "rough"] },
+    { id: "10", name: "Limestone", category: "Stone", imageUrl: "/media/illustrations/31.svg", tags: ["stone", "limestone", "smooth"] },
+    { id: "11", name: "Slate", category: "Stone", imageUrl: "/media/illustrations/32.svg", tags: ["stone", "slate", "dark"] },
+    { id: "12", name: "Sandstone", category: "Stone", imageUrl: "/media/illustrations/33.svg", tags: ["stone", "sandstone", "beige"] },
 
     // Marble materials
-    { id: "13", name: "Carrara Marble", category: "Marble", imageUrl: "https://images.unsplash.com/photo-1615963244664-5b845b2025ee?w=400&h=400&fit=crop", tags: ["marble", "white", "luxury"] },
-    { id: "14", name: "Black Marble", category: "Marble", imageUrl: "https://images.unsplash.com/photo-1615963244664-5b845b2025ee?w=400&h=400&fit=crop", tags: ["marble", "black", "elegant"] },
-    { id: "15", name: "Green Marble", category: "Marble", imageUrl: "https://images.unsplash.com/photo-1615963244664-5b845b2025ee?w=400&h=400&fit=crop", tags: ["marble", "green", "unique"] },
-    { id: "16", name: "Pink Marble", category: "Marble", imageUrl: "https://images.unsplash.com/photo-1615963244664-5b845b2025ee?w=400&h=400&fit=crop", tags: ["marble", "pink", "soft"] },
+    { id: "13", name: "Carrara Marble", category: "Marble", imageUrl: "/media/illustrations/1.svg", tags: ["marble", "white", "luxury"] },
+    { id: "14", name: "Black Marble", category: "Marble", imageUrl: "/media/illustrations/2.svg", tags: ["marble", "black", "elegant"] },
+    { id: "15", name: "Green Marble", category: "Marble", imageUrl: "/media/illustrations/3.svg", tags: ["marble", "green", "unique"] },
+    { id: "16", name: "Pink Marble", category: "Marble", imageUrl: "/media/illustrations/4.svg", tags: ["marble", "pink", "soft"] },
 
     // Concrete materials
-    { id: "17", name: "Smooth Concrete", category: "Concrete", imageUrl: "https://images.unsplash.com/photo-1615963244664-5b845b2025ee?w=400&h=400&fit=crop", tags: ["concrete", "smooth", "modern"] },
-    { id: "18", name: "Rough Concrete", category: "Concrete", imageUrl: "https://images.unsplash.com/photo-1615963244664-5b845b2025ee?w=400&h=400&fit=crop", tags: ["concrete", "rough", "industrial"] },
-    { id: "19", name: "Polished Concrete", category: "Concrete", imageUrl: "https://images.unsplash.com/photo-1615963244664-5b845b2025ee?w=400&h=400&fit=crop", tags: ["concrete", "polished", "sleek"] },
-    { id: "20", name: "Exposed Aggregate", category: "Concrete", imageUrl: "https://images.unsplash.com/photo-1615963244664-5b845b2025ee?w=400&h=400&fit=crop", tags: ["concrete", "aggregate", "textured"] },
+    { id: "17", name: "Smooth Concrete", category: "Concrete", imageUrl: "/media/illustrations/5.svg", tags: ["concrete", "smooth", "modern"] },
+    { id: "18", name: "Rough Concrete", category: "Concrete", imageUrl: "/media/illustrations/6.svg", tags: ["concrete", "rough", "industrial"] },
+    { id: "19", name: "Polished Concrete", category: "Concrete", imageUrl: "/media/illustrations/7.svg", tags: ["concrete", "polished", "sleek"] },
+    { id: "20", name: "Exposed Aggregate", category: "Concrete", imageUrl: "/media/illustrations/8.svg", tags: ["concrete", "aggregate", "textured"] },
 
     // Fabric materials
-    { id: "21", name: "Linen", category: "Fabric", imageUrl: "https://images.unsplash.com/photo-1615963244664-5b845b2025ee?w=400&h=400&fit=crop", tags: ["fabric", "linen", "natural"] },
-    { id: "22", name: "Velvet", category: "Fabric", imageUrl: "https://images.unsplash.com/photo-1615963244664-5b845b2025ee?w=400&h=400&fit=crop", tags: ["fabric", "velvet", "luxury"] },
-    { id: "23", name: "Cotton", category: "Fabric", imageUrl: "https://images.unsplash.com/photo-1615963244664-5b845b2025ee?w=400&h=400&fit=crop", tags: ["fabric", "cotton", "soft"] },
-    { id: "24", name: "Silk", category: "Fabric", imageUrl: "https://images.unsplash.com/photo-1615963244664-5b845b2025ee?w=400&h=400&fit=crop", tags: ["fabric", "silk", "smooth"] },
+    { id: "21", name: "Linen", category: "Fabric", imageUrl: "/media/illustrations/9.svg", tags: ["fabric", "linen", "natural"] },
+    { id: "22", name: "Velvet", category: "Fabric", imageUrl: "/media/illustrations/10.svg", tags: ["fabric", "velvet", "luxury"] },
+    { id: "23", name: "Cotton", category: "Fabric", imageUrl: "/media/illustrations/11.svg", tags: ["fabric", "cotton", "soft"] },
+    { id: "24", name: "Silk", category: "Fabric", imageUrl: "/media/illustrations/12.svg", tags: ["fabric", "silk", "smooth"] },
 
     // Glass materials
-    { id: "25", name: "Clear Glass", category: "Glass", imageUrl: "https://images.unsplash.com/photo-1615963244664-5b845b2025ee?w=400&h=400&fit=crop", tags: ["glass", "clear", "transparent"] },
-    { id: "26", name: "Frosted Glass", category: "Glass", imageUrl: "https://images.unsplash.com/photo-1615963244664-5b845b2025ee?w=400&h=400&fit=crop", tags: ["glass", "frosted", "translucent"] },
-    { id: "27", name: "Tinted Glass", category: "Glass", imageUrl: "https://images.unsplash.com/photo-1615963244664-5b845b2025ee?w=400&h=400&fit=crop", tags: ["glass", "tinted", "colored"] },
-    { id: "28", name: "Textured Glass", category: "Glass", imageUrl: "https://images.unsplash.com/photo-1615963244664-5b845b2025ee?w=400&h=400&fit=crop", tags: ["glass", "textured", "decorative"] },
+    { id: "25", name: "Clear Glass", category: "Glass", imageUrl: "/media/illustrations/13.svg", tags: ["glass", "clear", "transparent"] },
+    { id: "26", name: "Frosted Glass", category: "Glass", imageUrl: "/media/illustrations/14.svg", tags: ["glass", "frosted", "translucent"] },
+    { id: "27", name: "Tinted Glass", category: "Glass", imageUrl: "/media/illustrations/15.svg", tags: ["glass", "tinted", "colored"] },
+    { id: "28", name: "Textured Glass", category: "Glass", imageUrl: "/media/illustrations/16.svg", tags: ["glass", "textured", "decorative"] },
 
     // Tiles materials
-    { id: "29", name: "Ceramic Tiles", category: "Tiles", imageUrl: "https://images.unsplash.com/photo-1615963244664-5b845b2025ee?w=400&h=400&fit=crop", tags: ["tiles", "ceramic", "glossy"] },
-    { id: "30", name: "Porcelain Tiles", category: "Tiles", imageUrl: "https://images.unsplash.com/photo-1615963244664-5b845b2025ee?w=400&h=400&fit=crop", tags: ["tiles", "porcelain", "durable"] },
-    { id: "31", name: "Mosaic Tiles", category: "Tiles", imageUrl: "https://images.unsplash.com/photo-1615963244664-5b845b2025ee?w=400&h=400&fit=crop", tags: ["tiles", "mosaic", "decorative"] },
-    { id: "32", name: "Subway Tiles", category: "Tiles", imageUrl: "https://images.unsplash.com/photo-1615963244664-5b845b2025ee?w=400&h=400&fit=crop", tags: ["tiles", "subway", "classic"] },
+    { id: "29", name: "Ceramic Tiles", category: "Tiles", imageUrl: "/media/illustrations/17.svg", tags: ["tiles", "ceramic", "glossy"] },
+    { id: "30", name: "Porcelain Tiles", category: "Tiles", imageUrl: "/media/illustrations/18.svg", tags: ["tiles", "porcelain", "durable"] },
+    { id: "31", name: "Mosaic Tiles", category: "Tiles", imageUrl: "/media/illustrations/19.svg", tags: ["tiles", "mosaic", "decorative"] },
+    { id: "32", name: "Subway Tiles", category: "Tiles", imageUrl: "/media/illustrations/20.svg", tags: ["tiles", "subway", "classic"] },
 
     // Plaster materials
-    { id: "33", name: "Smooth Plaster", category: "Plaster", imageUrl: "https://images.unsplash.com/photo-1615963244664-5b845b2025ee?w=400&h=400&fit=crop", tags: ["plaster", "smooth", "white"] },
-    { id: "34", name: "Venetian Plaster", category: "Plaster", imageUrl: "https://images.unsplash.com/photo-1615963244664-5b845b2025ee?w=400&h=400&fit=crop", tags: ["plaster", "venetian", "polished"] },
-    { id: "35", name: "Textured Plaster", category: "Plaster", imageUrl: "https://images.unsplash.com/photo-1615963244664-5b845b2025ee?w=400&h=400&fit=crop", tags: ["plaster", "textured", "rough"] },
-    { id: "36", name: "Lime Plaster", category: "Plaster", imageUrl: "https://images.unsplash.com/photo-1615963244664-5b845b2025ee?w=400&h=400&fit=crop", tags: ["plaster", "lime", "natural"] },
+    { id: "33", name: "Smooth Plaster", category: "Plaster", imageUrl: "/media/illustrations/21.svg", tags: ["plaster", "smooth", "white"] },
+    { id: "34", name: "Venetian Plaster", category: "Plaster", imageUrl: "/media/illustrations/22.svg", tags: ["plaster", "venetian", "polished"] },
+    { id: "35", name: "Textured Plaster", category: "Plaster", imageUrl: "/media/illustrations/23.svg", tags: ["plaster", "textured", "rough"] },
+    { id: "36", name: "Lime Plaster", category: "Plaster", imageUrl: "/media/illustrations/24.svg", tags: ["plaster", "lime", "natural"] },
 
     // Ground materials
-    { id: "37", name: "Grass", category: "Ground", imageUrl: "https://images.unsplash.com/photo-1615963244664-5b845b2025ee?w=400&h=400&fit=crop", tags: ["ground", "grass", "green"] },
-    { id: "38", name: "Dirt", category: "Ground", imageUrl: "https://images.unsplash.com/photo-1615963244664-5b845b2025ee?w=400&h=400&fit=crop", tags: ["ground", "dirt", "brown"] },
-    { id: "39", name: "Gravel", category: "Ground", imageUrl: "https://images.unsplash.com/photo-1615963244664-5b845b2025ee?w=400&h=400&fit=crop", tags: ["ground", "gravel", "stones"] },
-    { id: "40", name: "Sand", category: "Ground", imageUrl: "https://images.unsplash.com/photo-1615963244664-5b845b2025ee?w=400&h=400&fit=crop", tags: ["ground", "sand", "beach"] },
+    { id: "37", name: "Grass", category: "Ground", imageUrl: "/media/illustrations/25.svg", tags: ["ground", "grass", "green"] },
+    { id: "38", name: "Dirt", category: "Ground", imageUrl: "/media/illustrations/26.svg", tags: ["ground", "dirt", "brown"] },
+    { id: "39", name: "Gravel", category: "Ground", imageUrl: "/media/illustrations/27.svg", tags: ["ground", "gravel", "stones"] },
+    { id: "40", name: "Sand", category: "Ground", imageUrl: "/media/illustrations/28.svg", tags: ["ground", "sand", "beach"] },
 
     // Terracotta materials
-    { id: "41", name: "Red Terracotta", category: "Terracotta", imageUrl: "https://images.unsplash.com/photo-1615963244664-5b845b2025ee?w=400&h=400&fit=crop", tags: ["terracotta", "red", "clay"] },
-    { id: "42", name: "Glazed Terracotta", category: "Terracotta", imageUrl: "https://images.unsplash.com/photo-1615963244664-5b845b2025ee?w=400&h=400&fit=crop", tags: ["terracotta", "glazed", "shiny"] },
-    { id: "43", name: "Aged Terracotta", category: "Terracotta", imageUrl: "https://images.unsplash.com/photo-1615963244664-5b845b2025ee?w=400&h=400&fit=crop", tags: ["terracotta", "aged", "weathered"] },
-    { id: "44", name: "Terracotta Tiles", category: "Terracotta", imageUrl: "https://images.unsplash.com/photo-1615963244664-5b845b2025ee?w=400&h=400&fit=crop", tags: ["terracotta", "tiles", "rustic"] },
+    { id: "41", name: "Red Terracotta", category: "Terracotta", imageUrl: "/media/illustrations/29.svg", tags: ["terracotta", "red", "clay"] },
+    { id: "42", name: "Glazed Terracotta", category: "Terracotta", imageUrl: "/media/illustrations/30.svg", tags: ["terracotta", "glazed", "shiny"] },
+    { id: "43", name: "Aged Terracotta", category: "Terracotta", imageUrl: "/media/illustrations/31.svg", tags: ["terracotta", "aged", "weathered"] },
+    { id: "44", name: "Terracotta Tiles", category: "Terracotta", imageUrl: "/media/illustrations/32.svg", tags: ["terracotta", "tiles", "rustic"] },
 ];

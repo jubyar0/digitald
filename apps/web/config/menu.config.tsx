@@ -240,9 +240,15 @@ export const ADMIN_MENU: MenuConfig = [
     path: '/admin/seo',
   },
   {
-    title: 'Support & Tickets',
+    title: 'Support',
     icon: Ticket,
-    path: '/admin/support',
+    children: [
+      { title: 'Tickets', path: '/admin/support' },
+      { title: 'Live Chat', path: '/admin/support/livechat' },
+      { title: 'Knowledge Base', path: '/admin/support/knowledge-base' },
+      { title: 'Canned Responses', path: '/admin/support/canned-responses' },
+      { title: 'Settings', path: '/admin/support/settings/ai' },
+    ],
   },
   {
     title: 'System Logs',
@@ -301,7 +307,8 @@ export const SELLER_MENU: MenuConfig = [
     title: 'Customers',
     icon: Users,
     children: [
-      { title: 'Customer List', path: '/seller/customers' },
+      { title: 'All Customers', path: '/seller/customers' },
+      { title: 'Segments', path: '/seller/customers/segments' },
       { title: 'Reviews', path: '/seller/customers/reviews' },
     ],
   },

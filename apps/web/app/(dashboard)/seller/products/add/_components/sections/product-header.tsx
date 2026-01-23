@@ -1,8 +1,10 @@
 'use client';
 
+import { useEffect } from 'react';
 import Link from 'next/link';
 import { ChevronLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { useFormActionStore } from '@/stores/form-action-store';
 
 interface ProductHeaderProps {
     isEditMode: boolean;
@@ -13,6 +15,22 @@ interface ProductHeaderProps {
 }
 
 export function ProductHeader({ isEditMode, productName, loading, onCancel, onSave }: ProductHeaderProps) {
+    const { showActions, hideActions, setIsDirty } = useFormActionStore();
+
+    // Register save/discard handlers with sidebar footer
+    useEffect(() => {
+        setIsDirty(true);
+        showActions({
+            onSave: onSave,
+            onDiscard: onCancel || (() => { }),
+        });
+
+        // Cleanup when unmounting
+        return () => {
+            hideActions();
+        };
+    }, [onSave, onCancel, showActions, hideActions, setIsDirty]);
+
     return (
         <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
@@ -30,14 +48,7 @@ export function ProductHeader({ isEditMode, productName, loading, onCancel, onSa
                     </span>
                 )}
             </div>
-            <div className="flex items-center gap-2">
-                <Button variant="ghost" type="button" onClick={onCancel}>
-                    Discard
-                </Button>
-                <Button type="button" onClick={onSave} disabled={loading} className="bg-emerald-600 hover:bg-emerald-700 text-white">
-                    Save
-                </Button>
-            </div>
         </div>
     );
 }
+

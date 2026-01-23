@@ -131,11 +131,12 @@ export function OrganizationCard({
                 <div className="space-y-2">
                     <div className="flex items-center gap-2">
                         <LayoutGrid className="h-3.5 w-3.5 text-muted-foreground" />
-                        <Label className="text-sm font-medium">Product type</Label>
+                        <Label htmlFor="product-type-trigger" className="text-sm font-medium">Product type</Label>
                     </div>
                     <Popover open={productTypeOpen} onOpenChange={setProductTypeOpen}>
                         <PopoverTrigger asChild>
                             <Button
+                                id="product-type-trigger"
                                 variant="outline"
                                 role="combobox"
                                 aria-expanded={productTypeOpen}
@@ -218,11 +219,12 @@ export function OrganizationCard({
                 <div className="space-y-2">
                     <div className="flex items-center gap-2">
                         <Building2 className="h-3.5 w-3.5 text-muted-foreground" />
-                        <Label className="text-sm font-medium">Vendor</Label>
+                        <Label htmlFor="vendor-trigger" className="text-sm font-medium">Vendor</Label>
                     </div>
                     <Popover open={vendorOpen} onOpenChange={setVendorOpen}>
                         <PopoverTrigger asChild>
                             <Button
+                                id="vendor-trigger"
                                 variant="outline"
                                 role="combobox"
                                 className="w-full justify-between font-normal h-9 text-sm"
@@ -290,7 +292,7 @@ export function OrganizationCard({
                     <div className="flex items-center justify-between">
                         <div className="flex items-center gap-2">
                             <FolderOpen className="h-3.5 w-3.5 text-muted-foreground" />
-                            <Label className="text-sm font-medium">Collections</Label>
+                            <Label htmlFor="collections-trigger" className="text-sm font-medium">Collections</Label>
                         </div>
                         {selectedCollections.length > 0 && (
                             <Badge variant="secondary" className="h-5 px-1.5 text-xs">
@@ -301,6 +303,7 @@ export function OrganizationCard({
                     <Popover open={collectionsOpen} onOpenChange={setCollectionsOpen}>
                         <PopoverTrigger asChild>
                             <Button
+                                id="collections-trigger"
                                 variant="outline"
                                 role="combobox"
                                 className="w-full justify-start font-normal h-9 text-sm text-muted-foreground"
@@ -388,7 +391,7 @@ export function OrganizationCard({
                     <div className="flex items-center justify-between">
                         <div className="flex items-center gap-2">
                             <Tag className="h-3.5 w-3.5 text-muted-foreground" />
-                            <Label className="text-sm font-medium">Tags</Label>
+                            <Label htmlFor="tags-trigger" className="text-sm font-medium">Tags</Label>
                         </div>
                         {selectedTags.length > 0 && (
                             <Badge variant="secondary" className="h-5 px-1.5 text-xs">
@@ -399,6 +402,7 @@ export function OrganizationCard({
                     <Popover open={tagsOpen} onOpenChange={setTagsOpen}>
                         <PopoverTrigger asChild>
                             <Button
+                                id="tags-trigger"
                                 variant="outline"
                                 role="combobox"
                                 className="w-full justify-start font-normal h-9 text-sm text-muted-foreground"

@@ -23,7 +23,7 @@ export default function UnauthorizedPage() {
                 </p>
 
                 <div className="flex flex-col sm:flex-row gap-3 justify-center">
-                    <Button asChild variant="primary">
+                    <Button asChild variant="default">
                         <Link href="/">Go to Home</Link>
                     </Button>
                     <Button asChild variant="outline">

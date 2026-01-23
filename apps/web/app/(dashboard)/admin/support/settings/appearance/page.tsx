@@ -14,7 +14,7 @@ import {
     SelectTrigger,
     SelectValue,
 } from '@/components/ui/select'
-import { getLivechatSettings, updateLivechatSettings } from '@/actions/livechat-settings'
+import { getLivechatSettings, updateLivechatSettings } from '@/actions/chatbot-settings'
 import { toast } from 'sonner'
 import { Palette, MessageSquare, Clock, Bell, Save } from 'lucide-react'
 

@@ -144,7 +144,7 @@ export default function VendorApplicationsPage() {
                                                     {app.status === 'PENDING' && (
                                                         <div className="flex justify-end gap-2">
                                                             <Button
-                                                                variant="primary"
+                                                                variant="default"
                                                                 size="sm"
                                                                 onClick={() => handleApprove(app.id)}
                                                             >

@@ -77,8 +77,18 @@ export default async function ReviewsPage() {
                     <div className="space-y-4">
                         {reviews.length === 0 ? (
                             <Card>
-                                <CardContent className="p-6 text-center text-muted-foreground">
-                                    No reviews found.
+                                <CardContent className="p-12 text-center">
+                                    <div className="flex flex-col items-center gap-4">
+                                        <img
+                                            src="/media/illustrations/22.svg"
+                                            alt="No reviews"
+                                            className="h-32 w-32 object-contain dark:opacity-80"
+                                        />
+                                        <div>
+                                            <p className="text-lg font-medium">No reviews yet</p>
+                                            <p className="text-sm text-muted-foreground">Customer reviews will appear here</p>
+                                        </div>
+                                    </div>
                                 </CardContent>
                             </Card>
                         ) : (

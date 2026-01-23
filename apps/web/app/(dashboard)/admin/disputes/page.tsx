@@ -78,22 +78,22 @@ export default async function DisputesPage({
             {/* Filters */}
             <div className="flex gap-2">
                 <Link href="/admin/disputes">
-                    <Button variant={!searchParams.status ? 'primary' : 'outline'}>
+                    <Button variant={!searchParams.status ? 'default' : 'outline'}>
                         All
                     </Button>
                 </Link>
                 <Link href="/admin/disputes?status=PENDING">
-                    <Button variant={searchParams.status === 'PENDING' ? 'primary' : 'outline'}>
+                    <Button variant={searchParams.status === 'PENDING' ? 'default' : 'outline'}>
                         Pending
                     </Button>
                 </Link>
                 <Link href="/admin/disputes?status=IN_REVIEW">
-                    <Button variant={searchParams.status === 'IN_REVIEW' ? 'primary' : 'outline'}>
+                    <Button variant={searchParams.status === 'IN_REVIEW' ? 'default' : 'outline'}>
                         In Review
                     </Button>
                 </Link>
                 <Link href="/admin/disputes?status=RESOLVED">
-                    <Button variant={searchParams.status === 'RESOLVED' ? 'primary' : 'outline'}>
+                    <Button variant={searchParams.status === 'RESOLVED' ? 'default' : 'outline'}>
                         Resolved
                     </Button>
                 </Link>

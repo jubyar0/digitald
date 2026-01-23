@@ -30,7 +30,7 @@ interface PhotosFromReviewsProps {
 const mockReviewPhotos: ReviewPhoto[] = [
     {
         id: "1",
-        imageUrl: "https://images.unsplash.com/photo-1606760227091-3dd870d97f1d?w=600",
+        imageUrl: "/media/illustrations/15.svg",
         reviewerName: "Sean Trexell",
         date: "13 Feb, 2024",
         rating: 5,
@@ -38,46 +38,46 @@ const mockReviewPhotos: ReviewPhoto[] = [
         customization: "Yes please",
         purchasedItem: {
             name: "Personalised Leather Coin Purse Wo...",
-            thumbnail: "https://images.unsplash.com/photo-1606760227091-3dd870d97f1d?w=100",
+            thumbnail: "/media/illustrations/15.svg",
             price: "USD 42.39"
         }
     },
     {
         id: "2",
-        imageUrl: "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=600",
+        imageUrl: "/media/illustrations/16.svg",
         reviewerName: "Emma Wilson",
         date: "10 Feb, 2024",
         rating: 5,
         comment: "Beautiful quality leather! The personalization was perfect and it arrived quickly. Will definitely order again!",
         purchasedItem: {
             name: "Personalised Leather Bookmark...",
-            thumbnail: "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=100",
+            thumbnail: "/media/illustrations/16.svg",
             price: "USD 18.50"
         }
     },
     {
         id: "3",
-        imageUrl: "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=600",
+        imageUrl: "/media/illustrations/17.svg",
         reviewerName: "Marcus Chen",
         date: "05 Feb, 2024",
         rating: 5,
         comment: "Exceeded my expectations! The leather quality is amazing and the gold initials look so elegant.",
         purchasedItem: {
             name: "Leather Keyring with Gold Foil...",
-            thumbnail: "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=100",
+            thumbnail: "/media/illustrations/17.svg",
             price: "USD 15.99"
         }
     },
     {
         id: "4",
-        imageUrl: "https://images.unsplash.com/photo-1594223274512-ad4803739b7c?w=600",
+        imageUrl: "/media/illustrations/18.svg",
         reviewerName: "Sophia Martinez",
         date: "01 Feb, 2024",
         rating: 5,
         comment: "Perfect gift for my mom! She absolutely loved the personalization. Fast shipping too!",
         purchasedItem: {
             name: "Personalised Pet Name Tag...",
-            thumbnail: "https://images.unsplash.com/photo-1594223274512-ad4803739b7c?w=100",
+            thumbnail: "/media/illustrations/18.svg",
             price: "USD 24.99"
         }
     }

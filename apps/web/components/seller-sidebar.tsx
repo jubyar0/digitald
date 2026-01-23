@@ -2,6 +2,8 @@
 // re-trigger build
 
 import * as React from "react"
+import Image from "next/image"
+import Link from "next/link"
 import {
   BarChartIcon,
   PackageIcon,
@@ -40,6 +42,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
+import { SidebarFormActions } from "@/components/seller/sidebar-form-actions"
 
 const data = {
   user: {
@@ -118,10 +121,15 @@ const data = {
       title: "Customers",
       url: "#",
       icon: UsersIcon,
+      isActive: true,
       items: [
         {
-          title: "Customer List",
+          title: "All Customers",
           url: "/seller/customers",
+        },
+        {
+          title: "Segments",
+          url: "/seller/customers/segments",
         },
         {
           title: "Reviews",
@@ -216,17 +224,37 @@ const data = {
 export function SellerSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar collapsible="offcanvas" {...props}>
-      <SidebarHeader className="border-b border-sidebar-border bg-sidebar">
+      <SidebarHeader className="border-b border-sidebar-border bg-sidebar pt-4 pb-2">
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton
               asChild
               className="data-[slot=sidebar-menu-button]:!p-2 rounded-lg hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
             >
-              <a href="/seller">
-                <StoreIcon className="h-5 w-5 text-sidebar-primary" />
-                <span className="text-lg font-bold text-sidebar-primary">Seller Dashboard</span>
-              </a>
+              <Link href="/seller">
+                <div className="dark:hidden">
+                  <Image
+                    src="/media/app/default-logo.svg"
+                    className="h-[22px] w-auto max-w-none"
+                    alt="Logo"
+                    width={150}
+                    height={22}
+                    priority
+                    style={{ height: 'auto' }}
+                  />
+                </div>
+                <div className="hidden dark:block">
+                  <Image
+                    src="/media/app/default-logo-dark.svg"
+                    className="h-[22px] w-auto max-w-none"
+                    alt="Logo"
+                    width={150}
+                    height={22}
+                    priority
+                    style={{ height: 'auto' }}
+                  />
+                </div>
+              </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
@@ -235,6 +263,7 @@ export function SellerSidebar({ ...props }: React.ComponentProps<typeof Sidebar>
         <NavMain items={data.navMain} />
       </SidebarContent>
       <SidebarFooter className="border-t border-sidebar-border p-2 bg-sidebar">
+        <SidebarFormActions />
         <NavUser user={data.user} />
       </SidebarFooter>
     </Sidebar>

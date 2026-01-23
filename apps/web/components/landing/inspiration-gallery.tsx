@@ -1,6 +1,6 @@
 "use client"
 
-import { motion } from "framer-motion"
+import { motion } from "motion/react"
 import Image from "next/image"
 import { BlurFade } from "@/components/ui/blur-fade"
 
@@ -17,7 +17,7 @@ interface InspirationCard {
 const inspirationCards: InspirationCard[] = [
     {
         id: 1,
-        image: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80',
+        image: '/media/illustrations/1.svg',
         title: 'Cool Toned Striped Surface',
         type: 'Model',
         typeIcon: '▣',
@@ -26,7 +26,7 @@ const inspirationCards: InspirationCard[] = [
     },
     {
         id: 2,
-        image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80',
+        image: '/media/illustrations/2.svg',
         title: 'Stacked Greybased Brick',
         type: 'Texture',
         typeIcon: '▤',
@@ -35,7 +35,7 @@ const inspirationCards: InspirationCard[] = [
     },
     {
         id: 3,
-        image: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=800&q=80',
+        image: '/media/illustrations/3.svg',
         title: 'Sunset Stripe Design',
         type: 'Model',
         typeIcon: '▣',
@@ -44,7 +44,7 @@ const inspirationCards: InspirationCard[] = [
     },
     {
         id: 4,
-        image: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80',
+        image: '/media/illustrations/4.svg',
         title: 'Stucco Texture, Earth',
         type: 'Texture',
         typeIcon: '▤',
@@ -53,7 +53,7 @@ const inspirationCards: InspirationCard[] = [
     },
     {
         id: 5,
-        image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80',
+        image: '/media/illustrations/5.svg',
         title: 'Rammed Earth Texture',
         type: 'Texture',
         typeIcon: '▤',

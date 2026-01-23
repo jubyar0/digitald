@@ -1,7 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { Globe, Plus, ExternalLink, ChevronRight, Check } from "lucide-react"
+import { Globe, Plus, ChevronRight, Check, AlertCircle } from "lucide-react"
 
 export const dynamic = 'force-dynamic'
 
@@ -13,9 +13,10 @@ export default function DomainsPage() {
                     <Globe className="h-6 w-6 text-muted-foreground" />
                     <h1 className="text-2xl font-semibold">Domains</h1>
                 </div>
-                <Button size="sm" className="gap-2">
+                <Button size="sm" className="gap-2" disabled>
                     <Plus className="h-4 w-4" />
                     Buy new domain
+                    <Badge variant="secondary" className="ml-1 text-xs">Coming Soon</Badge>
                 </Button>
             </div>
 
@@ -33,28 +34,32 @@ export default function DomainsPage() {
                                     <Check className="h-5 w-5 text-emerald-500" />
                                     <div>
                                         <p className="font-medium">mystore.3dm.shop</p>
-                                        <p className="text-sm text-muted-foreground">3DM subdomain</p>
+                                        <p className="text-sm text-muted-foreground">3DM subdomain (auto-generated)</p>
                                     </div>
                                 </div>
                                 <div className="flex items-center gap-2">
                                     <Badge className="bg-emerald-500">Primary</Badge>
-                                    <ChevronRight className="h-4 w-4 text-muted-foreground" />
                                 </div>
                             </div>
                         </div>
-                        <Button variant="outline" className="mt-4 gap-2">
+                        <Button variant="outline" className="mt-4 gap-2" disabled>
                             <Plus className="h-4 w-4" />
                             Connect existing domain
+                            <Badge variant="secondary" className="ml-1 text-xs">Coming Soon</Badge>
                         </Button>
                     </CardContent>
                 </Card>
 
                 {/* Domain Info */}
-                <Card>
-                    <CardContent className="py-4">
-                        <p className="text-sm text-muted-foreground">
-                            Connect a custom domain to make your store easier to find. You can buy a new domain directly from 3DM or connect one you already own.
-                        </p>
+                <Card className="border-amber-200 bg-amber-50/50 dark:bg-amber-950/20 dark:border-amber-800">
+                    <CardContent className="py-4 flex items-start gap-3">
+                        <AlertCircle className="h-5 w-5 text-amber-600 flex-shrink-0 mt-0.5" />
+                        <div>
+                            <p className="text-sm font-medium text-amber-700 dark:text-amber-400">Custom Domains Feature</p>
+                            <p className="text-sm text-muted-foreground">
+                                Custom domain connection is coming soon. Your store is currently accessible via your 3DM subdomain.
+                            </p>
+                        </div>
                     </CardContent>
                 </Card>
             </div>

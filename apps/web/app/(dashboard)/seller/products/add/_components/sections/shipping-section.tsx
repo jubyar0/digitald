@@ -154,21 +154,15 @@ export function ShippingSection({
                         <div className="space-y-3">
                             <div className="flex items-center gap-2">
                                 <Scale className="h-3.5 w-3.5 text-muted-foreground" />
-                                <Label className="text-sm font-medium">Weight</Label>
-                                <TooltipProvider>
-                                    <Tooltip>
-                                        <TooltipTrigger>
-                                            <HelpCircle className="h-3 w-3 text-muted-foreground" />
-                                        </TooltipTrigger>
-                                        <TooltipContent className="max-w-xs">
-                                            <p className="text-xs">Used to calculate shipping rates at checkout</p>
-                                        </TooltipContent>
-                                    </Tooltip>
-                                </TooltipProvider>
+                                <Label htmlFor="weight" className="text-sm font-medium">Weight</Label>
+                                <span title="Used to calculate shipping rates at checkout" className="flex items-center">
+                                    <HelpCircle className="h-3 w-3 text-muted-foreground" />
+                                </span>
                             </div>
                             <div className="flex gap-2">
                                 <div className="relative flex-1">
                                     <Input
+                                        id="weight"
                                         name="weight"
                                         type="number"
                                         step="0.01"
@@ -182,6 +176,7 @@ export function ShippingSection({
                                     </span>
                                 </div>
                                 <Select
+                                    name="weightUnit"
                                     value={formData.weightUnit || 'kg'}
                                     onValueChange={(val) => handleSelectChange('weightUnit', val)}
                                 >
@@ -253,6 +248,7 @@ export function ShippingSection({
                                 <div className="space-y-2">
                                     <Label className="text-sm">Country/Region of origin</Label>
                                     <Select
+                                        name="countryOfOrigin"
                                         value={formData.countryOfOrigin}
                                         onValueChange={(val) => handleSelectChange('countryOfOrigin', val)}
                                     >
@@ -273,16 +269,9 @@ export function ShippingSection({
                                 <div className="space-y-2">
                                     <div className="flex items-center gap-1.5">
                                         <Label className="text-sm">HS (Harmonized System) code</Label>
-                                        <TooltipProvider>
-                                            <Tooltip>
-                                                <TooltipTrigger>
-                                                    <HelpCircle className="h-3 w-3 text-muted-foreground" />
-                                                </TooltipTrigger>
-                                                <TooltipContent className="max-w-xs">
-                                                    <p className="text-xs">A standardized numerical code for classifying traded products</p>
-                                                </TooltipContent>
-                                            </Tooltip>
-                                        </TooltipProvider>
+                                        <span title="A standardized numerical code for classifying traded products" className="flex items-center">
+                                            <HelpCircle className="h-3 w-3 text-muted-foreground" />
+                                        </span>
                                     </div>
                                     <div className="relative">
                                         <FileText className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground" />

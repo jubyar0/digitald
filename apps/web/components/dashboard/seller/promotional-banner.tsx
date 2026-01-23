@@ -8,12 +8,12 @@ export function PromotionalBanner() {
             <CardContent className="p-0">
                 <div className="flex flex-col md:flex-row items-center">
                     <div className="p-6 md:w-2/3">
-                        <h3 className="text-base font-semibold mb-2">Votre forfait peut se rentabiliser</h3>
+                        <h3 className="text-base font-semibold mb-2">Your plan can pay for itself</h3>
                         <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
-                            Recevez 1 % sur toutes vos ventes en crédits d'abonnement. Même sans Shopify Payments, vous recevrez tout de même 0,5 %. Les crédits s'appliquent automatiquement à votre facture.
+                            Receive 1% on all your sales in subscription credits. Even without Shopify Payments, you will still receive 0.5%. Credits are automatically applied to your bill.
                         </p>
                         <Button variant="outline" size="sm" className="h-8" asChild>
-                            <Link href="/seller/settings/billing">En savoir plus</Link>
+                            <Link href="/seller/settings/billing">Learn more</Link>
                         </Button>
                     </div>
                     <div className="md:w-1/3 h-32 md:h-auto relative bg-muted/10 flex items-center justify-center overflow-hidden">

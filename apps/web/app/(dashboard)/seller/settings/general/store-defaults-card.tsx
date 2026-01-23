@@ -85,7 +85,7 @@ export function StoreDefaultsCard({ settings }: StoreDefaultsProps) {
                 {/* Currency Display */}
                 <div className="space-y-2">
                     <div className="flex items-center justify-between">
-                        <Label className="text-base font-medium">Currency display</Label>
+                        <span className="text-base font-medium">Currency display</span>
                         <div className="flex items-center gap-2">
                             <span className="text-sm text-muted-foreground bg-muted px-2 py-1 rounded">
                                 {currency === "DZD" ? "Algerian Dinar (DZD)" :
@@ -116,7 +116,7 @@ export function StoreDefaultsCard({ settings }: StoreDefaultsProps) {
 
                 {/* Backup Region */}
                 <div className="space-y-2">
-                    <Label>Backup Region</Label>
+                    <span className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">Backup Region</span>
                     <Select defaultValue="DZ" disabled>
                         <SelectTrigger>
                             <SelectValue placeholder="Select region" />
@@ -135,8 +135,8 @@ export function StoreDefaultsCard({ settings }: StoreDefaultsProps) {
                 {/* Units */}
                 <div className="grid grid-cols-2 gap-4">
                     <div className="space-y-2">
-                        <Label>Unit system</Label>
-                        <Select value={unitSystem} onValueChange={(val) => handleUpdate("unitSystem", val)}>
+                        <Label htmlFor="unit-system">Unit system</Label>
+                        <Select name="unitSystem" value={unitSystem} onValueChange={(val) => handleUpdate("unitSystem", val)}>
                             <SelectTrigger>
                                 <SelectValue placeholder="Select system" />
                             </SelectTrigger>
@@ -147,8 +147,8 @@ export function StoreDefaultsCard({ settings }: StoreDefaultsProps) {
                         </Select>
                     </div>
                     <div className="space-y-2">
-                        <Label>Default weight unit</Label>
-                        <Select value={weightUnit} onValueChange={(val) => handleUpdate("weightUnit", val)}>
+                        <Label htmlFor="weight-unit">Default weight unit</Label>
+                        <Select name="weightUnit" value={weightUnit} onValueChange={(val) => handleUpdate("weightUnit", val)}>
                             <SelectTrigger>
                                 <SelectValue placeholder="Select unit" />
                             </SelectTrigger>
@@ -164,8 +164,8 @@ export function StoreDefaultsCard({ settings }: StoreDefaultsProps) {
 
                 {/* Timezone */}
                 <div className="space-y-2">
-                    <Label>Time zone</Label>
-                    <Select value={timezone} onValueChange={(val) => handleUpdate("timezone", val)}>
+                    <Label htmlFor="timezone">Time zone</Label>
+                    <Select name="timezone" value={timezone} onValueChange={(val) => handleUpdate("timezone", val)}>
                         <SelectTrigger>
                             <SelectValue placeholder="Select timezone" />
                         </SelectTrigger>
@@ -191,8 +191,8 @@ export function StoreDefaultsCard({ settings }: StoreDefaultsProps) {
                         </DialogHeader>
                         <div className="space-y-6 py-4">
                             <div className="space-y-2">
-                                <Label>Store currency</Label>
-                                <Select value={currency} onValueChange={(val) => handleUpdate("currency", val)}>
+                                <Label htmlFor="store-currency">Store currency</Label>
+                                <Select name="currency" value={currency} onValueChange={(val) => handleUpdate("currency", val)}>
                                     <SelectTrigger>
                                         <SelectValue placeholder="Select currency" />
                                     </SelectTrigger>
@@ -205,7 +205,7 @@ export function StoreDefaultsCard({ settings }: StoreDefaultsProps) {
                             </div>
 
                             <div className="space-y-3">
-                                <Label>Reason for changing (optional)</Label>
+                                <span className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">Reason for changing (optional)</span>
                                 <RadioGroup className="space-y-2">
                                     <div className="flex items-center space-x-2">
                                         <RadioGroupItem value="testing" id="testing" />
@@ -246,20 +246,20 @@ export function StoreDefaultsCard({ settings }: StoreDefaultsProps) {
 
                             <div className="grid grid-cols-2 gap-4">
                                 <div className="space-y-2">
-                                    <Label>HTML with currency</Label>
-                                    <Input defaultValue="DA {{amount}} DZD" />
+                                    <Label htmlFor="html-currency">HTML with currency</Label>
+                                    <Input id="html-currency" defaultValue="DA {{amount}} DZD" />
                                 </div>
                                 <div className="space-y-2">
-                                    <Label>HTML without currency</Label>
-                                    <Input defaultValue="DA {{amount}}" />
+                                    <Label htmlFor="html-no-currency">HTML without currency</Label>
+                                    <Input id="html-no-currency" defaultValue="DA {{amount}}" />
                                 </div>
                                 <div className="space-y-2">
-                                    <Label>Email with currency</Label>
-                                    <Input defaultValue="DA {{amount}} DZD" />
+                                    <Label htmlFor="email-currency">Email with currency</Label>
+                                    <Input id="email-currency" defaultValue="DA {{amount}} DZD" />
                                 </div>
                                 <div className="space-y-2">
-                                    <Label>Email without currency</Label>
-                                    <Input defaultValue="DA {{amount}}" />
+                                    <Label htmlFor="email-no-currency">Email without currency</Label>
+                                    <Input id="email-no-currency" defaultValue="DA {{amount}}" />
                                 </div>
                             </div>
                         </div>

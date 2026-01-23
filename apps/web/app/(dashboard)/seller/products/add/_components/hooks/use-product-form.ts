@@ -252,7 +252,7 @@ export function useProductForm({ onSuccess, initialData, isEditMode, categories 
     };
 
     // Submit Handler
-    const handleSubmit = async () => {
+    const handleSubmit = useCallback(async () => {
         setLoading(true);
         try {
             // Simulate API call
@@ -274,7 +274,7 @@ export function useProductForm({ onSuccess, initialData, isEditMode, categories 
         } finally {
             setLoading(false);
         }
-    };
+    }, [formData, images, options, variants, salesChannels, markets, isEditMode, onSuccess]);
 
     return {
         formData,
@@ -312,5 +312,6 @@ export function useProductForm({ onSuccess, initialData, isEditMode, categories 
         collectionsOpen, setCollectionsOpen, collectionsSearch, setCollectionsSearch, selectedCollections, setSelectedCollections,
         tagsOpen, setTagsOpen, tagsSearch, setTagsSearch, selectedTags, setSelectedTags,
         availableCollections, availableTags
+
     };
 }

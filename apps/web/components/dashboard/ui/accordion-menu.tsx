@@ -238,7 +238,13 @@ function AccordionMenuItem({
             if (onClick) {
               onClick(e);
             }
-            e.preventDefault();
+            // Only prevent default if clicking on the trigger itself, not on child links
+            // This allows Link components inside to navigate properly
+            const target = e.target as HTMLElement;
+            const isLink = target.closest('a') !== null;
+            if (!isLink) {
+              e.preventDefault();
+            }
           }}
           onKeyDown={(e) => {
             if (e.key === 'Enter') {

@@ -9,20 +9,1337 @@
   - Environments: .env.local, .env
 
    Creating an optimized production build ...
-[MDX] generated files in 363.4335000000001ms
+[MDX] generated files in 190.3081000000002ms
  ✓ Compiled successfully
-   Linting and checking validity of types ...
-Failed to compile.
+   Skipping linting
+   Checking validity of types ...
+   Collecting page data ...
+You are importing your Prisma Client from the wrong path, please follow these steps:
 
-./lib/page-builder/store.ts:377:14
-Type error: Exported variable 'useEditorStore' has or is using name 'WritableNonArrayDraft' from external module "C:/Users/Hossame/Desktop/Dig/node_modules/.pnpm/immer@11.1.3/node_modules/immer/dist/immer" but cannot be named.
 
-[0m [90m 375 |[39m })[33m;[39m[0m
-[0m [90m 376 |[39m[0m
-[0m[31m[1m>[22m[39m[90m 377 |[39m [36mexport[39m [36mconst[39m useEditorStore [33m=[39m create[33m<[39m[33mEditorState[39m[33m>[39m()(immer(storeCreator))[33m;[39m[0m
-[0m [90m     |[39m              [31m[1m^[22m[39m[0m
-[0m [90m 378 |[39m[0m
-[0m [90m 379 |[39m [90m// Selector hooks for optimized re-renders[39m[0m
-[0m [90m 380 |[39m [36mexport[39m [36mconst[39m useSelectedElement [33m=[39m () [33m=>[39m {[0m
-Next.js build worker exited with code: 1 and signal: null
- ELIFECYCLE  Command failed with exit code 1.
+1. At the root of this project (or package), get the relative path to your client.
+For example, that could be `../prisma/client` or `./client` or something similar.
+
+
+2. Once you know where your client is located, add your own client as a dependency.
+ - For npm, run `npm add db@./path/to/your/client`
+ - For pnpm, run `pnpm add db@link:./path/to/your/client`
+ - For yarn, run `yarn add db@link:./path/to/your/client`
+
+
+3. If you have a `tsconfig.json`, you will need to set `module` and `moduleResolution`.
+Set `moduleResolution` to `nodenext` or `bundler`, and set `module` to `nodenext`.
+
+
+
+4. Update your imports, once done, your client will be properly set up.
+```
+import { PrismaClient } from "db"
+```
+
+
+More information: https://pris.ly/d/custom-output
+You are importing your Prisma Client from the wrong path, please follow these steps:
+
+
+1. At the root of this project (or package), get the relative path to your client.
+For example, that could be `../prisma/client` or `./client` or something similar.
+
+
+2. Once you know where your client is located, add your own client as a dependency.
+ - For npm, run `npm add db@./path/to/your/client`
+ - For pnpm, run `pnpm add db@link:./path/to/your/client`
+ - For yarn, run `yarn add db@link:./path/to/your/client`
+
+
+3. If you have a `tsconfig.json`, you will need to set `module` and `moduleResolution`.
+Set `moduleResolution` to `nodenext` or `bundler`, and set `module` to `nodenext`.
+
+
+
+4. Update your imports, once done, your client will be properly set up.
+```
+import { PrismaClient } from "db"
+```
+
+
+More information: https://pris.ly/d/custom-output
+You are importing your Prisma Client from the wrong path, please follow these steps:
+
+
+1. At the root of this project (or package), get the relative path to your client.
+For example, that could be `../prisma/client` or `./client` or something similar.
+
+
+2. Once you know where your client is located, add your own client as a dependency.
+ - For npm, run `npm add db@./path/to/your/client`
+ - For pnpm, run `pnpm add db@link:./path/to/your/client`
+ - For yarn, run `yarn add db@link:./path/to/your/client`
+
+
+3. If you have a `tsconfig.json`, you will need to set `module` and `moduleResolution`.
+Set `moduleResolution` to `nodenext` or `bundler`, and set `module` to `nodenext`.
+
+
+
+4. Update your imports, once done, your client will be properly set up.
+```
+import { PrismaClient } from "db"
+```
+
+
+More information: https://pris.ly/d/custom-output
+You are importing your Prisma Client from the wrong path, please follow these steps:
+
+
+1. At the root of this project (or package), get the relative path to your client.
+For example, that could be `../prisma/client` or `./client` or something similar.
+
+
+2. Once you know where your client is located, add your own client as a dependency.
+ - For npm, run `npm add db@./path/to/your/client`
+ - For pnpm, run `pnpm add db@link:./path/to/your/client`
+ - For yarn, run `yarn add db@link:./path/to/your/client`
+
+
+3. If you have a `tsconfig.json`, you will need to set `module` and `moduleResolution`.
+Set `moduleResolution` to `nodenext` or `bundler`, and set `module` to `nodenext`.
+
+
+
+4. Update your imports, once done, your client will be properly set up.
+```
+import { PrismaClient } from "db"
+```
+
+
+More information: https://pris.ly/d/custom-output
+You are importing your Prisma Client from the wrong path, please follow these steps:
+
+
+1. At the root of this project (or package), get the relative path to your client.
+For example, that could be `../prisma/client` or `./client` or something similar.
+
+
+2. Once you know where your client is located, add your own client as a dependency.
+ - For npm, run `npm add db@./path/to/your/client`
+ - For pnpm, run `pnpm add db@link:./path/to/your/client`
+ - For yarn, run `yarn add db@link:./path/to/your/client`
+
+
+3. If you have a `tsconfig.json`, you will need to set `module` and `moduleResolution`.
+Set `moduleResolution` to `nodenext` or `bundler`, and set `module` to `nodenext`.
+
+
+
+4. Update your imports, once done, your client will be properly set up.
+```
+import { PrismaClient } from "db"
+```
+
+
+More information: https://pris.ly/d/custom-output
+You are importing your Prisma Client from the wrong path, please follow these steps:
+
+
+1. At the root of this project (or package), get the relative path to your client.
+For example, that could be `../prisma/client` or `./client` or something similar.
+
+
+2. Once you know where your client is located, add your own client as a dependency.
+ - For npm, run `npm add db@./path/to/your/client`
+ - For pnpm, run `pnpm add db@link:./path/to/your/client`
+ - For yarn, run `yarn add db@link:./path/to/your/client`
+
+
+3. If you have a `tsconfig.json`, you will need to set `module` and `moduleResolution`.
+Set `moduleResolution` to `nodenext` or `bundler`, and set `module` to `nodenext`.
+
+
+
+4. Update your imports, once done, your client will be properly set up.
+```
+import { PrismaClient } from "db"
+```
+
+
+More information: https://pris.ly/d/custom-output
+You are importing your Prisma Client from the wrong path, please follow these steps:
+
+
+1. At the root of this project (or package), get the relative path to your client.
+For example, that could be `../prisma/client` or `./client` or something similar.
+
+
+2. Once you know where your client is located, add your own client as a dependency.
+ - For npm, run `npm add db@./path/to/your/client`
+ - For pnpm, run `pnpm add db@link:./path/to/your/client`
+ - For yarn, run `yarn add db@link:./path/to/your/client`
+
+
+3. If you have a `tsconfig.json`, you will need to set `module` and `moduleResolution`.
+Set `moduleResolution` to `nodenext` or `bundler`, and set `module` to `nodenext`.
+
+
+
+4. Update your imports, once done, your client will be properly set up.
+```
+import { PrismaClient } from "db"
+```
+
+
+More information: https://pris.ly/d/custom-output
+You are importing your Prisma Client from the wrong path, please follow these steps:
+
+
+1. At the root of this project (or package), get the relative path to your client.
+For example, that could be `../prisma/client` or `./client` or something similar.
+
+
+2. Once you know where your client is located, add your own client as a dependency.
+ - For npm, run `npm add db@./path/to/your/client`
+ - For pnpm, run `pnpm add db@link:./path/to/your/client`
+ - For yarn, run `yarn add db@link:./path/to/your/client`
+
+
+3. If you have a `tsconfig.json`, you will need to set `module` and `moduleResolution`.
+Set `moduleResolution` to `nodenext` or `bundler`, and set `module` to `nodenext`.
+
+
+
+4. Update your imports, once done, your client will be properly set up.
+```
+import { PrismaClient } from "db"
+```
+
+
+More information: https://pris.ly/d/custom-output
+You are importing your Prisma Client from the wrong path, please follow these steps:
+
+
+1. At the root of this project (or package), get the relative path to your client.
+For example, that could be `../prisma/client` or `./client` or something similar.
+
+
+2. Once you know where your client is located, add your own client as a dependency.
+ - For npm, run `npm add db@./path/to/your/client`
+ - For pnpm, run `pnpm add db@link:./path/to/your/client`
+ - For yarn, run `yarn add db@link:./path/to/your/client`
+
+
+3. If you have a `tsconfig.json`, you will need to set `module` and `moduleResolution`.
+Set `moduleResolution` to `nodenext` or `bundler`, and set `module` to `nodenext`.
+
+
+
+4. Update your imports, once done, your client will be properly set up.
+```
+import { PrismaClient } from "db"
+```
+
+
+More information: https://pris.ly/d/custom-output
+You are importing your Prisma Client from the wrong path, please follow these steps:
+
+
+1. At the root of this project (or package), get the relative path to your client.
+For example, that could be `../prisma/client` or `./client` or something similar.
+
+
+2. Once you know where your client is located, add your own client as a dependency.
+ - For npm, run `npm add db@./path/to/your/client`
+ - For pnpm, run `pnpm add db@link:./path/to/your/client`
+ - For yarn, run `yarn add db@link:./path/to/your/client`
+
+
+3. If you have a `tsconfig.json`, you will need to set `module` and `moduleResolution`.
+Set `moduleResolution` to `nodenext` or `bundler`, and set `module` to `nodenext`.
+
+
+
+4. Update your imports, once done, your client will be properly set up.
+```
+import { PrismaClient } from "db"
+```
+
+
+More information: https://pris.ly/d/custom-output
+You are importing your Prisma Client from the wrong path, please follow these steps:
+
+
+1. At the root of this project (or package), get the relative path to your client.
+For example, that could be `../prisma/client` or `./client` or something similar.
+
+
+2. Once you know where your client is located, add your own client as a dependency.
+ - For npm, run `npm add db@./path/to/your/client`
+ - For pnpm, run `pnpm add db@link:./path/to/your/client`
+ - For yarn, run `yarn add db@link:./path/to/your/client`
+
+
+3. If you have a `tsconfig.json`, you will need to set `module` and `moduleResolution`.
+Set `moduleResolution` to `nodenext` or `bundler`, and set `module` to `nodenext`.
+
+
+
+4. Update your imports, once done, your client will be properly set up.
+```
+import { PrismaClient } from "db"
+```
+
+
+More information: https://pris.ly/d/custom-output
+You are importing your Prisma Client from the wrong path, please follow these steps:
+
+
+1. At the root of this project (or package), get the relative path to your client.
+For example, that could be `../prisma/client` or `./client` or something similar.
+
+
+2. Once you know where your client is located, add your own client as a dependency.
+ - For npm, run `npm add db@./path/to/your/client`
+ - For pnpm, run `pnpm add db@link:./path/to/your/client`
+ - For yarn, run `yarn add db@link:./path/to/your/client`
+
+
+3. If you have a `tsconfig.json`, you will need to set `module` and `moduleResolution`.
+Set `moduleResolution` to `nodenext` or `bundler`, and set `module` to `nodenext`.
+
+
+
+4. Update your imports, once done, your client will be properly set up.
+```
+import { PrismaClient } from "db"
+```
+
+
+More information: https://pris.ly/d/custom-output
+You are importing your Prisma Client from the wrong path, please follow these steps:
+
+
+1. At the root of this project (or package), get the relative path to your client.
+For example, that could be `../prisma/client` or `./client` or something similar.
+
+
+2. Once you know where your client is located, add your own client as a dependency.
+ - For npm, run `npm add db@./path/to/your/client`
+ - For pnpm, run `pnpm add db@link:./path/to/your/client`
+ - For yarn, run `yarn add db@link:./path/to/your/client`
+
+
+3. If you have a `tsconfig.json`, you will need to set `module` and `moduleResolution`.
+Set `moduleResolution` to `nodenext` or `bundler`, and set `module` to `nodenext`.
+
+
+
+4. Update your imports, once done, your client will be properly set up.
+```
+import { PrismaClient } from "db"
+```
+
+
+More information: https://pris.ly/d/custom-output
+You are importing your Prisma Client from the wrong path, please follow these steps:
+
+
+1. At the root of this project (or package), get the relative path to your client.
+For example, that could be `../prisma/client` or `./client` or something similar.
+
+
+2. Once you know where your client is located, add your own client as a dependency.
+ - For npm, run `npm add db@./path/to/your/client`
+ - For pnpm, run `pnpm add db@link:./path/to/your/client`
+ - For yarn, run `yarn add db@link:./path/to/your/client`
+
+
+3. If you have a `tsconfig.json`, you will need to set `module` and `moduleResolution`.
+Set `moduleResolution` to `nodenext` or `bundler`, and set `module` to `nodenext`.
+
+
+
+4. Update your imports, once done, your client will be properly set up.
+```
+import { PrismaClient } from "db"
+```
+
+
+More information: https://pris.ly/d/custom-output
+You are importing your Prisma Client from the wrong path, please follow these steps:
+
+
+1. At the root of this project (or package), get the relative path to your client.
+For example, that could be `../prisma/client` or `./client` or something similar.
+
+
+2. Once you know where your client is located, add your own client as a dependency.
+ - For npm, run `npm add db@./path/to/your/client`
+ - For pnpm, run `pnpm add db@link:./path/to/your/client`
+ - For yarn, run `yarn add db@link:./path/to/your/client`
+
+
+3. If you have a `tsconfig.json`, you will need to set `module` and `moduleResolution`.
+Set `moduleResolution` to `nodenext` or `bundler`, and set `module` to `nodenext`.
+
+
+
+4. Update your imports, once done, your client will be properly set up.
+```
+import { PrismaClient } from "db"
+```
+
+
+More information: https://pris.ly/d/custom-output
+You are importing your Prisma Client from the wrong path, please follow these steps:
+
+
+1. At the root of this project (or package), get the relative path to your client.
+For example, that could be `../prisma/client` or `./client` or something similar.
+
+
+2. Once you know where your client is located, add your own client as a dependency.
+ - For npm, run `npm add db@./path/to/your/client`
+ - For pnpm, run `pnpm add db@link:./path/to/your/client`
+ - For yarn, run `yarn add db@link:./path/to/your/client`
+
+
+3. If you have a `tsconfig.json`, you will need to set `module` and `moduleResolution`.
+Set `moduleResolution` to `nodenext` or `bundler`, and set `module` to `nodenext`.
+
+
+
+4. Update your imports, once done, your client will be properly set up.
+```
+import { PrismaClient } from "db"
+```
+
+
+More information: https://pris.ly/d/custom-output
+You are importing your Prisma Client from the wrong path, please follow these steps:
+
+
+1. At the root of this project (or package), get the relative path to your client.
+For example, that could be `../prisma/client` or `./client` or something similar.
+
+
+2. Once you know where your client is located, add your own client as a dependency.
+ - For npm, run `npm add db@./path/to/your/client`
+ - For pnpm, run `pnpm add db@link:./path/to/your/client`
+ - For yarn, run `yarn add db@link:./path/to/your/client`
+
+
+3. If you have a `tsconfig.json`, you will need to set `module` and `moduleResolution`.
+Set `moduleResolution` to `nodenext` or `bundler`, and set `module` to `nodenext`.
+
+
+
+4. Update your imports, once done, your client will be properly set up.
+```
+import { PrismaClient } from "db"
+```
+
+
+More information: https://pris.ly/d/custom-output
+You are importing your Prisma Client from the wrong path, please follow these steps:
+
+
+1. At the root of this project (or package), get the relative path to your client.
+For example, that could be `../prisma/client` or `./client` or something similar.
+
+
+2. Once you know where your client is located, add your own client as a dependency.
+ - For npm, run `npm add db@./path/to/your/client`
+ - For pnpm, run `pnpm add db@link:./path/to/your/client`
+ - For yarn, run `yarn add db@link:./path/to/your/client`
+
+
+3. If you have a `tsconfig.json`, you will need to set `module` and `moduleResolution`.
+Set `moduleResolution` to `nodenext` or `bundler`, and set `module` to `nodenext`.
+
+
+
+4. Update your imports, once done, your client will be properly set up.
+```
+import { PrismaClient } from "db"
+```
+
+
+More information: https://pris.ly/d/custom-output
+You are importing your Prisma Client from the wrong path, please follow these steps:
+
+
+1. At the root of this project (or package), get the relative path to your client.
+For example, that could be `../prisma/client` or `./client` or something similar.
+
+
+2. Once you know where your client is located, add your own client as a dependency.
+ - For npm, run `npm add db@./path/to/your/client`
+ - For pnpm, run `pnpm add db@link:./path/to/your/client`
+ - For yarn, run `yarn add db@link:./path/to/your/client`
+
+
+3. If you have a `tsconfig.json`, you will need to set `module` and `moduleResolution`.
+Set `moduleResolution` to `nodenext` or `bundler`, and set `module` to `nodenext`.
+
+
+
+4. Update your imports, once done, your client will be properly set up.
+```
+import { PrismaClient } from "db"
+```
+
+
+More information: https://pris.ly/d/custom-output
+You are importing your Prisma Client from the wrong path, please follow these steps:
+
+
+1. At the root of this project (or package), get the relative path to your client.
+For example, that could be `../prisma/client` or `./client` or something similar.
+
+
+2. Once you know where your client is located, add your own client as a dependency.
+ - For npm, run `npm add db@./path/to/your/client`
+ - For pnpm, run `pnpm add db@link:./path/to/your/client`
+ - For yarn, run `yarn add db@link:./path/to/your/client`
+
+
+3. If you have a `tsconfig.json`, you will need to set `module` and `moduleResolution`.
+Set `moduleResolution` to `nodenext` or `bundler`, and set `module` to `nodenext`.
+
+
+
+4. Update your imports, once done, your client will be properly set up.
+```
+import { PrismaClient } from "db"
+```
+
+
+More information: https://pris.ly/d/custom-output
+You are importing your Prisma Client from the wrong path, please follow these steps:
+
+
+1. At the root of this project (or package), get the relative path to your client.
+For example, that could be `../prisma/client` or `./client` or something similar.
+
+
+2. Once you know where your client is located, add your own client as a dependency.
+ - For npm, run `npm add db@./path/to/your/client`
+ - For pnpm, run `pnpm add db@link:./path/to/your/client`
+ - For yarn, run `yarn add db@link:./path/to/your/client`
+
+
+3. If you have a `tsconfig.json`, you will need to set `module` and `moduleResolution`.
+Set `moduleResolution` to `nodenext` or `bundler`, and set `module` to `nodenext`.
+
+
+
+4. Update your imports, once done, your client will be properly set up.
+```
+import { PrismaClient } from "db"
+```
+
+
+More information: https://pris.ly/d/custom-output
+You are importing your Prisma Client from the wrong path, please follow these steps:
+
+
+1. At the root of this project (or package), get the relative path to your client.
+For example, that could be `../prisma/client` or `./client` or something similar.
+
+
+2. Once you know where your client is located, add your own client as a dependency.
+ - For npm, run `npm add db@./path/to/your/client`
+ - For pnpm, run `pnpm add db@link:./path/to/your/client`
+ - For yarn, run `yarn add db@link:./path/to/your/client`
+
+
+3. If you have a `tsconfig.json`, you will need to set `module` and `moduleResolution`.
+Set `moduleResolution` to `nodenext` or `bundler`, and set `module` to `nodenext`.
+
+
+
+4. Update your imports, once done, your client will be properly set up.
+```
+import { PrismaClient } from "db"
+```
+
+
+More information: https://pris.ly/d/custom-output
+You are importing your Prisma Client from the wrong path, please follow these steps:
+
+
+1. At the root of this project (or package), get the relative path to your client.
+For example, that could be `../prisma/client` or `./client` or something similar.
+
+
+2. Once you know where your client is located, add your own client as a dependency.
+ - For npm, run `npm add db@./path/to/your/client`
+ - For pnpm, run `pnpm add db@link:./path/to/your/client`
+ - For yarn, run `yarn add db@link:./path/to/your/client`
+
+
+3. If you have a `tsconfig.json`, you will need to set `module` and `moduleResolution`.
+Set `moduleResolution` to `nodenext` or `bundler`, and set `module` to `nodenext`.
+
+
+
+4. Update your imports, once done, your client will be properly set up.
+```
+import { PrismaClient } from "db"
+```
+
+
+More information: https://pris.ly/d/custom-output
+You are importing your Prisma Client from the wrong path, please follow these steps:
+
+
+1. At the root of this project (or package), get the relative path to your client.
+For example, that could be `../prisma/client` or `./client` or something similar.
+
+
+2. Once you know where your client is located, add your own client as a dependency.
+ - For npm, run `npm add db@./path/to/your/client`
+ - For pnpm, run `pnpm add db@link:./path/to/your/client`
+ - For yarn, run `yarn add db@link:./path/to/your/client`
+
+
+3. If you have a `tsconfig.json`, you will need to set `module` and `moduleResolution`.
+Set `moduleResolution` to `nodenext` or `bundler`, and set `module` to `nodenext`.
+
+
+
+4. Update your imports, once done, your client will be properly set up.
+```
+import { PrismaClient } from "db"
+```
+
+
+More information: https://pris.ly/d/custom-output
+You are importing your Prisma Client from the wrong path, please follow these steps:
+
+
+1. At the root of this project (or package), get the relative path to your client.
+For example, that could be `../prisma/client` or `./client` or something similar.
+
+
+2. Once you know where your client is located, add your own client as a dependency.
+ - For npm, run `npm add db@./path/to/your/client`
+ - For pnpm, run `pnpm add db@link:./path/to/your/client`
+ - For yarn, run `yarn add db@link:./path/to/your/client`
+
+
+3. If you have a `tsconfig.json`, you will need to set `module` and `moduleResolution`.
+Set `moduleResolution` to `nodenext` or `bundler`, and set `module` to `nodenext`.
+
+
+
+4. Update your imports, once done, your client will be properly set up.
+```
+import { PrismaClient } from "db"
+```
+
+
+More information: https://pris.ly/d/custom-output
+You are importing your Prisma Client from the wrong path, please follow these steps:
+
+
+1. At the root of this project (or package), get the relative path to your client.
+For example, that could be `../prisma/client` or `./client` or something similar.
+
+
+2. Once you know where your client is located, add your own client as a dependency.
+ - For npm, run `npm add db@./path/to/your/client`
+ - For pnpm, run `pnpm add db@link:./path/to/your/client`
+ - For yarn, run `yarn add db@link:./path/to/your/client`
+
+
+3. If you have a `tsconfig.json`, you will need to set `module` and `moduleResolution`.
+Set `moduleResolution` to `nodenext` or `bundler`, and set `module` to `nodenext`.
+
+
+
+4. Update your imports, once done, your client will be properly set up.
+```
+import { PrismaClient } from "db"
+```
+
+
+More information: https://pris.ly/d/custom-output
+You are importing your Prisma Client from the wrong path, please follow these steps:
+
+
+1. At the root of this project (or package), get the relative path to your client.
+For example, that could be `../prisma/client` or `./client` or something similar.
+
+
+2. Once you know where your client is located, add your own client as a dependency.
+ - For npm, run `npm add db@./path/to/your/client`
+ - For pnpm, run `pnpm add db@link:./path/to/your/client`
+ - For yarn, run `yarn add db@link:./path/to/your/client`
+
+
+3. If you have a `tsconfig.json`, you will need to set `module` and `moduleResolution`.
+Set `moduleResolution` to `nodenext` or `bundler`, and set `module` to `nodenext`.
+
+
+
+4. Update your imports, once done, your client will be properly set up.
+```
+import { PrismaClient } from "db"
+```
+
+
+More information: https://pris.ly/d/custom-output
+   Generating static pages (0/193) ...
+(node:21092) Warning: SECURITY WARNING: The SSL modes 'prefer', 'require', and 'verify-ca' are treated as aliases for 'verify-full'.
+In the next major version (pg-connection-string v3.0.0 and pg v9.0.0), these modes will adopt standard libpq semantics, which have weaker security guarantees.
+
+To prepare for this change:
+- If you want the current behavior, explicitly use 'sslmode=verify-full'
+- If you want libpq compatibility now, use 'uselibpqcompat=true&sslmode=require'
+
+See https://www.postgresql.org/docs/current/libpq-ssl.html for libpq SSL mode definitions.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:13736) Warning: SECURITY WARNING: The SSL modes 'prefer', 'require', and 'verify-ca' are treated as aliases for 'verify-full'.
+In the next major version (pg-connection-string v3.0.0 and pg v9.0.0), these modes will adopt standard libpq semantics, which have weaker security guarantees.
+
+To prepare for this change:
+- If you want the current behavior, explicitly use 'sslmode=verify-full'
+- If you want libpq compatibility now, use 'uselibpqcompat=true&sslmode=require'
+
+See https://www.postgresql.org/docs/current/libpq-ssl.html for libpq SSL mode definitions.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:21788) Warning: SECURITY WARNING: The SSL modes 'prefer', 'require', and 'verify-ca' are treated as aliases for 'verify-full'.
+In the next major version (pg-connection-string v3.0.0 and pg v9.0.0), these modes will adopt standard libpq semantics, which have weaker security guarantees.
+
+To prepare for this change:
+- If you want the current behavior, explicitly use 'sslmode=verify-full'
+- If you want libpq compatibility now, use 'uselibpqcompat=true&sslmode=require'
+
+See https://www.postgresql.org/docs/current/libpq-ssl.html for libpq SSL mode definitions.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:15968) Warning: SECURITY WARNING: The SSL modes 'prefer', 'require', and 'verify-ca' are treated as aliases for 'verify-full'.
+In the next major version (pg-connection-string v3.0.0 and pg v9.0.0), these modes will adopt standard libpq semantics, which have weaker security guarantees.
+
+To prepare for this change:
+- If you want the current behavior, explicitly use 'sslmode=verify-full'
+- If you want libpq compatibility now, use 'uselibpqcompat=true&sslmode=require'
+
+See https://www.postgresql.org/docs/current/libpq-ssl.html for libpq SSL mode definitions.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:10028) Warning: SECURITY WARNING: The SSL modes 'prefer', 'require', and 'verify-ca' are treated as aliases for 'verify-full'.
+In the next major version (pg-connection-string v3.0.0 and pg v9.0.0), these modes will adopt standard libpq semantics, which have weaker security guarantees.
+
+To prepare for this change:
+- If you want the current behavior, explicitly use 'sslmode=verify-full'
+- If you want libpq compatibility now, use 'uselibpqcompat=true&sslmode=require'
+
+See https://www.postgresql.org/docs/current/libpq-ssl.html for libpq SSL mode definitions.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:9340) Warning: SECURITY WARNING: The SSL modes 'prefer', 'require', and 'verify-ca' are treated as aliases for 'verify-full'.
+In the next major version (pg-connection-string v3.0.0 and pg v9.0.0), these modes will adopt standard libpq semantics, which have weaker security guarantees.
+
+To prepare for this change:
+- If you want the current behavior, explicitly use 'sslmode=verify-full'
+- If you want libpq compatibility now, use 'uselibpqcompat=true&sslmode=require'
+
+See https://www.postgresql.org/docs/current/libpq-ssl.html for libpq SSL mode definitions.
+(Use `node --trace-warnings ...` to show where the warning was created)
+   Generating static pages (48/193) 
+getSegments: Calling getVendorId
+getVendorId: Starting
+getSegments: Calling getVendorId
+getVendorId: Starting
+Error fetching segments: n [Error]: Dynamic server usage: Route /seller/customers/segments couldn't be rendered statically because it used `headers`. See more info here: https://nextjs.org/docs/messages/dynamic-server-error
+    at l (C:\Users\Hossame\Desktop\Dig\apps\web\.next\server\chunks\1784.js:1:56329)
+    at d (C:\Users\Hossame\Desktop\Dig\apps\web\.next\server\chunks\5369.js:25:26978)
+    at s (C:\Users\Hossame\Desktop\Dig\apps\web\.next\server\chunks\5369.js:25:19587)
+    at o (C:\Users\Hossame\Desktop\Dig\apps\web\.next\server\chunks\8810.js:1:10658)
+    at l (C:\Users\Hossame\Desktop\Dig\apps\web\.next\server\chunks\8810.js:1:11134)
+    at u (C:\Users\Hossame\Desktop\Dig\apps\web\.next\server\app\(dashboard)\seller\customers\segments\page.js:1:14076)
+    at em (C:\Users\Hossame\Desktop\Dig\node_modules\.pnpm\next@14.2.35_@babel+core@7._bf197b55b3dc8af2afd49bbca9193d0c\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:134808)
+    at e (C:\Users\Hossame\Desktop\Dig\node_modules\.pnpm\next@14.2.35_@babel+core@7._bf197b55b3dc8af2afd49bbca9193d0c\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:137693)
+    at e_ (C:\Users\Hossame\Desktop\Dig\node_modules\.pnpm\next@14.2.35_@babel+core@7._bf197b55b3dc8af2afd49bbca9193d0c\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:138168)
+    at Array.toJSON (C:\Users\Hossame\Desktop\Dig\node_modules\.pnpm\next@14.2.35_@babel+core@7._bf197b55b3dc8af2afd49bbca9193d0c\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:135777) {
+  description: "Route /seller/customers/segments couldn't be rendered statically because it used `headers`. See more info here: https://nextjs.org/docs/messages/dynamic-server-error",
+  digest: 'DYNAMIC_SERVER_USAGE'
+}
+Error fetching segments: n [Error]: Dynamic server usage: Route /seller/customers/segments couldn't be rendered statically because it used `headers`. See more info here: https://nextjs.org/docs/messages/dynamic-server-error
+    at l (C:\Users\Hossame\Desktop\Dig\apps\web\.next\server\chunks\1784.js:1:56329)
+    at d (C:\Users\Hossame\Desktop\Dig\apps\web\.next\server\chunks\5369.js:25:26978)
+    at s (C:\Users\Hossame\Desktop\Dig\apps\web\.next\server\chunks\5369.js:25:19587)
+    at o (C:\Users\Hossame\Desktop\Dig\apps\web\.next\server\chunks\8810.js:1:10658)
+    at l (C:\Users\Hossame\Desktop\Dig\apps\web\.next\server\chunks\8810.js:1:11134)
+    at u (C:\Users\Hossame\Desktop\Dig\apps\web\.next\server\app\(dashboard)\seller\customers\segments\page.js:1:14076)
+    at em (C:\Users\Hossame\Desktop\Dig\node_modules\.pnpm\next@14.2.35_@babel+core@7._bf197b55b3dc8af2afd49bbca9193d0c\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:134808)
+    at e (C:\Users\Hossame\Desktop\Dig\node_modules\.pnpm\next@14.2.35_@babel+core@7._bf197b55b3dc8af2afd49bbca9193d0c\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:137693)
+    at e_ (C:\Users\Hossame\Desktop\Dig\node_modules\.pnpm\next@14.2.35_@babel+core@7._bf197b55b3dc8af2afd49bbca9193d0c\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:138168)
+    at Array.toJSON (C:\Users\Hossame\Desktop\Dig\node_modules\.pnpm\next@14.2.35_@babel+core@7._bf197b55b3dc8af2afd49bbca9193d0c\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:135777) {
+  description: "Route /seller/customers/segments couldn't be rendered statically because it used `headers`. See more info here: https://nextjs.org/docs/messages/dynamic-server-error",
+  digest: 'DYNAMIC_SERVER_USAGE'
+}
+(node:20776) Warning: SECURITY WARNING: The SSL modes 'prefer', 'require', and 'verify-ca' are treated as aliases for 'verify-full'.
+In the next major version (pg-connection-string v3.0.0 and pg v9.0.0), these modes will adopt standard libpq semantics, which have weaker security guarantees.
+
+To prepare for this change:
+- If you want the current behavior, explicitly use 'sslmode=verify-full'
+- If you want libpq compatibility now, use 'uselibpqcompat=true&sslmode=require'
+
+See https://www.postgresql.org/docs/current/libpq-ssl.html for libpq SSL mode definitions.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:26536) Warning: SECURITY WARNING: The SSL modes 'prefer', 'require', and 'verify-ca' are treated as aliases for 'verify-full'.
+In the next major version (pg-connection-string v3.0.0 and pg v9.0.0), these modes will adopt standard libpq semantics, which have weaker security guarantees.
+
+To prepare for this change:
+- If you want the current behavior, explicitly use 'sslmode=verify-full'
+- If you want libpq compatibility now, use 'uselibpqcompat=true&sslmode=require'
+
+See https://www.postgresql.org/docs/current/libpq-ssl.html for libpq SSL mode definitions.
+(Use `node --trace-warnings ...` to show where the warning was created)
+   Generating static pages (96/193) 
+Error fetching seller profile: n [Error]: Dynamic server usage: Route /seller/settings/customer-events couldn't be rendered statically because it used `headers`. See more info here: https://nextjs.org/docs/messages/dynamic-server-error
+    at l (C:\Users\Hossame\Desktop\Dig\apps\web\.next\server\chunks\1784.js:1:56329)
+    at d (C:\Users\Hossame\Desktop\Dig\apps\web\.next\server\chunks\5369.js:25:26978)
+    at s (C:\Users\Hossame\Desktop\Dig\apps\web\.next\server\chunks\5369.js:25:19587)
+    at x (C:\Users\Hossame\Desktop\Dig\apps\web\.next\server\chunks\5037.js:1:26174)
+    at l (C:\Users\Hossame\Desktop\Dig\apps\web\.next\server\app\(dashboard)\seller\settings\locations\page.js:1:22194)
+    at em (C:\Users\Hossame\Desktop\Dig\node_modules\.pnpm\next@14.2.35_@babel+core@7._bf197b55b3dc8af2afd49bbca9193d0c\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:134808)
+    at e (C:\Users\Hossame\Desktop\Dig\node_modules\.pnpm\next@14.2.35_@babel+core@7._bf197b55b3dc8af2afd49bbca9193d0c\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:137693)
+    at e_ (C:\Users\Hossame\Desktop\Dig\node_modules\.pnpm\next@14.2.35_@babel+core@7._bf197b55b3dc8af2afd49bbca9193d0c\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:138168)
+    at Array.toJSON (C:\Users\Hossame\Desktop\Dig\node_modules\.pnpm\next@14.2.35_@babel+core@7._bf197b55b3dc8af2afd49bbca9193d0c\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:135777)
+    at stringify (<anonymous>) {
+  description: "Route /seller/settings/customer-events couldn't be rendered statically because it used `headers`. See more info here: https://nextjs.org/docs/messages/dynamic-server-error",
+  digest: 'DYNAMIC_SERVER_USAGE'
+}
+Error fetching seller profile: n [Error]: Dynamic server usage: Route /seller/settings/customer-events couldn't be rendered statically because it used `headers`. See more info here: https://nextjs.org/docs/messages/dynamic-server-error
+    at l (C:\Users\Hossame\Desktop\Dig\apps\web\.next\server\chunks\1784.js:1:56329)
+    at d (C:\Users\Hossame\Desktop\Dig\apps\web\.next\server\chunks\5369.js:25:26978)
+    at s (C:\Users\Hossame\Desktop\Dig\apps\web\.next\server\chunks\5369.js:25:19587)
+    at x (C:\Users\Hossame\Desktop\Dig\apps\web\.next\server\chunks\5037.js:1:26174)
+    at l (C:\Users\Hossame\Desktop\Dig\apps\web\.next\server\app\(dashboard)\seller\settings\locations\page.js:1:22194)
+    at em (C:\Users\Hossame\Desktop\Dig\node_modules\.pnpm\next@14.2.35_@babel+core@7._bf197b55b3dc8af2afd49bbca9193d0c\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:134808)
+    at e (C:\Users\Hossame\Desktop\Dig\node_modules\.pnpm\next@14.2.35_@babel+core@7._bf197b55b3dc8af2afd49bbca9193d0c\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:137693)
+    at e_ (C:\Users\Hossame\Desktop\Dig\node_modules\.pnpm\next@14.2.35_@babel+core@7._bf197b55b3dc8af2afd49bbca9193d0c\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:138168)
+    at Array.toJSON (C:\Users\Hossame\Desktop\Dig\node_modules\.pnpm\next@14.2.35_@babel+core@7._bf197b55b3dc8af2afd49bbca9193d0c\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:135777)
+    at stringify (<anonymous>) {
+  description: "Route /seller/settings/customer-events couldn't be rendered statically because it used `headers`. See more info here: https://nextjs.org/docs/messages/dynamic-server-error",
+  digest: 'DYNAMIC_SERVER_USAGE'
+}
+Error fetching seller profile: n [Error]: Dynamic server usage: Route /seller/settings/notifications/customer couldn't be rendered statically because it used `headers`. See more info here: https://nextjs.org/docs/messages/dynamic-server-error
+    at l (C:\Users\Hossame\Desktop\Dig\apps\web\.next\server\chunks\1784.js:1:56329)
+    at d (C:\Users\Hossame\Desktop\Dig\apps\web\.next\server\chunks\5369.js:25:26978)
+    at s (C:\Users\Hossame\Desktop\Dig\apps\web\.next\server\chunks\5369.js:25:19587)
+    at x (C:\Users\Hossame\Desktop\Dig\apps\web\.next\server\chunks\5037.js:1:26174)
+    at i (C:\Users\Hossame\Desktop\Dig\apps\web\.next\server\app\(dashboard)\seller\settings\billing\page.js:1:25940)
+    at em (C:\Users\Hossame\Desktop\Dig\node_modules\.pnpm\next@14.2.35_@babel+core@7._bf197b55b3dc8af2afd49bbca9193d0c\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:134808)
+    at e (C:\Users\Hossame\Desktop\Dig\node_modules\.pnpm\next@14.2.35_@babel+core@7._bf197b55b3dc8af2afd49bbca9193d0c\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:137693)
+    at e_ (C:\Users\Hossame\Desktop\Dig\node_modules\.pnpm\next@14.2.35_@babel+core@7._bf197b55b3dc8af2afd49bbca9193d0c\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:138168)
+    at Array.toJSON (C:\Users\Hossame\Desktop\Dig\node_modules\.pnpm\next@14.2.35_@babel+core@7._bf197b55b3dc8af2afd49bbca9193d0c\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:135777)
+    at stringify (<anonymous>) {
+  description: "Route /seller/settings/notifications/customer couldn't be rendered statically because it used `headers`. See more info here: https://nextjs.org/docs/messages/dynamic-server-error",
+  digest: 'DYNAMIC_SERVER_USAGE'
+}
+Error fetching seller profile: n [Error]: Dynamic server usage: Route /seller/settings/notifications/customer couldn't be rendered statically because it used `headers`. See more info here: https://nextjs.org/docs/messages/dynamic-server-error
+    at l (C:\Users\Hossame\Desktop\Dig\apps\web\.next\server\chunks\1784.js:1:56329)
+    at d (C:\Users\Hossame\Desktop\Dig\apps\web\.next\server\chunks\5369.js:25:26978)
+    at s (C:\Users\Hossame\Desktop\Dig\apps\web\.next\server\chunks\5369.js:25:19587)
+    at x (C:\Users\Hossame\Desktop\Dig\apps\web\.next\server\chunks\5037.js:1:26174)
+    at i (C:\Users\Hossame\Desktop\Dig\apps\web\.next\server\app\(dashboard)\seller\settings\billing\page.js:1:25940)
+    at em (C:\Users\Hossame\Desktop\Dig\node_modules\.pnpm\next@14.2.35_@babel+core@7._bf197b55b3dc8af2afd49bbca9193d0c\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:134808)
+    at e (C:\Users\Hossame\Desktop\Dig\node_modules\.pnpm\next@14.2.35_@babel+core@7._bf197b55b3dc8af2afd49bbca9193d0c\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:137693)
+    at e_ (C:\Users\Hossame\Desktop\Dig\node_modules\.pnpm\next@14.2.35_@babel+core@7._bf197b55b3dc8af2afd49bbca9193d0c\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:138168)
+    at Array.toJSON (C:\Users\Hossame\Desktop\Dig\node_modules\.pnpm\next@14.2.35_@babel+core@7._bf197b55b3dc8af2afd49bbca9193d0c\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:135777)
+    at stringify (<anonymous>) {
+  description: "Route /seller/settings/notifications/customer couldn't be rendered statically because it used `headers`. See more info here: https://nextjs.org/docs/messages/dynamic-server-error",
+  digest: 'DYNAMIC_SERVER_USAGE'
+}
+Error fetching seller profile: n [Error]: Dynamic server usage: Route /seller/settings/notifications/fulfillment couldn't be rendered statically because it used `headers`. See more info here: https://nextjs.org/docs/messages/dynamic-server-error
+    at l (C:\Users\Hossame\Desktop\Dig\apps\web\.next\server\chunks\1784.js:1:56329)
+    at d (C:\Users\Hossame\Desktop\Dig\apps\web\.next\server\chunks\5369.js:25:26978)
+    at s (C:\Users\Hossame\Desktop\Dig\apps\web\.next\server\chunks\5369.js:25:19587)
+    at x (C:\Users\Hossame\Desktop\Dig\apps\web\.next\server\chunks\5037.js:1:26174)
+    at n (C:\Users\Hossame\Desktop\Dig\apps\web\.next\server\app\(dashboard)\seller\settings\notifications\fulfillment\page.js:1:24182)
+    at em (C:\Users\Hossame\Desktop\Dig\node_modules\.pnpm\next@14.2.35_@babel+core@7._bf197b55b3dc8af2afd49bbca9193d0c\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:134808)
+    at e (C:\Users\Hossame\Desktop\Dig\node_modules\.pnpm\next@14.2.35_@babel+core@7._bf197b55b3dc8af2afd49bbca9193d0c\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:137693)
+    at e_ (C:\Users\Hossame\Desktop\Dig\node_modules\.pnpm\next@14.2.35_@babel+core@7._bf197b55b3dc8af2afd49bbca9193d0c\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:138168)
+    at Array.toJSON (C:\Users\Hossame\Desktop\Dig\node_modules\.pnpm\next@14.2.35_@babel+core@7._bf197b55b3dc8af2afd49bbca9193d0c\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:135777)
+    at stringify (<anonymous>) {
+  description: "Route /seller/settings/notifications/fulfillment couldn't be rendered statically because it used `headers`. See more info here: https://nextjs.org/docs/messages/dynamic-server-error",
+  digest: 'DYNAMIC_SERVER_USAGE'
+}
+Error fetching seller profile: n [Error]: Dynamic server usage: Route /seller/settings/notifications/fulfillment couldn't be rendered statically because it used `headers`. See more info here: https://nextjs.org/docs/messages/dynamic-server-error
+    at l (C:\Users\Hossame\Desktop\Dig\apps\web\.next\server\chunks\1784.js:1:56329)
+    at d (C:\Users\Hossame\Desktop\Dig\apps\web\.next\server\chunks\5369.js:25:26978)
+    at s (C:\Users\Hossame\Desktop\Dig\apps\web\.next\server\chunks\5369.js:25:19587)
+    at x (C:\Users\Hossame\Desktop\Dig\apps\web\.next\server\chunks\5037.js:1:26174)
+    at n (C:\Users\Hossame\Desktop\Dig\apps\web\.next\server\app\(dashboard)\seller\settings\notifications\fulfillment\page.js:1:24182)
+    at em (C:\Users\Hossame\Desktop\Dig\node_modules\.pnpm\next@14.2.35_@babel+core@7._bf197b55b3dc8af2afd49bbca9193d0c\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:134808)
+    at e (C:\Users\Hossame\Desktop\Dig\node_modules\.pnpm\next@14.2.35_@babel+core@7._bf197b55b3dc8af2afd49bbca9193d0c\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:137693)
+    at e_ (C:\Users\Hossame\Desktop\Dig\node_modules\.pnpm\next@14.2.35_@babel+core@7._bf197b55b3dc8af2afd49bbca9193d0c\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:138168)
+    at Array.toJSON (C:\Users\Hossame\Desktop\Dig\node_modules\.pnpm\next@14.2.35_@babel+core@7._bf197b55b3dc8af2afd49bbca9193d0c\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:135777)
+    at stringify (<anonymous>) {
+  description: "Route /seller/settings/notifications/fulfillment couldn't be rendered statically because it used `headers`. See more info here: https://nextjs.org/docs/messages/dynamic-server-error",
+  digest: 'DYNAMIC_SERVER_USAGE'
+}
+Error fetching seller profile: n [Error]: Dynamic server usage: Route /seller/settings/notifications/staff couldn't be rendered statically because it used `headers`. See more info here: https://nextjs.org/docs/messages/dynamic-server-error
+    at l (C:\Users\Hossame\Desktop\Dig\apps\web\.next\server\chunks\1784.js:1:56329)
+    at d (C:\Users\Hossame\Desktop\Dig\apps\web\.next\server\chunks\5369.js:25:26978)
+    at s (C:\Users\Hossame\Desktop\Dig\apps\web\.next\server\chunks\5369.js:25:19587)
+    at x (C:\Users\Hossame\Desktop\Dig\apps\web\.next\server\chunks\5037.js:1:26174)
+    at i (C:\Users\Hossame\Desktop\Dig\apps\web\.next\server\app\(dashboard)\seller\settings\notifications\staff\page.js:1:25909)
+    at em (C:\Users\Hossame\Desktop\Dig\node_modules\.pnpm\next@14.2.35_@babel+core@7._bf197b55b3dc8af2afd49bbca9193d0c\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:134808)
+    at e (C:\Users\Hossame\Desktop\Dig\node_modules\.pnpm\next@14.2.35_@babel+core@7._bf197b55b3dc8af2afd49bbca9193d0c\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:137693)
+    at e_ (C:\Users\Hossame\Desktop\Dig\node_modules\.pnpm\next@14.2.35_@babel+core@7._bf197b55b3dc8af2afd49bbca9193d0c\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:138168)
+    at Array.toJSON (C:\Users\Hossame\Desktop\Dig\node_modules\.pnpm\next@14.2.35_@babel+core@7._bf197b55b3dc8af2afd49bbca9193d0c\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:135777)
+    at stringify (<anonymous>) {
+  description: "Route /seller/settings/notifications/staff couldn't be rendered statically because it used `headers`. See more info here: https://nextjs.org/docs/messages/dynamic-server-error",
+  digest: 'DYNAMIC_SERVER_USAGE'
+}
+Error fetching seller profile: n [Error]: Dynamic server usage: Route /seller/settings/notifications/staff couldn't be rendered statically because it used `headers`. See more info here: https://nextjs.org/docs/messages/dynamic-server-error
+    at l (C:\Users\Hossame\Desktop\Dig\apps\web\.next\server\chunks\1784.js:1:56329)
+    at d (C:\Users\Hossame\Desktop\Dig\apps\web\.next\server\chunks\5369.js:25:26978)
+    at s (C:\Users\Hossame\Desktop\Dig\apps\web\.next\server\chunks\5369.js:25:19587)
+    at x (C:\Users\Hossame\Desktop\Dig\apps\web\.next\server\chunks\5037.js:1:26174)
+    at i (C:\Users\Hossame\Desktop\Dig\apps\web\.next\server\app\(dashboard)\seller\settings\notifications\staff\page.js:1:25909)
+    at em (C:\Users\Hossame\Desktop\Dig\node_modules\.pnpm\next@14.2.35_@babel+core@7._bf197b55b3dc8af2afd49bbca9193d0c\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:134808)
+    at e (C:\Users\Hossame\Desktop\Dig\node_modules\.pnpm\next@14.2.35_@babel+core@7._bf197b55b3dc8af2afd49bbca9193d0c\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:137693)
+    at e_ (C:\Users\Hossame\Desktop\Dig\node_modules\.pnpm\next@14.2.35_@babel+core@7._bf197b55b3dc8af2afd49bbca9193d0c\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:138168)
+    at Array.toJSON (C:\Users\Hossame\Desktop\Dig\node_modules\.pnpm\next@14.2.35_@babel+core@7._bf197b55b3dc8af2afd49bbca9193d0c\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:135777)
+    at stringify (<anonymous>) {
+  description: "Route /seller/settings/notifications/staff couldn't be rendered statically because it used `headers`. See more info here: https://nextjs.org/docs/messages/dynamic-server-error",
+  digest: 'DYNAMIC_SERVER_USAGE'
+}
+Error fetching seller profile: n [Error]: Dynamic server usage: Route /seller/settings/notifications/webhooks couldn't be rendered statically because it used `headers`. See more info here: https://nextjs.org/docs/messages/dynamic-server-error
+    at l (C:\Users\Hossame\Desktop\Dig\apps\web\.next\server\chunks\1784.js:1:56329)
+    at d (C:\Users\Hossame\Desktop\Dig\apps\web\.next\server\chunks\5369.js:25:26978)
+    at s (C:\Users\Hossame\Desktop\Dig\apps\web\.next\server\chunks\5369.js:25:19587)
+    at x (C:\Users\Hossame\Desktop\Dig\apps\web\.next\server\chunks\5037.js:1:26174)
+    at l (C:\Users\Hossame\Desktop\Dig\apps\web\.next\server\app\(dashboard)\seller\settings\notifications\webhooks\page.js:1:22808)
+    at em (C:\Users\Hossame\Desktop\Dig\node_modules\.pnpm\next@14.2.35_@babel+core@7._bf197b55b3dc8af2afd49bbca9193d0c\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:134808)
+    at e (C:\Users\Hossame\Desktop\Dig\node_modules\.pnpm\next@14.2.35_@babel+core@7._bf197b55b3dc8af2afd49bbca9193d0c\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:137693)
+    at e_ (C:\Users\Hossame\Desktop\Dig\node_modules\.pnpm\next@14.2.35_@babel+core@7._bf197b55b3dc8af2afd49bbca9193d0c\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:138168)
+    at Array.toJSON (C:\Users\Hossame\Desktop\Dig\node_modules\.pnpm\next@14.2.35_@babel+core@7._bf197b55b3dc8af2afd49bbca9193d0c\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:135777)
+    at stringify (<anonymous>) {
+  description: "Route /seller/settings/notifications/webhooks couldn't be rendered statically because it used `headers`. See more info here: https://nextjs.org/docs/messages/dynamic-server-error",
+  digest: 'DYNAMIC_SERVER_USAGE'
+}
+Error fetching seller profile: n [Error]: Dynamic server usage: Route /seller/settings/notifications/webhooks couldn't be rendered statically because it used `headers`. See more info here: https://nextjs.org/docs/messages/dynamic-server-error
+    at l (C:\Users\Hossame\Desktop\Dig\apps\web\.next\server\chunks\1784.js:1:56329)
+    at d (C:\Users\Hossame\Desktop\Dig\apps\web\.next\server\chunks\5369.js:25:26978)
+    at s (C:\Users\Hossame\Desktop\Dig\apps\web\.next\server\chunks\5369.js:25:19587)
+    at x (C:\Users\Hossame\Desktop\Dig\apps\web\.next\server\chunks\5037.js:1:26174)
+    at l (C:\Users\Hossame\Desktop\Dig\apps\web\.next\server\app\(dashboard)\seller\settings\notifications\webhooks\page.js:1:22808)
+    at em (C:\Users\Hossame\Desktop\Dig\node_modules\.pnpm\next@14.2.35_@babel+core@7._bf197b55b3dc8af2afd49bbca9193d0c\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:134808)
+    at e (C:\Users\Hossame\Desktop\Dig\node_modules\.pnpm\next@14.2.35_@babel+core@7._bf197b55b3dc8af2afd49bbca9193d0c\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:137693)
+    at e_ (C:\Users\Hossame\Desktop\Dig\node_modules\.pnpm\next@14.2.35_@babel+core@7._bf197b55b3dc8af2afd49bbca9193d0c\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:138168)
+    at Array.toJSON (C:\Users\Hossame\Desktop\Dig\node_modules\.pnpm\next@14.2.35_@babel+core@7._bf197b55b3dc8af2afd49bbca9193d0c\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:135777)
+    at stringify (<anonymous>) {
+  description: "Route /seller/settings/notifications/webhooks couldn't be rendered statically because it used `headers`. See more info here: https://nextjs.org/docs/messages/dynamic-server-error",
+  digest: 'DYNAMIC_SERVER_USAGE'
+}
+Error fetching seller profile: n [Error]: Dynamic server usage: Route /seller/settings/shipping couldn't be rendered statically because it used `headers`. See more info here: https://nextjs.org/docs/messages/dynamic-server-error
+    at l (C:\Users\Hossame\Desktop\Dig\apps\web\.next\server\chunks\1784.js:1:56329)
+    at d (C:\Users\Hossame\Desktop\Dig\apps\web\.next\server\chunks\5369.js:25:26978)
+    at s (C:\Users\Hossame\Desktop\Dig\apps\web\.next\server\chunks\5369.js:25:19587)
+    at x (C:\Users\Hossame\Desktop\Dig\apps\web\.next\server\chunks\5037.js:1:26174)
+    at o (C:\Users\Hossame\Desktop\Dig\apps\web\.next\server\app\(dashboard)\seller\settings\shipping\page.js:1:13569)
+    at em (C:\Users\Hossame\Desktop\Dig\node_modules\.pnpm\next@14.2.35_@babel+core@7._bf197b55b3dc8af2afd49bbca9193d0c\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:134808)
+    at e (C:\Users\Hossame\Desktop\Dig\node_modules\.pnpm\next@14.2.35_@babel+core@7._bf197b55b3dc8af2afd49bbca9193d0c\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:137693)
+    at e_ (C:\Users\Hossame\Desktop\Dig\node_modules\.pnpm\next@14.2.35_@babel+core@7._bf197b55b3dc8af2afd49bbca9193d0c\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:138168)
+    at Array.toJSON (C:\Users\Hossame\Desktop\Dig\node_modules\.pnpm\next@14.2.35_@babel+core@7._bf197b55b3dc8af2afd49bbca9193d0c\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:135777)
+    at stringify (<anonymous>) {
+  description: "Route /seller/settings/shipping couldn't be rendered statically because it used `headers`. See more info here: https://nextjs.org/docs/messages/dynamic-server-error",
+  digest: 'DYNAMIC_SERVER_USAGE'
+}
+Error fetching seller profile: n [Error]: Dynamic server usage: Route /seller/settings/shipping couldn't be rendered statically because it used `headers`. See more info here: https://nextjs.org/docs/messages/dynamic-server-error
+    at l (C:\Users\Hossame\Desktop\Dig\apps\web\.next\server\chunks\1784.js:1:56329)
+    at d (C:\Users\Hossame\Desktop\Dig\apps\web\.next\server\chunks\5369.js:25:26978)
+    at s (C:\Users\Hossame\Desktop\Dig\apps\web\.next\server\chunks\5369.js:25:19587)
+    at x (C:\Users\Hossame\Desktop\Dig\apps\web\.next\server\chunks\5037.js:1:26174)
+    at o (C:\Users\Hossame\Desktop\Dig\apps\web\.next\server\app\(dashboard)\seller\settings\shipping\page.js:1:13569)
+    at em (C:\Users\Hossame\Desktop\Dig\node_modules\.pnpm\next@14.2.35_@babel+core@7._bf197b55b3dc8af2afd49bbca9193d0c\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:134808)
+    at e (C:\Users\Hossame\Desktop\Dig\node_modules\.pnpm\next@14.2.35_@babel+core@7._bf197b55b3dc8af2afd49bbca9193d0c\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:137693)
+    at e_ (C:\Users\Hossame\Desktop\Dig\node_modules\.pnpm\next@14.2.35_@babel+core@7._bf197b55b3dc8af2afd49bbca9193d0c\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:138168)
+    at Array.toJSON (C:\Users\Hossame\Desktop\Dig\node_modules\.pnpm\next@14.2.35_@babel+core@7._bf197b55b3dc8af2afd49bbca9193d0c\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:135777)
+    at stringify (<anonymous>) {
+  description: "Route /seller/settings/shipping couldn't be rendered statically because it used `headers`. See more info here: https://nextjs.org/docs/messages/dynamic-server-error",
+  digest: 'DYNAMIC_SERVER_USAGE'
+}
+Error fetching seller profile: n [Error]: Dynamic server usage: Route /seller/settings/brand couldn't be rendered statically because it used `headers`. See more info here: https://nextjs.org/docs/messages/dynamic-server-error
+    at l (C:\Users\Hossame\Desktop\Dig\apps\web\.next\server\chunks\1784.js:1:56329)
+    at d (C:\Users\Hossame\Desktop\Dig\apps\web\.next\server\chunks\5369.js:25:26978)
+    at s (C:\Users\Hossame\Desktop\Dig\apps\web\.next\server\chunks\5369.js:25:19587)
+    at x (C:\Users\Hossame\Desktop\Dig\apps\web\.next\server\chunks\5037.js:1:26174)
+    at l (C:\Users\Hossame\Desktop\Dig\apps\web\.next\server\app\(dashboard)\seller\settings\notifications\webhooks\page.js:1:22808)
+    at em (C:\Users\Hossame\Desktop\Dig\node_modules\.pnpm\next@14.2.35_@babel+core@7._bf197b55b3dc8af2afd49bbca9193d0c\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:134808)
+    at e (C:\Users\Hossame\Desktop\Dig\node_modules\.pnpm\next@14.2.35_@babel+core@7._bf197b55b3dc8af2afd49bbca9193d0c\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:137693)
+    at e_ (C:\Users\Hossame\Desktop\Dig\node_modules\.pnpm\next@14.2.35_@babel+core@7._bf197b55b3dc8af2afd49bbca9193d0c\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:138168)
+    at Array.toJSON (C:\Users\Hossame\Desktop\Dig\node_modules\.pnpm\next@14.2.35_@babel+core@7._bf197b55b3dc8af2afd49bbca9193d0c\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:135777)
+    at stringify (<anonymous>) {
+  description: "Route /seller/settings/brand couldn't be rendered statically because it used `headers`. See more info here: https://nextjs.org/docs/messages/dynamic-server-error",
+  digest: 'DYNAMIC_SERVER_USAGE'
+}
+Error fetching seller profile: n [Error]: Dynamic server usage: Route /seller/settings/brand couldn't be rendered statically because it used `headers`. See more info here: https://nextjs.org/docs/messages/dynamic-server-error
+    at l (C:\Users\Hossame\Desktop\Dig\apps\web\.next\server\chunks\1784.js:1:56329)
+    at d (C:\Users\Hossame\Desktop\Dig\apps\web\.next\server\chunks\5369.js:25:26978)
+    at s (C:\Users\Hossame\Desktop\Dig\apps\web\.next\server\chunks\5369.js:25:19587)
+    at x (C:\Users\Hossame\Desktop\Dig\apps\web\.next\server\chunks\5037.js:1:26174)
+    at l (C:\Users\Hossame\Desktop\Dig\apps\web\.next\server\app\(dashboard)\seller\settings\notifications\webhooks\page.js:1:22808)
+    at em (C:\Users\Hossame\Desktop\Dig\node_modules\.pnpm\next@14.2.35_@babel+core@7._bf197b55b3dc8af2afd49bbca9193d0c\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:134808)
+    at e (C:\Users\Hossame\Desktop\Dig\node_modules\.pnpm\next@14.2.35_@babel+core@7._bf197b55b3dc8af2afd49bbca9193d0c\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:137693)
+    at e_ (C:\Users\Hossame\Desktop\Dig\node_modules\.pnpm\next@14.2.35_@babel+core@7._bf197b55b3dc8af2afd49bbca9193d0c\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:138168)
+    at Array.toJSON (C:\Users\Hossame\Desktop\Dig\node_modules\.pnpm\next@14.2.35_@babel+core@7._bf197b55b3dc8af2afd49bbca9193d0c\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:135777)
+    at stringify (<anonymous>) {
+  description: "Route /seller/settings/brand couldn't be rendered statically because it used `headers`. See more info here: https://nextjs.org/docs/messages/dynamic-server-error",
+  digest: 'DYNAMIC_SERVER_USAGE'
+}
+(node:26608) Warning: SECURITY WARNING: The SSL modes 'prefer', 'require', and 'verify-ca' are treated as aliases for 'verify-full'.
+In the next major version (pg-connection-string v3.0.0 and pg v9.0.0), these modes will adopt standard libpq semantics, which have weaker security guarantees.
+
+To prepare for this change:
+- If you want the current behavior, explicitly use 'sslmode=verify-full'
+- If you want libpq compatibility now, use 'uselibpqcompat=true&sslmode=require'
+
+See https://www.postgresql.org/docs/current/libpq-ssl.html for libpq SSL mode definitions.
+(Use `node --trace-warnings ...` to show where the warning was created)
+Error fetching seller profile: n [Error]: Dynamic server usage: Route /seller/settings/tax couldn't be rendered statically because it used `headers`. See more info here: https://nextjs.org/docs/messages/dynamic-server-error
+    at l (C:\Users\Hossame\Desktop\Dig\apps\web\.next\server\chunks\1784.js:1:56329)
+    at d (C:\Users\Hossame\Desktop\Dig\apps\web\.next\server\chunks\5369.js:25:26978)
+    at s (C:\Users\Hossame\Desktop\Dig\apps\web\.next\server\chunks\5369.js:25:19587)
+    at x (C:\Users\Hossame\Desktop\Dig\apps\web\.next\server\chunks\5037.js:1:26174)
+    at o (C:\Users\Hossame\Desktop\Dig\apps\web\.next\server\app\(dashboard)\seller\settings\tax\page.js:1:13455)
+    at em (C:\Users\Hossame\Desktop\Dig\node_modules\.pnpm\next@14.2.35_@babel+core@7._bf197b55b3dc8af2afd49bbca9193d0c\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:134808)
+    at e (C:\Users\Hossame\Desktop\Dig\node_modules\.pnpm\next@14.2.35_@babel+core@7._bf197b55b3dc8af2afd49bbca9193d0c\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:137693)
+    at e_ (C:\Users\Hossame\Desktop\Dig\node_modules\.pnpm\next@14.2.35_@babel+core@7._bf197b55b3dc8af2afd49bbca9193d0c\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:138168)
+    at Array.toJSON (C:\Users\Hossame\Desktop\Dig\node_modules\.pnpm\next@14.2.35_@babel+core@7._bf197b55b3dc8af2afd49bbca9193d0c\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:135777)
+    at stringify (<anonymous>) {
+  description: "Route /seller/settings/tax couldn't be rendered statically because it used `headers`. See more info here: https://nextjs.org/docs/messages/dynamic-server-error",
+  digest: 'DYNAMIC_SERVER_USAGE'
+}
+Error fetching seller profile: n [Error]: Dynamic server usage: Route /seller/settings/tax couldn't be rendered statically because it used `headers`. See more info here: https://nextjs.org/docs/messages/dynamic-server-error
+    at l (C:\Users\Hossame\Desktop\Dig\apps\web\.next\server\chunks\1784.js:1:56329)
+    at d (C:\Users\Hossame\Desktop\Dig\apps\web\.next\server\chunks\5369.js:25:26978)
+    at s (C:\Users\Hossame\Desktop\Dig\apps\web\.next\server\chunks\5369.js:25:19587)
+    at x (C:\Users\Hossame\Desktop\Dig\apps\web\.next\server\chunks\5037.js:1:26174)
+    at o (C:\Users\Hossame\Desktop\Dig\apps\web\.next\server\app\(dashboard)\seller\settings\tax\page.js:1:13455)
+    at em (C:\Users\Hossame\Desktop\Dig\node_modules\.pnpm\next@14.2.35_@babel+core@7._bf197b55b3dc8af2afd49bbca9193d0c\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:134808)
+    at e (C:\Users\Hossame\Desktop\Dig\node_modules\.pnpm\next@14.2.35_@babel+core@7._bf197b55b3dc8af2afd49bbca9193d0c\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:137693)
+    at e_ (C:\Users\Hossame\Desktop\Dig\node_modules\.pnpm\next@14.2.35_@babel+core@7._bf197b55b3dc8af2afd49bbca9193d0c\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:138168)
+    at Array.toJSON (C:\Users\Hossame\Desktop\Dig\node_modules\.pnpm\next@14.2.35_@babel+core@7._bf197b55b3dc8af2afd49bbca9193d0c\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:135777)
+    at stringify (<anonymous>) {
+  description: "Route /seller/settings/tax couldn't be rendered statically because it used `headers`. See more info here: https://nextjs.org/docs/messages/dynamic-server-error",
+  digest: 'DYNAMIC_SERVER_USAGE'
+}
+(node:21984) Warning: SECURITY WARNING: The SSL modes 'prefer', 'require', and 'verify-ca' are treated as aliases for 'verify-full'.
+In the next major version (pg-connection-string v3.0.0 and pg v9.0.0), these modes will adopt standard libpq semantics, which have weaker security guarantees.
+
+To prepare for this change:
+- If you want the current behavior, explicitly use 'sslmode=verify-full'
+- If you want libpq compatibility now, use 'uselibpqcompat=true&sslmode=require'
+
+See https://www.postgresql.org/docs/current/libpq-ssl.html for libpq SSL mode definitions.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:15792) Warning: SECURITY WARNING: The SSL modes 'prefer', 'require', and 'verify-ca' are treated as aliases for 'verify-full'.
+In the next major version (pg-connection-string v3.0.0 and pg v9.0.0), these modes will adopt standard libpq semantics, which have weaker security guarantees.
+
+To prepare for this change:
+- If you want the current behavior, explicitly use 'sslmode=verify-full'
+- If you want libpq compatibility now, use 'uselibpqcompat=true&sslmode=require'
+
+See https://www.postgresql.org/docs/current/libpq-ssl.html for libpq SSL mode definitions.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:4448) Warning: SECURITY WARNING: The SSL modes 'prefer', 'require', and 'verify-ca' are treated as aliases for 'verify-full'.
+In the next major version (pg-connection-string v3.0.0 and pg v9.0.0), these modes will adopt standard libpq semantics, which have weaker security guarantees.
+
+To prepare for this change:
+- If you want the current behavior, explicitly use 'sslmode=verify-full'
+- If you want libpq compatibility now, use 'uselibpqcompat=true&sslmode=require'
+
+See https://www.postgresql.org/docs/current/libpq-ssl.html for libpq SSL mode definitions.
+(Use `node --trace-warnings ...` to show where the warning was created)
+Error: Functions cannot be passed directly to Client Components unless you explicitly expose it by marking it with "use server". Or maybe you meant to call this function rather than return it.
+  {categories: [], collections: [], children: function children}
+                                              ^^^^^^^^^^^^^^^^^
+    at e_ (C:\Users\Hossame\Desktop\Dig\node_modules\.pnpm\next@14.2.35_@babel+core@7._bf197b55b3dc8af2afd49bbca9193d0c\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:140758)
+    at Object.toJSON (C:\Users\Hossame\Desktop\Dig\node_modules\.pnpm\next@14.2.35_@babel+core@7._bf197b55b3dc8af2afd49bbca9193d0c\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:135777)
+    at stringify (<anonymous>)
+    at eE (C:\Users\Hossame\Desktop\Dig\node_modules\.pnpm\next@14.2.35_@babel+core@7._bf197b55b3dc8af2afd49bbca9193d0c\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:142242)
+    at eT (C:\Users\Hossame\Desktop\Dig\node_modules\.pnpm\next@14.2.35_@babel+core@7._bf197b55b3dc8af2afd49bbca9193d0c\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:142721)
+    at Timeout._onTimeout (C:\Users\Hossame\Desktop\Dig\node_modules\.pnpm\next@14.2.35_@babel+core@7._bf197b55b3dc8af2afd49bbca9193d0c\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:135497)
+    at listOnTimeout (node:internal/timers:588:17)
+    at process.processTimers (node:internal/timers:523:7) {
+  digest: '2328054495'
+}
+Error: Functions cannot be passed directly to Client Components unless you explicitly expose it by marking it with "use server". Or maybe you meant to call this function rather than return it.
+  {categories: [], collections: [], children: function children}
+                                              ^^^^^^^^^^^^^^^^^
+    at e_ (C:\Users\Hossame\Desktop\Dig\node_modules\.pnpm\next@14.2.35_@babel+core@7._bf197b55b3dc8af2afd49bbca9193d0c\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:140758)
+    at Object.toJSON (C:\Users\Hossame\Desktop\Dig\node_modules\.pnpm\next@14.2.35_@babel+core@7._bf197b55b3dc8af2afd49bbca9193d0c\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:135777)
+    at stringify (<anonymous>)
+    at eE (C:\Users\Hossame\Desktop\Dig\node_modules\.pnpm\next@14.2.35_@babel+core@7._bf197b55b3dc8af2afd49bbca9193d0c\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:142242)
+    at eT (C:\Users\Hossame\Desktop\Dig\node_modules\.pnpm\next@14.2.35_@babel+core@7._bf197b55b3dc8af2afd49bbca9193d0c\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:142721)
+    at Timeout._onTimeout (C:\Users\Hossame\Desktop\Dig\node_modules\.pnpm\next@14.2.35_@babel+core@7._bf197b55b3dc8af2afd49bbca9193d0c\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:135497)
+    at listOnTimeout (node:internal/timers:588:17)
+    at process.processTimers (node:internal/timers:523:7) {
+  digest: '2328054495'
+}
+   Generating static pages (144/193) 
+(node:23064) Warning: SECURITY WARNING: The SSL modes 'prefer', 'require', and 'verify-ca' are treated as aliases for 'verify-full'.
+In the next major version (pg-connection-string v3.0.0 and pg v9.0.0), these modes will adopt standard libpq semantics, which have weaker security guarantees.
+
+To prepare for this change:
+- If you want the current behavior, explicitly use 'sslmode=verify-full'
+- If you want libpq compatibility now, use 'uselibpqcompat=true&sslmode=require'
+
+See https://www.postgresql.org/docs/current/libpq-ssl.html for libpq SSL mode definitions.
+(Use `node --trace-warnings ...` to show where the warning was created)
+ ✓ Generating static pages (193/193)
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+Route (app)                                          Size     First Load JS
+┌ ○ /                                                7.99 kB         246 kB
+├ ○ /_not-found                                      879 B            89 kB
+├ ƒ /[category]                                      2.53 kB         105 kB
+├ ƒ /[category]/products/[id]                        1.27 kB         236 kB
+├ ƒ /3d-models/products/[id]                         15.5 kB         254 kB
+├ ○ /3dm                                             4.86 kB         216 kB
+├ ƒ /3dm/[id]                                        3.69 kB         223 kB
+├ ƒ /3dm/products/[id]                               3.4 kB          223 kB
+├ ƒ /account                                         2.87 kB         111 kB
+├ ƒ /account/become-seller                           3.28 kB         107 kB
+├ ƒ /account/cart                                    1.87 kB         116 kB
+├ ƒ /account/credits                                 4.54 kB         243 kB
+├ ƒ /account/downloads                               196 B           102 kB
+├ ƒ /account/profile                                 7.69 kB         123 kB
+├ ƒ /account/purchases                               4.86 kB         243 kB
+├ ƒ /account/security                                1.84 kB         102 kB
+├ ƒ /account/settings                                9.15 kB         247 kB
+├ ƒ /account/wishlist                                196 B           102 kB
+├ ƒ /admin                                           7.25 kB         225 kB
+├ ƒ /admin/admins                                    7.62 kB         140 kB
+├ ƒ /admin/analytics                                 3.5 kB         98.2 kB
+├ ƒ /admin/announcements                             8.91 kB         169 kB
+├ ƒ /admin/apps                                      6.57 kB         161 kB
+├ ƒ /admin/apps/[id]                                 5.62 kB         133 kB
+├ ƒ /admin/badges                                    9.92 kB         135 kB
+├ ƒ /admin/categories                                9.77 kB         160 kB
+├ ƒ /admin/cms                                       8.94 kB         169 kB
+├ ƒ /admin/collections                               10.4 kB         136 kB
+├ ƒ /admin/dashboard                                 224 B          88.3 kB
+├ ƒ /admin/digital-files                             8.66 kB         124 kB
+├ ƒ /admin/disputes                                  240 B          97.1 kB
+├ ƒ /admin/disputes/[id]                             10.8 kB         162 kB
+├ ƒ /admin/escrow                                    240 B          97.1 kB
+├ ƒ /admin/escrow/[vendorId]                         7.2 kB          163 kB
+├ ƒ /admin/featured-collections                      10.6 kB         135 kB
+├ ƒ /admin/navigation                                10.3 kB         136 kB
+├ ƒ /admin/orders                                    224 B          88.3 kB
+├ ƒ /admin/page-builder                              240 B          97.1 kB
+├ ƒ /admin/page-builder/[pageId]                     33.1 kB         447 kB
+├ ƒ /admin/page-builder/new                          5.98 kB         131 kB
+├ ƒ /admin/products                                  15.3 kB         168 kB
+├ ƒ /admin/products/bulk-import                      149 B           114 kB
+├ ƒ /admin/products/categories                       15.2 kB         172 kB
+├ ƒ /admin/products/category-discounts               6.98 kB         170 kB
+├ ƒ /admin/products/digital/new                      16.9 kB         161 kB
+├ ƒ /admin/products/import                           149 B           114 kB
+├ ƒ /admin/products/new                              14.6 kB         158 kB
+├ ƒ /admin/products/pending                          7.56 kB         123 kB
+├ ƒ /admin/products/seller                           16 kB           171 kB
+├ ƒ /admin/profile                                   5.03 kB         109 kB
+├ ƒ /admin/sections                                  9.71 kB         149 kB
+├ ƒ /admin/seller-applications                       7.98 kB         156 kB
+├ ƒ /admin/seller-applications/[id]                  18.9 kB         159 kB
+├ ƒ /admin/seo                                       12.6 kB         138 kB
+├ ƒ /admin/settings                                  224 B          88.3 kB
+├ ƒ /admin/settings/ai                               8.36 kB         124 kB
+├ ƒ /admin/settings/api                              13.2 kB         157 kB
+├ ƒ /admin/settings/email                            11.7 kB         128 kB
+├ ƒ /admin/settings/general                          16.4 kB         163 kB
+├ ƒ /admin/settings/payment                          11.6 kB         127 kB
+├ ƒ /admin/settings/security                         12.3 kB         128 kB
+├ ƒ /admin/settings/theme                            224 B          88.3 kB
+├ ƒ /admin/software-tools                            10.4 kB         144 kB
+├ ƒ /admin/support                                   10.4 kB         171 kB
+├ ƒ /admin/support/[id]                              4.07 kB         170 kB
+├ ƒ /admin/support/canned-responses                  8.62 kB         155 kB
+├ ƒ /admin/support/email-campaign                    11 kB           155 kB
+├ ƒ /admin/support/knowledge-base                    10.5 kB         136 kB
+├ ƒ /admin/support/livechat                          11.9 kB         143 kB
+├ ƒ /admin/support/reports                           7.73 kB         142 kB
+├ ƒ /admin/support/settings                          240 B          97.1 kB
+├ ƒ /admin/support/settings/ai                       8.65 kB         152 kB
+├ ƒ /admin/support/settings/appearance               8.89 kB         153 kB
+├ ƒ /admin/support/settings/integrations             9.64 kB         125 kB
+├ ƒ /admin/support/settings/security                 9.83 kB         126 kB
+├ ƒ /admin/support/settings/team                     9.6 kB          125 kB
+├ ƒ /admin/support/visitors                          6.82 kB         113 kB
+├ ƒ /admin/system-logs                               7.58 kB         123 kB
+├ ƒ /admin/tags                                      8.94 kB         142 kB
+├ ƒ /admin/transactions                              224 B          88.3 kB
+├ ƒ /admin/users                                     5.52 kB         149 kB
+├ ƒ /admin/users/banned                              5.22 kB         114 kB
+├ ƒ /admin/vendors                                   224 B          88.3 kB
+├ ƒ /admin/vendors/applications                      5.87 kB         134 kB
+├ ƒ /admin/withdrawals                               2.19 kB         134 kB
+├ ○ /api                                             0 B                0 B
+├ ƒ /api/admin/badges                                0 B                0 B
+├ ƒ /api/admin/badges/[id]                           0 B                0 B
+├ ƒ /api/admin/categories                            0 B                0 B
+├ ƒ /api/admin/categories/[id]                       0 B                0 B
+├ ƒ /api/admin/profile                               0 B                0 B
+├ ○ /api/admin/publish-all-products                  0 B                0 B
+├ ○ /api/admin/seed-payment-apps                     0 B                0 B
+├ ƒ /api/admin/software-tools                        0 B                0 B
+├ ƒ /api/admin/software-tools/[id]                   0 B                0 B
+├ ○ /api/admin/update-payment-icons                  0 B                0 B
+├ ƒ /api/admin/vendors/[id]/badges                   0 B                0 B
+├ ƒ /api/admin/withdrawals/approve                   0 B                0 B
+├ ƒ /api/admin/withdrawals/reject                    0 B                0 B
+├ ƒ /api/auth/[...nextauth]                          0 B                0 B
+├ ƒ /api/auth/seed-users                             0 B                0 B
+├ ƒ /api/auth/signup                                 0 B                0 B
+├ ƒ /api/chat/conversations                          0 B                0 B
+├ ƒ /api/chat/conversations/[id]                     0 B                0 B
+├ ƒ /api/chat/conversations/[id]/messages            0 B                0 B
+├ ƒ /api/chat/messages/[id]/read                     0 B                0 B
+├ ƒ /api/checkout                                    0 B                0 B
+├ ○ /api/debug/products                              0 B                0 B
+├ ƒ /api/follow/[vendorId]                           0 B                0 B
+├ ƒ /api/follow/[vendorId]/status                    0 B                0 B
+├ ƒ /api/follow/followers/[sellerId]                 0 B                0 B
+├ ƒ /api/follow/following                            0 B                0 B
+├ ○ /api/health                                      0 B                0 B
+├ ƒ /api/profile                                     0 B                0 B
+├ ƒ /api/profile/[id]                                0 B                0 B
+├ ƒ /api/profile/[id]/products                       0 B                0 B
+├ ƒ /api/profile/software-tools                      0 B                0 B
+├ ƒ /api/reviews/[id]                                0 B                0 B
+├ ƒ /api/reviews/seller/[vendorId]                   0 B                0 B
+├ ƒ /api/seed-navigation                             0 B                0 B
+├ ○ /api/software-tools                              0 B                0 B
+├ ƒ /api/upload                                      0 B                0 B
+├ ƒ /api/webhooks/cryptomus                          0 B                0 B
+├ ƒ /api/webhooks/paypal                             0 B                0 B
+├ ƒ /api/webhooks/stripe                             0 B                0 B
+├ ○ /categories                                      240 B          97.1 kB
+├ ƒ /categories/[slug]                               4.46 kB         212 kB
+├ ○ /chat                                            14.2 kB         153 kB
+├ ○ /checkout                                        16.8 kB         157 kB
+├ ○ /checkout/failed                                 240 B          97.1 kB
+├ ○ /checkout/success                                240 B          97.1 kB
+├ ○ /collections                                     240 B          97.1 kB
+├ ƒ /collections/[slug]                              243 B          97.1 kB
+├ ƒ /collections/[slug]/[categorySlug]               243 B          97.1 kB
+├ ƒ /dashboard                                       240 B          97.1 kB
+├ ○ /dashboard/downloads                             1.09 kB         216 kB
+├ ○ /dashboard/recently-viewed                       917 B           216 kB
+├ ƒ /developer                                       240 B          97.1 kB
+├ ƒ /developer/apps/[id]                             2.06 kB         131 kB
+├ ƒ /developer/apps/new                              1.41 kB         131 kB
+├ ○ /login                                           2.76 kB         192 kB
+├ ƒ /messages                                        6.2 kB          244 kB
+├ ƒ /p/[slug]                                        11.3 kB         188 kB
+├ ƒ /preview/[slug]                                  2.06 kB         369 kB
+├ ƒ /products                                        5.51 kB         213 kB
+├ ƒ /products/[id]                                   6.12 kB         191 kB
+├ ○ /public-profile/create                           5.43 kB         130 kB
+├ ƒ /public-profile/profiles/[id]                    16.4 kB         161 kB
+├ ƒ /seller                                          240 B          97.1 kB
+├ ƒ /seller/analytics                                1.04 kB         192 kB
+├ ƒ /seller/analytics/live                           5.77 kB         215 kB
+├ ƒ /seller/analytics/reports                        8.44 kB         142 kB
+├ ƒ /seller/app-store                                12.8 kB         147 kB
+├ ƒ /seller/categories                               4.82 kB         108 kB
+├ ƒ /seller/customers                                8.88 kB         134 kB
+├ ƒ /seller/customers/new                            11.8 kB         155 kB
+├ ƒ /seller/customers/segments                       8.19 kB         160 kB
+├ ƒ /seller/customers/segments/[id]                  194 B           129 kB
+├ ƒ /seller/customers/segments/new                   211 B           138 kB
+├ ƒ /seller/dashboard                                224 B          88.3 kB
+├ ƒ /seller/finance/invoices                         7.9 kB          155 kB
+├ ƒ /seller/finance/payments                         239 B          97.1 kB
+├ ƒ /seller/finance/payouts                          8.72 kB         152 kB
+├ ƒ /seller/inventory                                240 B          97.1 kB
+├ ƒ /seller/marketing                                240 B          97.1 kB
+├ ƒ /seller/marketing/affiliates                     224 B          88.3 kB
+├ ƒ /seller/marketing/attribution                    5.49 kB         163 kB
+├ ƒ /seller/marketing/automations                    4.85 kB         118 kB
+├ ƒ /seller/marketing/automations/templates          9.35 kB         155 kB
+├ ƒ /seller/marketing/campaigns                      5.61 kB         114 kB
+├ ƒ /seller/marketing/campaigns/[id]                 5.87 kB         121 kB
+├ ƒ /seller/marketing/coupons                        224 B          88.3 kB
+├ ƒ /seller/marketing/discounts                      6.72 kB         157 kB
+├ ƒ /seller/marketing/discounts/amount-off-order     1.38 kB         140 kB
+├ ƒ /seller/marketing/discounts/amount-off-products  1.91 kB         141 kB
+├ ƒ /seller/marketing/discounts/buy-x-get-y          2.43 kB         141 kB
+├ ƒ /seller/marketing/discounts/free-shipping        1.85 kB         141 kB
+├ ƒ /seller/marketing/featured                       4.05 kB         161 kB
+├ ƒ /seller/marketing/promotions                     224 B          88.3 kB
+├ ƒ /seller/messages                                 10.8 kB         140 kB
+├ ƒ /seller/orders                                   9.28 kB         161 kB
+├ ƒ /seller/orders/[id]                              5.05 kB         156 kB
+├ ƒ /seller/orders/completed                         240 B          97.1 kB
+├ ƒ /seller/orders/pending                           4.85 kB         123 kB
+├ ƒ /seller/orders/returns                           3.35 kB         113 kB
+├ ƒ /seller/products                                 7.29 kB         190 kB
+├ ƒ /seller/products/add                             28.6 kB         229 kB
+├ ƒ /seller/products/categories                      11.5 kB         169 kB
+├ ƒ /seller/products/digital                         7 kB            149 kB
+├ ƒ /seller/products/edit/[id]                       13.2 kB         169 kB
+├ ƒ /seller/products/inventory                       3.03 kB         186 kB
+├ ƒ /seller/profile                                  8.2 kB          129 kB
+├ ƒ /seller/reviews                                  224 B          88.3 kB
+├ ƒ /seller/settings                                 224 B          88.3 kB
+├ ƒ /seller/settings/apps                            240 B          97.1 kB
+├ ƒ /seller/settings/billing                         6.89 kB         111 kB
+├ ƒ /seller/settings/billing/profile                 7.68 kB         151 kB
+├ ƒ /seller/settings/brand                           15.6 kB         209 kB
+├ ƒ /seller/settings/checkout                        10.9 kB         127 kB
+├ ƒ /seller/settings/customer-accounts               9.91 kB         126 kB
+├ ƒ /seller/settings/customer-events                 4.93 kB         111 kB
+├ ƒ /seller/settings/customer-privacy                3.85 kB         104 kB
+├ ƒ /seller/settings/domains                         224 B          88.3 kB
+├ ƒ /seller/settings/general                         17.5 kB         176 kB
+├ ƒ /seller/settings/languages                       6.39 kB         149 kB
+├ ƒ /seller/settings/locations                       6.87 kB         102 kB
+├ ƒ /seller/settings/metafields                      224 B          88.3 kB
+├ ƒ /seller/settings/notifications                   5.84 kB         112 kB
+├ ƒ /seller/settings/notifications/customer          8.27 kB         123 kB
+├ ƒ /seller/settings/notifications/fulfillment       4.95 kB         120 kB
+├ ƒ /seller/settings/notifications/staff             8.16 kB         123 kB
+├ ƒ /seller/settings/notifications/webhooks          4.73 kB         120 kB
+├ ƒ /seller/settings/payments                        13 kB           172 kB
+├ ƒ /seller/settings/payout-methods                  10.8 kB         168 kB
+├ ƒ /seller/settings/plan                            240 B          97.1 kB
+├ ƒ /seller/settings/plan/pick                       6.83 kB         126 kB
+├ ƒ /seller/settings/policies                        9.82 kB         135 kB
+├ ƒ /seller/settings/profile                         6.94 kB         136 kB
+├ ƒ /seller/settings/sales-channels                  5.38 kB         127 kB
+├ ƒ /seller/settings/shipping                        7.25 kB         114 kB
+├ ƒ /seller/settings/storefront                      7.94 kB         124 kB
+├ ƒ /seller/settings/tax                             7.24 kB         114 kB
+├ ƒ /seller/settings/users                           5.57 kB         175 kB
+├ ƒ /seller/settings/users/roles                     2.87 kB         165 kB
+├ ƒ /seller/settings/users/security                  240 B          97.1 kB
+├ ƒ /seller/support                                  4.46 kB         175 kB
+├ ƒ /seller/support/[id]                             6.6 kB          144 kB
+├ ƒ /seller/support/new                              4.46 kB         170 kB
+├ ƒ /shop/[id]                                       3.82 kB         242 kB
+├ ○ /signin                                          169 B           191 kB
+├ ○ /signup                                          170 B           191 kB
+├ ○ /support                                         5.18 kB         176 kB
+├ ƒ /support/tickets/[id]                            6.44 kB         144 kB
+├ ○ /unauthorized                                    240 B          97.1 kB
+└ ƒ /user                                            16.6 kB         160 kB
++ First Load JS shared by all                        88.1 kB
+  ├ chunks/2429-4e43ad6c503aaf23.js                  31.9 kB
+  ├ chunks/c395771e-f271fccb2c161771.js              53.6 kB
+  └ other shared chunks (total)                      2.58 kB
+
+
+ƒ Middleware                                         46.9 kB
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+

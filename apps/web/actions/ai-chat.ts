@@ -1,21 +1,73 @@
-'use server'
-
 import { generateText } from 'ai'
-import { openai } from '@ai-sdk/openai'
-import { getLivechatSettings } from './livechat-settings'
+import { google } from '@ai-sdk/google'
+import { getLivechatSettings } from './chatbot-settings'
+import { RAGService } from '@/lib/chatbot/rag-service'
+import { ContextService } from '@/lib/chatbot/context-service'
+import { EscalationService } from '@/lib/chatbot/escalation-service'
+import { BASE_KNOWLEDGE } from '@/lib/chatbot/base-knowledge'
+import { SMART_COMMERCE_SYSTEM_PROMPT } from '@/lib/chatbot/smart-commerce-prompt'
 
-export async function generateAIResponse(history: { role: 'user' | 'assistant', content: string }[], message: string) {
+export async function generateAIResponse(
+    history: { role: 'user' | 'assistant'; content: string }[],
+    message: string,
+    context?: { userId?: string; productId?: string; currentUrl?: string }
+) {
+    let systemPrompt = ''
     try {
-        const settingsRes = await getLivechatSettings()
+        // 1. Check for Escalation
+        const escalationCheck = EscalationService.shouldEscalate(message)
+        if (escalationCheck.shouldEscalate) {
+            return {
+                success: true,
+                escalated: true,
+                text: "I understand you'd like to speak with a human agent. I'm connecting you now...",
+                reason: escalationCheck.reason,
+            }
+        }
+
+        // 2. Fetch Settings & Context
+        const [settingsRes, userContext, productContext, relevantArticles] = await Promise.all([
+            getLivechatSettings(),
+            ContextService.getUserContext(context?.userId),
+            ContextService.getProductContext(context?.productId),
+            RAGService.findRelevantArticles(message),
+        ])
+
         const settings = settingsRes.success ? settingsRes.data : null
 
-        const systemPrompt = settings?.aiSystemPrompt || `You are a helpful AI assistant for this website. 
-        You strictly answer questions related to the website, its products, and services.
-        If a user asks about something unrelated (e.g., general knowledge, math, other websites), politely decline and offer to help with website-related queries.
-        Keep your answers concise and professional.`
+        // 3. Construct System Prompt
+        systemPrompt = SMART_COMMERCE_SYSTEM_PROMPT
 
+        // Append Base Knowledge
+        systemPrompt += `\n\n## Knowledge Base\n${BASE_KNOWLEDGE}`
+
+        // Append Knowledge Base Context
+        const kbContext = await RAGService.formatContext(relevantArticles)
+        if (kbContext) {
+            systemPrompt += `\n\n## Relevant Articles\n${kbContext}`
+        }
+
+        // Append User/Product Context
+        systemPrompt += `\n\n## Current Context`
+        if (userContext) {
+            systemPrompt += `\nUser: ${userContext.name} (${userContext.email})`
+            systemPrompt += `\nRole: ${(userContext as any).role}`
+            systemPrompt += `\nRecent Orders: ${JSON.stringify(userContext.recentOrders)}`
+        } else {
+            systemPrompt += `\nUser: Guest (Not logged in)`
+        }
+
+        if (productContext) {
+            systemPrompt += `\nViewing Product: ${productContext.name} (Price: ${productContext.price})`
+        }
+
+        if (context?.currentUrl) {
+            systemPrompt += `\nCurrent URL: ${context.currentUrl}`
+        }
+
+        // 4. Generate Response
         const { text } = await generateText({
-            model: openai('gpt-4o'),
+            model: google('models/gemini-flash-latest'),
             system: systemPrompt,
             messages: [
                 ...history,
@@ -23,9 +75,9 @@ export async function generateAIResponse(history: { role: 'user' | 'assistant', 
             ] as any,
         })
 
-        return { success: true, text }
+        return { success: true, text, escalated: false }
     } catch (error) {
         console.error('AI Generation Error:', error)
-        return { success: false, error: 'Failed to generate response' }
+        return { success: false, error: error instanceof Error ? error.message : String(error) }
     }
 }

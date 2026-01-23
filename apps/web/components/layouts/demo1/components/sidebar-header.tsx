@@ -21,46 +21,59 @@ export function SidebarHeader() {
   return (
     <div className="sidebar-header hidden lg:flex items-center relative justify-between px-3 lg:px-6 shrink-0 overflow-visible">
       <Link href="/" prefetch={true}>
-        <div className="dark:hidden">
-          <Image
-            src={toAbsoluteUrl('/media/app/default-logo.svg')}
-            className="default-logo h-[22px] w-auto max-w-none"
-            alt="Default Logo"
-            width={150}
-            height={22}
-            priority
-            style={{ height: 'auto' }}
-          />
-          <Image
-            src={toAbsoluteUrl('/media/app/mini-logo.svg')}
-            className="small-logo h-[22px] w-auto max-w-none"
-            alt="Mini Logo"
-            width={22}
-            height={22}
-            priority
-            style={{ height: 'auto' }}
-          />
-        </div>
-        <div className="hidden dark:block">
-          <Image
-            src={toAbsoluteUrl('/media/app/default-logo-dark.svg')}
-            className="default-logo h-[22px] w-auto max-w-none"
-            alt="Default Dark Logo"
-            width={150}
-            height={22}
-            priority
-            style={{ height: 'auto' }}
-          />
-          <Image
-            src={toAbsoluteUrl('/media/app/mini-logo.svg')}
-            className="small-logo h-[22px] w-auto max-w-none"
-            alt="Mini Logo"
-            width={22}
-            height={22}
-            priority
-            style={{ height: 'auto' }}
-          />
-        </div>
+        {settings.layouts.demo1.sidebarCollapse ? (
+          /* Collapsed State - Show Mini Logo */
+          <>
+            <div className="dark:hidden">
+              <Image
+                src={toAbsoluteUrl('/media/app/mini-logo.svg')}
+                className="small-logo h-[22px] w-auto max-w-none"
+                alt="Mini Logo"
+                width={22}
+                height={22}
+                priority
+                style={{ height: 'auto' }}
+              />
+            </div>
+            <div className="hidden dark:block">
+              <Image
+                src={toAbsoluteUrl('/media/app/mini-logo.svg')}
+                className="small-logo h-[22px] w-auto max-w-none"
+                alt="Mini Logo"
+                width={22}
+                height={22}
+                priority
+                style={{ height: 'auto' }}
+              />
+            </div>
+          </>
+        ) : (
+          /* Expanded State - Show Default Logo */
+          <>
+            <div className="dark:hidden">
+              <Image
+                src={toAbsoluteUrl('/media/app/default-logo.svg')}
+                className="default-logo h-[22px] w-auto max-w-none"
+                alt="Default Logo"
+                width={150}
+                height={22}
+                priority
+                style={{ height: 'auto' }}
+              />
+            </div>
+            <div className="hidden dark:block">
+              <Image
+                src={toAbsoluteUrl('/media/app/default-logo-dark.svg')}
+                className="default-logo h-[22px] w-auto max-w-none"
+                alt="Default Dark Logo"
+                width={150}
+                height={22}
+                priority
+                style={{ height: 'auto' }}
+              />
+            </div>
+          </>
+        )}
       </Link>
       <Button
         onClick={handleToggleClick}

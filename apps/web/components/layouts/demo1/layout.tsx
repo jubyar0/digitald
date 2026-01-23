@@ -4,6 +4,7 @@ import dynamic from 'next/dynamic';
 import { ReactNode, useEffect, useRef } from 'react';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { useSettings } from '@/providers/settings-provider';
+import { SaveDiscardProvider } from './components/sidebar-footer';
 
 // Loading skeleton components for better UX
 const SidebarSkeleton = () => (
@@ -73,7 +74,7 @@ export function Demo1Layout({ children, layoutRole = 'admin' }: Demo1LayoutProps
   const HeaderComponent = layoutRole === 'seller' ? SellerHeader : (layoutRole === 'admin' ? AdminHeader : Header);
 
   return (
-    <>
+    <SaveDiscardProvider>
       {!isMobile && <Sidebar />}
 
       <div className="wrapper flex grow flex-col min-h-screen" suppressHydrationWarning>
@@ -83,6 +84,7 @@ export function Demo1Layout({ children, layoutRole = 'admin' }: Demo1LayoutProps
           {children}
         </main>
       </div>
-    </>
+    </SaveDiscardProvider>
   );
 }
+

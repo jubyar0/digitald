@@ -111,11 +111,24 @@ export const authOptions: NextAuthOptions = {
          * Runs whenever a JWT is created or updated
          * Add custom data to the token here
          */
-        async jwt({ token, user, account }) {
+        async jwt({ token, user, account, trigger }) {
             // Initial sign in
             if (user) {
                 token.id = user.id
                 token.role = user.role
+                token.image = user.image
+            }
+
+            // Refresh image from database when session is updated or on each request
+            if (trigger === 'update' || (token.id && !token.image)) {
+                const dbUser = await prisma.user.findUnique({
+                    where: { id: token.id as string },
+                    select: { image: true, name: true }
+                })
+                if (dbUser) {
+                    token.image = dbUser.image
+                    token.name = dbUser.name
+                }
             }
 
             // Google OAuth sign in
@@ -154,6 +167,7 @@ export const authOptions: NextAuthOptions = {
             if (session.user) {
                 session.user.id = token.id as string
                 session.user.role = token.role as string
+                session.user.image = token.image as string | null
             }
             return session
         },

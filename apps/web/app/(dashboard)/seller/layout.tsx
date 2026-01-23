@@ -1,6 +1,7 @@
 import { DashboardLayout } from "@/components/dashboard-layout"
 import { getCurrentSession } from "@/lib/auth"
 import { redirect } from "next/navigation"
+import ChatbotWidget from "@/components/chatbot/chatbot-widget"
 
 export default async function SellerDashboardLayout({
   children,
@@ -20,5 +21,10 @@ export default async function SellerDashboardLayout({
     redirect("/unauthorized")
   }
 
-  return <DashboardLayout layoutRole="seller">{children}</DashboardLayout>
+  return (
+    <DashboardLayout layoutRole="seller">
+      {children}
+      <ChatbotWidget />
+    </DashboardLayout>
+  )
 }

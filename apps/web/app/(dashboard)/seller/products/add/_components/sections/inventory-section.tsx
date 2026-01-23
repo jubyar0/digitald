@@ -93,11 +93,12 @@ export function InventorySection({
                     <div className="flex items-center gap-3">
                         <RefreshCw className="h-4 w-4 text-muted-foreground" />
                         <div>
-                            <Label className="font-medium text-sm">Track quantity</Label>
+                            <Label htmlFor="trackQuantity" className="font-medium text-sm">Track quantity</Label>
                             <p className="text-xs text-muted-foreground">Automatically update stock levels when orders are placed</p>
                         </div>
                     </div>
                     <Switch
+                        id="trackQuantity"
                         checked={formData.trackQuantity}
                         onCheckedChange={handleSwitchChange('trackQuantity')}
                     />
@@ -108,10 +109,10 @@ export function InventorySection({
                         {/* Quantity by Location */}
                         <div className="space-y-3">
                             <div className="flex items-center justify-between">
-                                <Label className="text-sm font-medium flex items-center gap-2">
+                                <span className="text-sm font-medium flex items-center gap-2">
                                     <MapPin className="h-3.5 w-3.5 text-muted-foreground" />
                                     Quantity by location
-                                </Label>
+                                </span>
                                 <Button variant="ghost" size="sm" className="h-7 text-xs">
                                     <Plus className="h-3 w-3 mr-1" />
                                     Add location
@@ -154,6 +155,7 @@ export function InventorySection({
                                                     value={formData.quantity}
                                                     onChange={handleChange}
                                                     name="quantity"
+                                                    aria-label="Quantity"
                                                     className={cn(
                                                         "w-20 text-center h-8 text-sm font-medium",
                                                         isOutOfStock && "border-destructive",
@@ -242,16 +244,9 @@ export function InventorySection({
                             <div className="space-y-2">
                                 <div className="flex items-center gap-1.5">
                                     <Label htmlFor="sku" className="text-sm">SKU</Label>
-                                    <TooltipProvider>
-                                        <Tooltip>
-                                            <TooltipTrigger>
-                                                <HelpCircle className="h-3 w-3 text-muted-foreground" />
-                                            </TooltipTrigger>
-                                            <TooltipContent className="max-w-xs">
-                                                <p className="text-xs">Stock Keeping Unit - A unique identifier for your product</p>
-                                            </TooltipContent>
-                                        </Tooltip>
-                                    </TooltipProvider>
+                                    <span title="Stock Keeping Unit - A unique identifier for your product" className="flex items-center">
+                                        <HelpCircle className="h-3 w-3 text-muted-foreground" />
+                                    </span>
                                 </div>
                                 <div className="relative">
                                     <QrCode className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground" />
@@ -269,16 +264,9 @@ export function InventorySection({
                             <div className="space-y-2">
                                 <div className="flex items-center gap-1.5">
                                     <Label htmlFor="barcode" className="text-sm">Barcode</Label>
-                                    <TooltipProvider>
-                                        <Tooltip>
-                                            <TooltipTrigger>
-                                                <HelpCircle className="h-3 w-3 text-muted-foreground" />
-                                            </TooltipTrigger>
-                                            <TooltipContent className="max-w-xs">
-                                                <p className="text-xs">ISBN, UPC, GTIN, or other barcode format</p>
-                                            </TooltipContent>
-                                        </Tooltip>
-                                    </TooltipProvider>
+                                    <span title="ISBN, UPC, GTIN, or other barcode format" className="flex items-center">
+                                        <HelpCircle className="h-3 w-3 text-muted-foreground" />
+                                    </span>
                                 </div>
                                 <div className="relative">
                                     <Barcode className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground" />

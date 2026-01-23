@@ -105,10 +105,10 @@ export function SEOListingSection({
                         {/* Google Preview */}
                         <div className="space-y-2">
                             <div className="flex items-center justify-between">
-                                <Label className="text-sm font-medium flex items-center gap-2">
+                                <span className="text-sm font-medium flex items-center gap-2">
                                     <Eye className="h-3.5 w-3.5 text-muted-foreground" />
                                     Search preview
-                                </Label>
+                                </span>
                                 <Button
                                     variant="ghost"
                                     size="sm"
@@ -148,7 +148,7 @@ export function SEOListingSection({
                                     {/* Page Title */}
                                     <div className="space-y-2">
                                         <div className="flex items-center justify-between">
-                                            <Label className="text-sm">Page title</Label>
+                                            <Label htmlFor="page-title" className="text-sm">Page title</Label>
                                             <span className={cn(
                                                 "text-xs",
                                                 (seoTitle || productTitle).length > 60 ? "text-amber-600" : "text-muted-foreground"
@@ -157,6 +157,7 @@ export function SEOListingSection({
                                             </span>
                                         </div>
                                         <Input
+                                            id="page-title"
                                             value={seoTitle || productTitle}
                                             onChange={(e) => onSeoTitleChange(e.target.value)}
                                             placeholder="Enter page title..."
@@ -173,7 +174,7 @@ export function SEOListingSection({
                                     {/* Meta Description */}
                                     <div className="space-y-2">
                                         <div className="flex items-center justify-between">
-                                            <Label className="text-sm">Meta description</Label>
+                                            <Label htmlFor="meta-description" className="text-sm">Meta description</Label>
                                             <span className={cn(
                                                 "text-xs",
                                                 (seoDescription || productDescription).length > 160 ? "text-amber-600" : "text-muted-foreground"
@@ -182,6 +183,7 @@ export function SEOListingSection({
                                             </span>
                                         </div>
                                         <Textarea
+                                            id="meta-description"
                                             value={seoDescription || productDescription?.substring(0, 160)}
                                             onChange={(e) => onSeoDescriptionChange(e.target.value)}
                                             placeholder="Enter meta description..."
@@ -201,23 +203,17 @@ export function SEOListingSection({
                                     {/* URL Handle */}
                                     <div className="space-y-2">
                                         <div className="flex items-center gap-1.5">
-                                            <Label className="text-sm">URL handle</Label>
-                                            <TooltipProvider>
-                                                <Tooltip>
-                                                    <TooltipTrigger>
-                                                        <HelpCircle className="h-3 w-3 text-muted-foreground" />
-                                                    </TooltipTrigger>
-                                                    <TooltipContent className="max-w-xs">
-                                                        <p className="text-xs">The last part of the product URL</p>
-                                                    </TooltipContent>
-                                                </Tooltip>
-                                            </TooltipProvider>
+                                            <Label htmlFor="url-handle" className="text-sm">URL handle</Label>
+                                            <span title="The last part of the product URL" className="flex items-center">
+                                                <HelpCircle className="h-3 w-3 text-muted-foreground" />
+                                            </span>
                                         </div>
                                         <div className="flex gap-0">
                                             <div className="flex items-center px-3 bg-muted border border-r-0 rounded-l-md text-xs text-muted-foreground">
                                                 yourstore.com/products/
                                             </div>
                                             <Input
+                                                id="url-handle"
                                                 value={urlHandle || displayHandle}
                                                 onChange={(e) => onUrlHandleChange(e.target.value.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, ''))}
                                                 className="h-9 rounded-l-none"

@@ -7,7 +7,7 @@ import { Input } from '@/components/ui/input'
 import { Switch } from '@/components/ui/switch'
 import { Label } from '@/components/ui/label'
 import { Badge } from '@/components/ui/badge'
-import { getSecuritySettings, updateSecuritySettings } from '@/actions/livechat-settings'
+import { getSecuritySettings, updateSecuritySettings } from '@/actions/chatbot-settings'
 import { toast } from 'sonner'
 import { Shield, Globe, Zap, Save, Plus, X } from 'lucide-react'
 

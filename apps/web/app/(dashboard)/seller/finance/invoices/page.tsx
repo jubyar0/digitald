@@ -43,9 +43,14 @@ export default async function InvoicesPage() {
                     <Card>
                         <CardContent className="p-0">
                             {invoices.length === 0 ? (
-                                <div className="flex flex-col items-center justify-center py-12 text-center">
-                                    <p className="text-muted-foreground mb-4">No invoices yet</p>
-                                    <p className="text-sm text-muted-foreground">
+                                <div className="flex flex-col items-center justify-center py-12">
+                                    <img
+                                        src="/media/illustrations/27.svg"
+                                        alt="No invoices"
+                                        className="h-32 w-32 object-contain dark:opacity-80 mb-4"
+                                    />
+                                    <p className="text-lg font-medium">No invoices yet</p>
+                                    <p className="text-sm text-muted-foreground mt-1">
                                         Create your first invoice by clicking the button above
                                     </p>
                                 </div>

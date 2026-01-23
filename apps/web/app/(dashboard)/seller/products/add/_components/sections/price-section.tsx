@@ -89,16 +89,9 @@ export function PriceSection({
                 <div className="space-y-2">
                     <div className="flex items-center justify-between">
                         <Label htmlFor="price" className="text-sm font-medium">Price</Label>
-                        <TooltipProvider>
-                            <Tooltip>
-                                <TooltipTrigger>
-                                    <HelpCircle className="h-3.5 w-3.5 text-muted-foreground" />
-                                </TooltipTrigger>
-                                <TooltipContent className="max-w-xs">
-                                    <p className="text-xs">The price customers pay at checkout</p>
-                                </TooltipContent>
-                            </Tooltip>
-                        </TooltipProvider>
+                        <span title="The price customers pay at checkout" className="flex items-center">
+                            <HelpCircle className="h-3.5 w-3.5 text-muted-foreground" />
+                        </span>
                     </div>
                     <div className="relative">
                         <div className="absolute left-0 top-0 bottom-0 flex items-center justify-center w-12 bg-muted/50 border-r rounded-l-md">
@@ -177,16 +170,9 @@ export function PriceSection({
                             <div className="space-y-2">
                                 <div className="flex items-center gap-1.5">
                                     <Label htmlFor="compareAtPrice" className="text-sm">Compare-at price</Label>
-                                    <TooltipProvider>
-                                        <Tooltip>
-                                            <TooltipTrigger>
-                                                <HelpCircle className="h-3 w-3 text-muted-foreground" />
-                                            </TooltipTrigger>
-                                            <TooltipContent className="max-w-xs">
-                                                <p className="text-xs">Shows a strikethrough price to indicate a sale</p>
-                                            </TooltipContent>
-                                        </Tooltip>
-                                    </TooltipProvider>
+                                    <span title="Shows a strikethrough price to indicate a sale" className="flex items-center">
+                                        <HelpCircle className="h-3 w-3 text-muted-foreground" />
+                                    </span>
                                 </div>
                                 <div className="relative">
                                     <div className="absolute left-0 top-0 bottom-0 flex items-center justify-center w-10 bg-muted/50 border-r rounded-l-md">
@@ -244,6 +230,7 @@ export function PriceSection({
                                                             className="h-8"
                                                         />
                                                         <Select
+                                                            name="unitPriceUnit"
                                                             value={unitPriceData.totalUnit}
                                                             onValueChange={(val) => setUnitPriceData(prev => ({ ...prev, totalUnit: val }))}
                                                         >

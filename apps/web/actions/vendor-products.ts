@@ -110,6 +110,7 @@ export async function createMyProduct(data: {
     fileUrl: string
     thumbnail?: string
     images?: string[]
+    status?: ProductStatus
     assetDetails?: string
     includedResolution?: string
     availableResolutions?: string
@@ -154,7 +155,9 @@ export async function createMyProduct(data: {
             data: {
                 ...data,
                 vendorId: vendor.id,
-                status: ProductStatus.PENDING, // Requires admin approval
+                status: data.status || ProductStatus.PENDING,
+                isActive: data.status === ProductStatus.PUBLISHED,
+                isDraft: data.status === ProductStatus.DRAFT,
                 images: data.images || [],
             },
         })
@@ -180,6 +183,7 @@ export async function updateMyProduct(
         fileUrl?: string
         thumbnail?: string
         images?: string[]
+        status?: ProductStatus
         isActive?: boolean
         isDraft?: boolean
         assetDetails?: string
@@ -237,6 +241,11 @@ export async function updateMyProduct(
             where: { id: productId },
             data: {
                 ...data,
+                ...(data.status && {
+                    status: data.status,
+                    isActive: data.status === ProductStatus.PUBLISHED,
+                    isDraft: data.status === ProductStatus.DRAFT,
+                }),
                 updatedAt: new Date(),
             },
         })

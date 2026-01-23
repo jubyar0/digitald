@@ -204,7 +204,7 @@ export function StoreDetailsCard({ profile }: { profile: ProfileData | null }) {
                                     <Input id="legalName" name="legalName" defaultValue={profile?.businessName || ""} />
                                 </div>
                                 <div className="space-y-2">
-                                    <Label>Country/region</Label>
+                                    <Label htmlFor="billing-country">Country/region</Label>
                                     <Select name="country" defaultValue={profile?.country || "DZ"}>
                                         <SelectTrigger>
                                             <SelectValue placeholder="Select country" />

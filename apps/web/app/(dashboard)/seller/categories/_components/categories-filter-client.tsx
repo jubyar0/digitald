@@ -87,7 +87,7 @@ export const CategoriesFilterClient = memo(function CategoriesFilterClient({
                     <h3 className="text-sm font-semibold mb-3">Filter by Collection</h3>
                     <div className="flex flex-wrap gap-2">
                         <Button
-                            variant={selectedCollection === null ? 'primary' : 'outline'}
+                            variant={selectedCollection === null ? 'default' : 'outline'}
                             size="sm"
                             onClick={() => handleCollectionClick(null)}
                         >
@@ -96,7 +96,7 @@ export const CategoriesFilterClient = memo(function CategoriesFilterClient({
                         {collections.map((collection) => (
                             <Button
                                 key={collection.id}
-                                variant={selectedCollection === collection.id ? 'primary' : 'outline'}
+                                variant={selectedCollection === collection.id ? 'default' : 'outline'}
                                 size="sm"
                                 onClick={() => handleCollectionClick(collection.id)}
                             >

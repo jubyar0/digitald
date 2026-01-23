@@ -81,16 +81,16 @@ export default async function PaymentsPage({ searchParams }: PageProps) {
 
                         <div className="mt-6 flex gap-2">
                             <Link href="/seller/finance/payments">
-                                <Button variant={status === 'ALL' ? 'primary' : 'outline'} size="sm">All</Button>
+                                <Button variant={status === 'ALL' ? 'default' : 'outline'} size="sm">All</Button>
                             </Link>
                             <Link href="/seller/finance/payments?status=COMPLETED">
-                                <Button variant={status === 'COMPLETED' ? 'primary' : 'outline'} size="sm">Completed</Button>
+                                <Button variant={status === 'COMPLETED' ? 'default' : 'outline'} size="sm">Completed</Button>
                             </Link>
                             <Link href="/seller/finance/payments?status=PENDING">
-                                <Button variant={status === 'PENDING' ? 'primary' : 'outline'} size="sm">Pending</Button>
+                                <Button variant={status === 'PENDING' ? 'default' : 'outline'} size="sm">Pending</Button>
                             </Link>
                             <Link href="/seller/finance/payments?status=REFUNDED">
-                                <Button variant={status === 'REFUNDED' ? 'primary' : 'outline'} size="sm">Refunded</Button>
+                                <Button variant={status === 'REFUNDED' ? 'default' : 'outline'} size="sm">Refunded</Button>
                             </Link>
                         </div>
                     </div>

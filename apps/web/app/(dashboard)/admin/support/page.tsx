@@ -8,14 +8,14 @@ import { Badge } from '@/components/ui/badge'
 import { TicketCard } from '@/components/tickets/ticket-card'
 import { TicketFilters } from '@/components/tickets/ticket-filters'
 import { getAllTickets, getTicketStats, getAdmins } from '@/actions/tickets'
-import { getLivechatStats, getChatSessions } from '@/actions/livechat'
+import { getLivechatStats, getChatSessions } from '@/actions/chatbot'
 import { toast } from 'sonner'
 import { TicketStatus, TicketPriority } from '@repo/database'
 import Link from 'next/link'
 import {
     AlertCircle, Clock, CheckCircle, XCircle, AlertTriangle,
     MessageSquare, Users, Bot, Mail, Settings, HeadphonesIcon,
-    Globe, BarChart3, Zap, MessageCircle
+    Globe, BarChart3, Zap, MessageCircle, FileText
 } from 'lucide-react'
 
 export default function AdminSupportPage() {
@@ -185,6 +185,26 @@ export default function AdminSupportPage() {
                         </Card>
                     </div>
 
+                    {/* AI Stats Row */}
+                    <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+                        <Card className="border-l-4 border-l-purple-500">
+                            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                                <CardTitle className="text-sm font-medium">AI Resolution Rate</CardTitle>
+                                <Bot className="h-4 w-4 text-purple-500" />
+                            </CardHeader>
+                            <CardContent>
+                                <div className="text-2xl font-bold">
+                                    {chatStats?.totalSessions > 0
+                                        ? `${Math.round(((chatStats?.aiHandled || 0) / chatStats.totalSessions) * 100)}%`
+                                        : '0%'}
+                                </div>
+                                <p className="text-xs text-muted-foreground">
+                                    {chatStats?.aiHandled || 0} sessions handled by AI
+                                </p>
+                            </CardContent>
+                        </Card>
+                    </div>
+
                     {/* Tabs */}
                     <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
                         <TabsList className="grid w-full grid-cols-2 lg:w-[400px]">
@@ -302,6 +322,19 @@ export default function AdminSupportPage() {
                                                     <div>
                                                         <p className="font-medium">Social Integrations</p>
                                                         <p className="text-xs text-muted-foreground">WhatsApp, Instagram</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </Link>
+                                        <Link href="/admin/support/knowledge-base">
+                                            <div className="p-4 border rounded-lg hover:bg-muted/50 transition-colors cursor-pointer">
+                                                <div className="flex items-center gap-3">
+                                                    <div className="p-2 bg-blue-500/10 rounded-lg">
+                                                        <FileText className="h-5 w-5 text-blue-500" />
+                                                    </div>
+                                                    <div>
+                                                        <p className="font-medium">Knowledge Base</p>
+                                                        <p className="text-xs text-muted-foreground">Manage articles & FAQs</p>
                                                     </div>
                                                 </div>
                                             </div>

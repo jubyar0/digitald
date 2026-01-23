@@ -109,7 +109,7 @@ export default function SupportPage() {
             {/* Tabs */}
             <div className="flex justify-center gap-4 mb-8">
                 <Button
-                    variant={activeTab === 'submit' ? 'primary' : 'outline'}
+                    variant={activeTab === 'submit' ? 'default' : 'outline'}
                     onClick={() => setActiveTab('submit')}
                     className="gap-2"
                 >
@@ -117,7 +117,7 @@ export default function SupportPage() {
                     Submit Ticket
                 </Button>
                 <Button
-                    variant={activeTab === 'tickets' ? 'primary' : 'outline'}
+                    variant={activeTab === 'tickets' ? 'default' : 'outline'}
                     onClick={() => setActiveTab('tickets')}
                     className="gap-2"
                 >

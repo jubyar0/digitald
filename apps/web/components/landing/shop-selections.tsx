@@ -50,14 +50,14 @@ const defaultCategories: Category[] = [
 
 // Fallback Mock Data for "Fresh from the community"
 const defaultFreshItems: Product[] = [
-    { id: '1', name: "Custom Pet Portrait", price: 45.00, currency: "USD", thumbnail: "https://images.unsplash.com/photo-1541963463532-d68292c34b19?w=400&q=80", vendor: { id: '1', name: "ArtByAnna" } },
-    { id: '2', name: "Handmade Ceramic Mug", price: 28.00, currency: "USD", thumbnail: "https://images.unsplash.com/photo-1517260739837-6799d239ce83?w=400&q=80", vendor: { id: '2', name: "MuddyHands" } },
-    { id: '3', name: "Linen Tablecloth", price: 55.00, currency: "USD", thumbnail: "https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?w=400&q=80", vendor: { id: '3', name: "LinenLovers" } },
-    { id: '4', name: "Vintage Camera", price: 120.00, currency: "USD", thumbnail: "https://images.unsplash.com/photo-1453754348246-552e89669524?w=400&q=80", vendor: { id: '4', name: "RetroFinds" } },
-    { id: '5', name: "Leather Journal", price: 35.00, currency: "USD", thumbnail: "https://images.unsplash.com/photo-1515096788709-a3cf4ce0a4a6?w=400&q=80", vendor: { id: '5', name: "Boundless" } },
-    { id: '6', name: "Succulent Planter", price: 18.00, currency: "USD", thumbnail: "https://images.unsplash.com/photo-1463936575229-46e3e91b6103?w=400&q=80", vendor: { id: '6', name: "GreenThumb" } },
-    { id: '7', name: "Wooden Spoon", price: 12.00, currency: "USD", thumbnail: "https://images.unsplash.com/photo-1584269600464-3704b6c2a378?w=400&q=80", vendor: { id: '7', name: "Carved" } },
-    { id: '8', name: "Knitted Scarf", price: 40.00, currency: "USD", thumbnail: "https://images.unsplash.com/photo-1520903920248-0c65313a1e64?w=400&q=80", vendor: { id: '8', name: "WarmKnits" } },
+    { id: '1', name: "Custom Pet Portrait", price: 45.00, currency: "USD", thumbnail: "/media/illustrations/6.svg", vendor: { id: '1', name: "ArtByAnna" } },
+    { id: '2', name: "Handmade Ceramic Mug", price: 28.00, currency: "USD", thumbnail: "/media/illustrations/7.svg", vendor: { id: '2', name: "MuddyHands" } },
+    { id: '3', name: "Linen Tablecloth", price: 55.00, currency: "USD", thumbnail: "/media/illustrations/8.svg", vendor: { id: '3', name: "LinenLovers" } },
+    { id: '4', name: "Vintage Camera", price: 120.00, currency: "USD", thumbnail: "/media/illustrations/9.svg", vendor: { id: '4', name: "RetroFinds" } },
+    { id: '5', name: "Leather Journal", price: 35.00, currency: "USD", thumbnail: "/media/illustrations/11.svg", vendor: { id: '5', name: "Boundless" } },
+    { id: '6', name: "Succulent Planter", price: 18.00, currency: "USD", thumbnail: "/media/illustrations/12.svg", vendor: { id: '6', name: "GreenThumb" } },
+    { id: '7', name: "Wooden Spoon", price: 12.00, currency: "USD", thumbnail: "/media/illustrations/13.svg", vendor: { id: '7', name: "Carved" } },
+    { id: '8', name: "Knitted Scarf", price: 40.00, currency: "USD", thumbnail: "/media/illustrations/14.svg", vendor: { id: '8', name: "WarmKnits" } },
 ]
 
 export default function ShopSelections({
@@ -171,6 +171,7 @@ export default function ShopSelections({
                                                 src={item.thumbnail}
                                                 alt={item.name}
                                                 fill
+                                                unoptimized
                                                 className="object-cover group-hover:scale-105 transition-transform duration-500"
                                             />
                                         ) : (

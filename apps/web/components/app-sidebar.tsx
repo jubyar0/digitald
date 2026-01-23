@@ -1,6 +1,8 @@
 "use client"
 
 import * as React from "react"
+import Image from "next/image"
+import Link from "next/link"
 import {
   ArrowUpCircleIcon,
   BarChartIcon,
@@ -178,7 +180,7 @@ const data = {
     {
       title: "Apps Management",
       url: "#",
-      icon: ShoppingCartIcon, // Using ShoppingCart as placeholder, should be ShoppingBag or similar
+      icon: ShoppingCartIcon,
       items: [
         {
           title: "All Apps",
@@ -254,7 +256,6 @@ const data = {
       url: "/admin/accounts",
       icon: ShieldIcon,
     },
-    // Removed Comprehensive Content item
   ],
   navClouds: [
     {
@@ -310,18 +311,13 @@ const data = {
       url: "#",
       icon: SettingsIcon,
     },
-    // Removed Get Help item
     {
       title: "Search",
       url: "#",
       icon: SearchIcon,
     },
   ],
-  documents: [
-    // Removed Data Library item
-    // Removed Reports item
-    // Removed Word Assistant item
-  ],
+  documents: [],
 }
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
@@ -334,10 +330,30 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               asChild
               className="data-[slot=sidebar-menu-button]:!p-2 rounded-lg hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
             >
-              <a href="#">
-                <ArrowUpCircleIcon className="h-5 w-5 text-sidebar-primary" />
-                <span className="text-lg font-bold text-sidebar-primary">Admin Dashboard</span>
-              </a>
+              <Link href="/admin">
+                <div className="dark:hidden">
+                  <Image
+                    src="/media/app/default-logo.svg"
+                    className="h-[22px] w-auto max-w-none"
+                    alt="Logo"
+                    width={150}
+                    height={22}
+                    priority
+                    style={{ height: 'auto' }}
+                  />
+                </div>
+                <div className="hidden dark:block">
+                  <Image
+                    src="/media/app/default-logo-dark.svg"
+                    className="h-[22px] w-auto max-w-none"
+                    alt="Logo"
+                    width={150}
+                    height={22}
+                    priority
+                    style={{ height: 'auto' }}
+                  />
+                </div>
+              </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>

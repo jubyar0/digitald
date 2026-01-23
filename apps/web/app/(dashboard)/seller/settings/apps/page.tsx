@@ -1,8 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { AppWindow, ExternalLink, Package } from "lucide-react"
-import Image from "next/image"
+import { AppWindow, ExternalLink, Package, ArrowRight } from "lucide-react"
+import Link from "next/link"
 
 export const dynamic = 'force-dynamic'
 
@@ -16,11 +15,17 @@ export default function AppsPage() {
                     <h1 className="text-2xl font-semibold">Apps</h1>
                 </div>
                 <div className="flex items-center gap-2">
-                    <Button variant="outline" size="sm">
-                        Develop apps
+                    <Button variant="outline" size="sm" asChild>
+                        <a href="https://docs.3dm.shop/developers" target="_blank" rel="noopener noreferrer">
+                            Develop apps
+                            <ExternalLink className="ml-2 h-3 w-3" />
+                        </a>
                     </Button>
-                    <Button size="sm" className="bg-[#008060] hover:bg-[#006e52] text-white">
-                        3DM App Store
+                    <Button size="sm" className="bg-[#008060] hover:bg-[#006e52] text-white" asChild>
+                        <Link href="/seller/app-store">
+                            3DM App Store
+                            <ArrowRight className="ml-2 h-4 w-4" />
+                        </Link>
                     </Button>
                 </div>
             </div>
@@ -48,22 +53,22 @@ export default function AppsPage() {
                         Apps and sales channels add features and tools that take your business to the next level.
                         Choose from thousands of free and paid apps to find what works for you.
                     </p>
-                    <Button variant="outline" size="sm">
-                        Explore apps
+                    <Button variant="default" size="sm" asChild>
+                        <Link href="/seller/app-store">
+                            Explore apps
+                        </Link>
                     </Button>
                 </CardContent>
             </Card>
 
-            {/* Learn More Link */}
-            <div className="flex justify-center mt-6">
-                <a
-                    href="#"
-                    className="text-sm text-muted-foreground hover:text-foreground flex items-center gap-1"
-                >
-                    Learn more about apps
-                    <ExternalLink className="h-3 w-3" />
-                </a>
-            </div>
+            {/* Installed Apps Info */}
+            <Card className="mt-6">
+                <CardContent className="py-4">
+                    <p className="text-sm text-muted-foreground">
+                        Apps you install will appear here. Visit the <Link href="/seller/app-store" className="text-primary hover:underline">App Store</Link> to browse and install apps.
+                    </p>
+                </CardContent>
+            </Card>
         </div>
     )
 }

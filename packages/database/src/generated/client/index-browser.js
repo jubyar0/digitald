@@ -231,7 +231,8 @@ exports.Prisma.ProductScalarFieldEnum = {
   aiTagsSuggested: 'aiTagsSuggested',
   aiThumbnailGenerated: 'aiThumbnailGenerated',
   aiTopologyScore: 'aiTopologyScore',
-  aiUvQualityScore: 'aiUvQualityScore'
+  aiUvQualityScore: 'aiUvQualityScore',
+  shippingProfileId: 'shippingProfileId'
 };
 
 exports.Prisma.FeaturedCollectionScalarFieldEnum = {
@@ -1173,6 +1174,9 @@ exports.Prisma.LiveChatSessionScalarFieldEnum = {
   rating: 'rating',
   feedback: 'feedback',
   metadata: 'metadata',
+  isAIHandled: 'isAIHandled',
+  sentimentScore: 'sentimentScore',
+  escalationReason: 'escalationReason',
   updatedAt: 'updatedAt'
 };
 
@@ -1185,7 +1189,9 @@ exports.Prisma.LiveChatMessageScalarFieldEnum = {
   messageType: 'messageType',
   attachments: 'attachments',
   createdAt: 'createdAt',
-  isRead: 'isRead'
+  isRead: 'isRead',
+  isAI: 'isAI',
+  tokensUsed: 'tokensUsed'
 };
 
 exports.Prisma.LiveChatVisitorScalarFieldEnum = {
@@ -1254,6 +1260,40 @@ exports.Prisma.LiveChatSettingsScalarFieldEnum = {
   videoEnabled: 'videoEnabled',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
+};
+
+exports.Prisma.KnowledgeBaseArticleScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  content: 'content',
+  category: 'category',
+  tags: 'tags',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.AIModelConfigScalarFieldEnum = {
+  id: 'id',
+  modelName: 'modelName',
+  provider: 'provider',
+  apiKey: 'apiKey',
+  temperature: 'temperature',
+  maxTokens: 'maxTokens',
+  systemPrompt: 'systemPrompt',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.ChatbotAnalyticsScalarFieldEnum = {
+  id: 'id',
+  date: 'date',
+  totalSessions: 'totalSessions',
+  aiHandled: 'aiHandled',
+  escalated: 'escalated',
+  avgResponseTime: 'avgResponseTime',
+  sentimentScore: 'sentimentScore'
 };
 
 exports.Prisma.EmailCampaignScalarFieldEnum = {
@@ -1439,6 +1479,95 @@ exports.Prisma.MarketingAutomationScalarFieldEnum = {
   name: 'name',
   type: 'type',
   status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.SegmentScalarFieldEnum = {
+  id: 'id',
+  vendorId: 'vendorId',
+  name: 'name',
+  query: 'query',
+  description: 'description',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.ShippingProfileScalarFieldEnum = {
+  id: 'id',
+  vendorId: 'vendorId',
+  name: 'name',
+  isGeneral: 'isGeneral',
+  originAddress: 'originAddress',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.ShippingZoneScalarFieldEnum = {
+  id: 'id',
+  profileId: 'profileId',
+  name: 'name',
+  countries: 'countries',
+  regions: 'regions',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.ShippingRateScalarFieldEnum = {
+  id: 'id',
+  zoneId: 'zoneId',
+  name: 'name',
+  type: 'type',
+  price: 'price',
+  currency: 'currency',
+  minCondition: 'minCondition',
+  maxCondition: 'maxCondition',
+  carrierService: 'carrierService',
+  minDeliveryDays: 'minDeliveryDays',
+  maxDeliveryDays: 'maxDeliveryDays',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.LocalDeliverySettingScalarFieldEnum = {
+  id: 'id',
+  vendorId: 'vendorId',
+  isEnabled: 'isEnabled',
+  deliveryZoneType: 'deliveryZoneType',
+  radiusValue: 'radiusValue',
+  radiusUnit: 'radiusUnit',
+  includeNeighboring: 'includeNeighboring',
+  postalCodes: 'postalCodes',
+  price: 'price',
+  currency: 'currency',
+  minOrderPrice: 'minOrderPrice',
+  deliveryInfo: 'deliveryInfo',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.PickupSettingScalarFieldEnum = {
+  id: 'id',
+  vendorId: 'vendorId',
+  isEnabled: 'isEnabled',
+  expectedPickupTime: 'expectedPickupTime',
+  pickupInstructions: 'pickupInstructions',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.SavedPackageScalarFieldEnum = {
+  id: 'id',
+  vendorId: 'vendorId',
+  name: 'name',
+  type: 'type',
+  length: 'length',
+  width: 'width',
+  height: 'height',
+  dimensionUnit: 'dimensionUnit',
+  weight: 'weight',
+  weightUnit: 'weightUnit',
+  isDefault: 'isDefault',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -1984,6 +2113,9 @@ exports.Prisma.ModelName = {
   PageVisitHistory: 'PageVisitHistory',
   CannedResponse: 'CannedResponse',
   LiveChatSettings: 'LiveChatSettings',
+  KnowledgeBaseArticle: 'KnowledgeBaseArticle',
+  AIModelConfig: 'AIModelConfig',
+  ChatbotAnalytics: 'ChatbotAnalytics',
   EmailCampaign: 'EmailCampaign',
   SmtpSettings: 'SmtpSettings',
   SocialIntegration: 'SocialIntegration',
@@ -1996,7 +2128,14 @@ exports.Prisma.ModelName = {
   AppReview: 'AppReview',
   TicketMessage: 'TicketMessage',
   MarketingCampaign: 'MarketingCampaign',
-  MarketingAutomation: 'MarketingAutomation'
+  MarketingAutomation: 'MarketingAutomation',
+  Segment: 'Segment',
+  ShippingProfile: 'ShippingProfile',
+  ShippingZone: 'ShippingZone',
+  ShippingRate: 'ShippingRate',
+  LocalDeliverySetting: 'LocalDeliverySetting',
+  PickupSetting: 'PickupSetting',
+  SavedPackage: 'SavedPackage'
 };
 
 /**

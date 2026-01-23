@@ -107,7 +107,7 @@ export function MegaMenuMobile() {
           value={item.path || ''}
           className="text-sm font-medium"
         >
-          <Link href={item.path || '#'} className="" prefetch={true}>
+          <Link href={item.path || '#'} className="">
             {item.icon && <item.icon data-slot="accordion-menu-icon" />}
             <div className="flex items-center grow gap-2">
               <span data-slot="accordion-menu-title">{item.title}</span>
@@ -189,7 +189,7 @@ export function MegaMenuMobile() {
           value={item.path || ''}
           className="text-[13px]"
         >
-          <Link href={item.path || '#'} prefetch={true}>
+          <Link href={item.path || '#'}>
             {item.icon && <item.icon data-slot="accordion-menu-icon" />}
             <div className="flex items-center grow gap-2">
               <span>{item.title}</span>
@@ -212,7 +212,6 @@ export function MegaMenuMobile() {
   return (
     <div className="flex grow shrink-0 py-5 px-5">
       <AccordionMenu
-        key={pathname}
         selectedValue={pathname}
         matchPath={matchPath}
         type="single"

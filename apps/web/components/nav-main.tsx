@@ -1,6 +1,6 @@
 "use client"
-// re-trigger build
 
+import Link from "next/link"
 import { ChevronRight, type LucideIcon } from "lucide-react"
 
 import {
@@ -95,10 +95,10 @@ export function NavMain({
                                                         <Tooltip>
                                                             <TooltipTrigger asChild>
                                                                 <SidebarMenuSubButton asChild>
-                                                                    <a href={subItem.url}>
+                                                                    <Link href={subItem.url} prefetch={true}>
                                                                         <span>{subItem.title}</span>
                                                                         {subItem.badge && <SidebarMenuBadge>{subItem.badge}</SidebarMenuBadge>}
-                                                                    </a>
+                                                                    </Link>
                                                                 </SidebarMenuSubButton>
                                                             </TooltipTrigger>
                                                             <TooltipContent side="right" align="center">
@@ -107,10 +107,10 @@ export function NavMain({
                                                         </Tooltip>
                                                     ) : (
                                                         <SidebarMenuSubButton asChild>
-                                                            <a href={subItem.url}>
+                                                            <Link href={subItem.url} prefetch={true}>
                                                                 <span>{subItem.title}</span>
                                                                 {subItem.badge && <SidebarMenuBadge>{subItem.badge}</SidebarMenuBadge>}
-                                                            </a>
+                                                            </Link>
                                                         </SidebarMenuSubButton>
                                                     )}
                                                 </SidebarMenuSubItem>
@@ -129,11 +129,11 @@ export function NavMain({
                                 <Tooltip>
                                     <TooltipTrigger asChild>
                                         <SidebarMenuButton asChild tooltip={undefined}>
-                                            <a href={item.url}>
+                                            <Link href={item.url}>
                                                 {item.icon && <item.icon />}
                                                 <span>{item.title}</span>
                                                 {item.badge && <SidebarMenuBadge>{item.badge}</SidebarMenuBadge>}
-                                            </a>
+                                            </Link>
                                         </SidebarMenuButton>
                                     </TooltipTrigger>
                                     <TooltipContent side="right" align="center">
@@ -142,11 +142,11 @@ export function NavMain({
                                 </Tooltip>
                             ) : (
                                 <SidebarMenuButton asChild tooltip={item.title}>
-                                    <a href={item.url}>
+                                    <Link href={item.url}>
                                         {item.icon && <item.icon />}
                                         <span>{item.title}</span>
                                         {item.badge && <SidebarMenuBadge>{item.badge}</SidebarMenuBadge>}
-                                    </a>
+                                    </Link>
                                 </SidebarMenuButton>
                             )}
                         </SidebarMenuItem>

@@ -10,18 +10,15 @@
       "page": "/",
       "matchers": [
         {
-          "regexp": "^(?:\\/(_next\\/data\\/[^/]{1,}))?(?:\\/((?!_next\\/static|_next\\/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp|ico|woff|woff2|ttf|otf)$|api\\/health).*))(.json)?[\\/#\\?]?$",
-          "originalSource": "/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp|ico|woff|woff2|ttf|otf)$|api/health).*)"
+          "regexp": "^/.*$",
+          "originalSource": "/:path*"
         }
       ],
       "wasm": [],
       "assets": [],
       "env": {
-        "__NEXT_BUILD_ID": "bhKuhjwux9y9Wx52f7TnV",
-        "NEXT_SERVER_ACTIONS_ENCRYPTION_KEY": "MisJrMBCesMyPXUNNJMMY0HRjz+jUCnHm5f3U12COdM=",
-        "__NEXT_PREVIEW_MODE_ID": "539c02541f7546e470d7f838e21ca253",
-        "__NEXT_PREVIEW_MODE_ENCRYPTION_KEY": "414a293d92dd3b406afe0b934e016bcbe2632d4b982237411d7ff25386e9ae27",
-        "__NEXT_PREVIEW_MODE_SIGNING_KEY": "f14a970e202b9ad92f54657f74cbdaefcc35a8ec06d81b30a759635fab44f713"
+        "__NEXT_BUILD_ID": "development",
+        "NEXT_SERVER_ACTIONS_ENCRYPTION_KEY": "/GfmBLBDuwdhF0mBE00hbYc9S+yf7XNEB6DX4k8+wDk="
       }
     }
   },

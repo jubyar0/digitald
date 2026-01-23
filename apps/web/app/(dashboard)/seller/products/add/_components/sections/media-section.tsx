@@ -111,24 +111,16 @@ export function MediaSection({
                                 {totalMedia}/{maxMedia}
                             </Badge>
                         </div>
-                        <TooltipProvider>
-                            <Tooltip>
-                                <TooltipTrigger asChild>
-                                    <Button
-                                        variant="ghost"
-                                        size="sm"
-                                        className="h-7 text-xs"
-                                        onClick={() => fileInputRef.current?.click()}
-                                    >
-                                        <Upload className="h-3.5 w-3.5 mr-1" />
-                                        Add
-                                    </Button>
-                                </TooltipTrigger>
-                                <TooltipContent>
-                                    <p>Upload images, videos, or 3D models</p>
-                                </TooltipContent>
-                            </Tooltip>
-                        </TooltipProvider>
+                        <Button
+                            variant="ghost"
+                            size="sm"
+                            className="h-7 text-xs"
+                            onClick={() => fileInputRef.current?.click()}
+                            title="Upload images, videos, or 3D models"
+                        >
+                            <Upload className="h-3.5 w-3.5 mr-1" />
+                            Add
+                        </Button>
                     </div>
                 </CardHeader>
 

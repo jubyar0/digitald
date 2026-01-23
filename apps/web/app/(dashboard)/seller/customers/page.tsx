@@ -11,6 +11,7 @@ import {
 import { SearchIcon, UserIcon } from "lucide-react"
 import { getSellerCustomers } from "@/actions/seller"
 import { formatCurrency } from "@/lib/utils"
+import { CustomersEmptyState } from "./customers-empty-state"
 
 interface PageProps {
     searchParams: {
@@ -23,6 +24,10 @@ export default async function CustomersPage({ searchParams }: PageProps) {
     const pageSize = 10
 
     const { data: customers, stats } = await getSellerCustomers(page, pageSize)
+
+    if (customers.length === 0) {
+        return <CustomersEmptyState />
+    }
 
     return (
         <div className="flex flex-1 flex-col container mx-auto">
@@ -101,23 +106,15 @@ export default async function CustomersPage({ searchParams }: PageProps) {
                                     </TableRow>
                                 </TableHeader>
                                 <TableBody>
-                                    {customers.length === 0 ? (
-                                        <TableRow>
-                                            <TableCell colSpan={5} className="text-center py-8 text-muted-foreground">
-                                                No customers found.
-                                            </TableCell>
+                                    {customers.map((customer) => (
+                                        <TableRow key={customer.id}>
+                                            <TableCell className="font-medium">{customer.name}</TableCell>
+                                            <TableCell>{customer.email}</TableCell>
+                                            <TableCell>{customer.orders}</TableCell>
+                                            <TableCell>{formatCurrency(customer.totalSpent)}</TableCell>
+                                            <TableCell>{customer.joined ? new Date(customer.joined).toLocaleDateString() : 'N/A'}</TableCell>
                                         </TableRow>
-                                    ) : (
-                                        customers.map((customer) => (
-                                            <TableRow key={customer.id}>
-                                                <TableCell className="font-medium">{customer.name}</TableCell>
-                                                <TableCell>{customer.email}</TableCell>
-                                                <TableCell>{customer.orders}</TableCell>
-                                                <TableCell>{formatCurrency(customer.totalSpent)}</TableCell>
-                                                <TableCell>{customer.joined ? new Date(customer.joined).toLocaleDateString() : 'N/A'}</TableCell>
-                                            </TableRow>
-                                        ))
-                                    )}
+                                    ))}
                                 </TableBody>
                             </Table>
                         </CardContent>

@@ -8,14 +8,14 @@ import { Badge } from '@/components/ui/badge'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import {
-    useLivechatSessions,
-    useLivechatStats,
+    useChatbotSessions,
+    useChatbotStats,
     useChatSession,
     useCannedResponses,
     useSendMessage,
     useAssignChat,
     useMarkAsRead,
-} from '@/hooks/use-livechat'
+} from '@/hooks/use-chatbot'
 import { toast } from 'sonner'
 import {
     MessageCircle, Search, Clock, User, Send,
@@ -38,9 +38,9 @@ export default function LivechatDashboard() {
         data: sessions = [],
         isLoading: loading,
         refetch: refetchSessions
-    } = useLivechatSessions({ filter, search, refetchInterval: 5000 })
+    } = useChatbotSessions({ filter, search, refetchInterval: 5000 })
 
-    const { data: stats } = useLivechatStats(5000)
+    const { data: stats } = useChatbotStats(5000)
 
     const {
         data: selectedSession,

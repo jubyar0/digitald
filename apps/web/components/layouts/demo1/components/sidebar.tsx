@@ -5,10 +5,14 @@ import { cn } from '@/lib/utils';
 import { useSettings } from '@/providers/settings-provider';
 import { SidebarHeader } from './sidebar-header';
 import { SidebarMenu } from './sidebar-menu';
+import { SidebarFooter } from './sidebar-footer';
 
 export function Sidebar() {
   const { settings } = useSettings();
   const pathname = usePathname();
+
+  // Only show sidebar footer for seller pages
+  const showFooter = pathname.startsWith('/seller');
 
   return (
     <div
@@ -20,11 +24,12 @@ export function Sidebar() {
       )}
     >
       <SidebarHeader />
-      <div className="overflow-hidden">
-        <div className="w-(--sidebar-default-width)">
+      <div className="overflow-hidden flex-1 flex flex-col">
+        <div className="w-(--sidebar-default-width) flex-1">
           <SidebarMenu />
         </div>
       </div>
+      {showFooter && <SidebarFooter />}
     </div>
   );
 }

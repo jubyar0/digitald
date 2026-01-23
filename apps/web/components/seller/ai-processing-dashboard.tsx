@@ -219,7 +219,7 @@ export function AIProcessingDashboard({ productId }: AIProcessingDashboardProps)
                                     onClick={tool.action}
                                     disabled={isProcessing}
                                     className="w-full"
-                                    variant={hasResult ? 'outline' : 'primary'}
+                                    variant={hasResult ? 'outline' : 'default'}
                                 >
                                     {isProcessing ? (
                                         <>

@@ -109,6 +109,7 @@ export function TitleDescriptionSection({
                         value={name}
                         onChange={onNameChange}
                         placeholder="Enter product name..."
+                        autoComplete="off"
                         className={cn(
                             "text-base font-medium h-11 transition-all",
                             name.length > 0 && "border-emerald-200 focus:border-emerald-400"
@@ -132,22 +133,16 @@ export function TitleDescriptionSection({
                         <div className="flex items-center gap-2">
                             <span className="text-xs text-muted-foreground">{charCount} characters</span>
                             {aiEnabled && (
-                                <TooltipProvider>
-                                    <Tooltip>
-                                        <TooltipTrigger asChild>
-                                            <Button
-                                                variant="ghost"
-                                                size="sm"
-                                                className="h-7 px-2 text-purple-600 hover:text-purple-700 hover:bg-purple-50"
-                                                onClick={() => setAiDialogOpen(true)}
-                                            >
-                                                <Sparkles className="h-3.5 w-3.5 mr-1" />
-                                                AI Write
-                                            </Button>
-                                        </TooltipTrigger>
-                                        <TooltipContent>Generate description with AI</TooltipContent>
-                                    </Tooltip>
-                                </TooltipProvider>
+                                <Button
+                                    variant="ghost"
+                                    size="sm"
+                                    className="h-7 px-2 text-purple-600 hover:text-purple-700 hover:bg-purple-50"
+                                    onClick={() => setAiDialogOpen(true)}
+                                    title="Generate description with AI"
+                                >
+                                    <Sparkles className="h-3.5 w-3.5 mr-1" />
+                                    AI Write
+                                </Button>
                             )}
                         </div>
                     </div>
@@ -182,158 +177,67 @@ export function TitleDescriptionSection({
                             <Separator orientation="vertical" className="h-4 mx-1" />
 
                             {/* Basic Formatting */}
-                            <TooltipProvider>
-                                <Tooltip>
-                                    <TooltipTrigger asChild>
-                                        <Button variant="ghost" size="icon" className="h-7 w-7">
-                                            <Bold className="h-3.5 w-3.5" />
-                                        </Button>
-                                    </TooltipTrigger>
-                                    <TooltipContent className="text-xs">Bold (Ctrl+B)</TooltipContent>
-                                </Tooltip>
-                            </TooltipProvider>
+                            <Button variant="ghost" size="icon" className="h-7 w-7" title="Bold (Ctrl+B)">
+                                <Bold className="h-3.5 w-3.5" />
+                            </Button>
 
-                            <TooltipProvider>
-                                <Tooltip>
-                                    <TooltipTrigger asChild>
-                                        <Button variant="ghost" size="icon" className="h-7 w-7">
-                                            <Italic className="h-3.5 w-3.5" />
-                                        </Button>
-                                    </TooltipTrigger>
-                                    <TooltipContent className="text-xs">Italic (Ctrl+I)</TooltipContent>
-                                </Tooltip>
-                            </TooltipProvider>
+                            <Button variant="ghost" size="icon" className="h-7 w-7" title="Italic (Ctrl+I)">
+                                <Italic className="h-3.5 w-3.5" />
+                            </Button>
 
-                            <TooltipProvider>
-                                <Tooltip>
-                                    <TooltipTrigger asChild>
-                                        <Button variant="ghost" size="icon" className="h-7 w-7">
-                                            <Underline className="h-3.5 w-3.5" />
-                                        </Button>
-                                    </TooltipTrigger>
-                                    <TooltipContent className="text-xs">Underline (Ctrl+U)</TooltipContent>
-                                </Tooltip>
-                            </TooltipProvider>
+                            <Button variant="ghost" size="icon" className="h-7 w-7" title="Underline (Ctrl+U)">
+                                <Underline className="h-3.5 w-3.5" />
+                            </Button>
 
-                            <TooltipProvider>
-                                <Tooltip>
-                                    <TooltipTrigger asChild>
-                                        <Button variant="ghost" size="icon" className="h-7 w-7">
-                                            <Strikethrough className="h-3.5 w-3.5" />
-                                        </Button>
-                                    </TooltipTrigger>
-                                    <TooltipContent className="text-xs">Strikethrough</TooltipContent>
-                                </Tooltip>
-                            </TooltipProvider>
+                            <Button variant="ghost" size="icon" className="h-7 w-7" title="Strikethrough">
+                                <Strikethrough className="h-3.5 w-3.5" />
+                            </Button>
 
                             <Separator orientation="vertical" className="h-4 mx-1" />
 
                             {/* Alignment */}
-                            <TooltipProvider>
-                                <Tooltip>
-                                    <TooltipTrigger asChild>
-                                        <Button variant="ghost" size="icon" className="h-7 w-7">
-                                            <AlignLeft className="h-3.5 w-3.5" />
-                                        </Button>
-                                    </TooltipTrigger>
-                                    <TooltipContent className="text-xs">Align left</TooltipContent>
-                                </Tooltip>
-                            </TooltipProvider>
+                            <Button variant="ghost" size="icon" className="h-7 w-7" title="Align left">
+                                <AlignLeft className="h-3.5 w-3.5" />
+                            </Button>
 
-                            <TooltipProvider>
-                                <Tooltip>
-                                    <TooltipTrigger asChild>
-                                        <Button variant="ghost" size="icon" className="h-7 w-7">
-                                            <AlignCenter className="h-3.5 w-3.5" />
-                                        </Button>
-                                    </TooltipTrigger>
-                                    <TooltipContent className="text-xs">Align center</TooltipContent>
-                                </Tooltip>
-                            </TooltipProvider>
+                            <Button variant="ghost" size="icon" className="h-7 w-7" title="Align center">
+                                <AlignCenter className="h-3.5 w-3.5" />
+                            </Button>
 
                             {/* Lists */}
-                            <TooltipProvider>
-                                <Tooltip>
-                                    <TooltipTrigger asChild>
-                                        <Button variant="ghost" size="icon" className="h-7 w-7">
-                                            <List className="h-3.5 w-3.5" />
-                                        </Button>
-                                    </TooltipTrigger>
-                                    <TooltipContent className="text-xs">Bullet list</TooltipContent>
-                                </Tooltip>
-                            </TooltipProvider>
+                            <Button variant="ghost" size="icon" className="h-7 w-7" title="Bullet list">
+                                <List className="h-3.5 w-3.5" />
+                            </Button>
 
-                            <TooltipProvider>
-                                <Tooltip>
-                                    <TooltipTrigger asChild>
-                                        <Button variant="ghost" size="icon" className="h-7 w-7">
-                                            <ListOrdered className="h-3.5 w-3.5" />
-                                        </Button>
-                                    </TooltipTrigger>
-                                    <TooltipContent className="text-xs">Numbered list</TooltipContent>
-                                </Tooltip>
-                            </TooltipProvider>
+                            <Button variant="ghost" size="icon" className="h-7 w-7" title="Numbered list">
+                                <ListOrdered className="h-3.5 w-3.5" />
+                            </Button>
 
                             <Separator orientation="vertical" className="h-4 mx-1" />
 
                             {/* Media */}
-                            <TooltipProvider>
-                                <Tooltip>
-                                    <TooltipTrigger asChild>
-                                        <Button variant="ghost" size="icon" className="h-7 w-7">
-                                            <LinkIcon className="h-3.5 w-3.5" />
-                                        </Button>
-                                    </TooltipTrigger>
-                                    <TooltipContent className="text-xs">Insert link</TooltipContent>
-                                </Tooltip>
-                            </TooltipProvider>
+                            <Button variant="ghost" size="icon" className="h-7 w-7" title="Insert link">
+                                <LinkIcon className="h-3.5 w-3.5" />
+                            </Button>
 
-                            <TooltipProvider>
-                                <Tooltip>
-                                    <TooltipTrigger asChild>
-                                        <Button variant="ghost" size="icon" className="h-7 w-7">
-                                            <ImageIcon className="h-3.5 w-3.5" />
-                                        </Button>
-                                    </TooltipTrigger>
-                                    <TooltipContent className="text-xs">Insert image</TooltipContent>
-                                </Tooltip>
-                            </TooltipProvider>
+                            <Button variant="ghost" size="icon" className="h-7 w-7" title="Insert image">
+                                <ImageIcon className="h-3.5 w-3.5" />
+                            </Button>
 
-                            <TooltipProvider>
-                                <Tooltip>
-                                    <TooltipTrigger asChild>
-                                        <Button variant="ghost" size="icon" className="h-7 w-7">
-                                            <Video className="h-3.5 w-3.5" />
-                                        </Button>
-                                    </TooltipTrigger>
-                                    <TooltipContent className="text-xs">Insert video</TooltipContent>
-                                </Tooltip>
-                            </TooltipProvider>
+                            <Button variant="ghost" size="icon" className="h-7 w-7" title="Insert video">
+                                <Video className="h-3.5 w-3.5" />
+                            </Button>
 
                             <div className="flex-1" />
 
                             {/* Undo/Redo */}
-                            <TooltipProvider>
-                                <Tooltip>
-                                    <TooltipTrigger asChild>
-                                        <Button variant="ghost" size="icon" className="h-7 w-7 text-muted-foreground">
-                                            <Undo className="h-3.5 w-3.5" />
-                                        </Button>
-                                    </TooltipTrigger>
-                                    <TooltipContent className="text-xs">Undo (Ctrl+Z)</TooltipContent>
-                                </Tooltip>
-                            </TooltipProvider>
+                            <Button variant="ghost" size="icon" className="h-7 w-7 text-muted-foreground" title="Undo (Ctrl+Z)">
+                                <Undo className="h-3.5 w-3.5" />
+                            </Button>
 
-                            <TooltipProvider>
-                                <Tooltip>
-                                    <TooltipTrigger asChild>
-                                        <Button variant="ghost" size="icon" className="h-7 w-7 text-muted-foreground">
-                                            <Redo className="h-3.5 w-3.5" />
-                                        </Button>
-                                    </TooltipTrigger>
-                                    <TooltipContent className="text-xs">Redo (Ctrl+Y)</TooltipContent>
-                                </Tooltip>
-                            </TooltipProvider>
+                            <Button variant="ghost" size="icon" className="h-7 w-7 text-muted-foreground" title="Redo (Ctrl+Y)">
+                                <Redo className="h-3.5 w-3.5" />
+                            </Button>
                         </div>
 
                         {/* Text Area */}

@@ -10,17 +10,20 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
-import { SearchIcon, AlertTriangleIcon, CheckCircleIcon } from "lucide-react"
+import { SearchIcon, AlertTriangleIcon, CheckCircleIcon, Package } from "lucide-react"
+import { getMyProducts, getInventoryStats } from "@/actions/vendor-products"
+import Link from "next/link"
 
-const mockInventory = [
-    { id: "1", name: "WordPress Theme Pro", category: "Themes", status: "active", sales: 142, isActive: true },
-    { id: "2", name: "React Component Library", category: "Code", status: "active", sales: 98, isActive: true },
-    { id: "3", name: "3D Model Pack", category: "3D Models", status: "inactive", sales: 67, isActive: false },
-    { id: "4", name: "UI Kit Premium", category: "Design", status: "active", sales: 45, isActive: true },
-    { id: "5", name: "Mobile App Template", category: "Templates", status: "active", sales: 89, isActive: true },
-]
+export const dynamic = 'force-dynamic'
 
-export default function InventoryPage() {
+export default async function InventoryPage() {
+    const [productsResult, stats] = await Promise.all([
+        getMyProducts({ limit: 50 }),
+        getInventoryStats()
+    ])
+
+    const products = productsResult.products || []
+
     return (
         <div className="flex flex-1 flex-col container mx-auto">
             <div className="@container/main flex flex-1 flex-col gap-2">
@@ -50,7 +53,7 @@ export default function InventoryPage() {
                                     </div>
                                     <div>
                                         <p className="text-sm text-muted-foreground">Active Products</p>
-                                        <p className="text-2xl font-bold">128</p>
+                                        <p className="text-2xl font-bold">{stats.activeProducts}</p>
                                     </div>
                                 </div>
                             </CardContent>
@@ -63,8 +66,8 @@ export default function InventoryPage() {
                                         <AlertTriangleIcon className="h-6 w-6 text-orange-600 dark:text-orange-400" />
                                     </div>
                                     <div>
-                                        <p className="text-sm text-muted-foreground">Inactive Products</p>
-                                        <p className="text-2xl font-bold">14</p>
+                                        <p className="text-sm text-muted-foreground">Draft Products</p>
+                                        <p className="text-2xl font-bold">{stats.draftProducts}</p>
                                     </div>
                                 </div>
                             </CardContent>
@@ -74,11 +77,11 @@ export default function InventoryPage() {
                             <CardContent className="p-6">
                                 <div className="flex items-center gap-4">
                                     <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-blue-100 dark:bg-blue-900">
-                                        <CheckCircleIcon className="h-6 w-6 text-blue-600 dark:text-blue-400" />
+                                        <Package className="h-6 w-6 text-blue-600 dark:text-blue-400" />
                                     </div>
                                     <div>
                                         <p className="text-sm text-muted-foreground">Total Products</p>
-                                        <p className="text-2xl font-bold">142</p>
+                                        <p className="text-2xl font-bold">{stats.totalProducts}</p>
                                     </div>
                                 </div>
                             </CardContent>
@@ -98,23 +101,46 @@ export default function InventoryPage() {
                                     </TableRow>
                                 </TableHeader>
                                 <TableBody>
-                                    {mockInventory.map((item) => (
-                                        <TableRow key={item.id}>
-                                            <TableCell className="font-medium">{item.name}</TableCell>
-                                            <TableCell>{item.category}</TableCell>
-                                            <TableCell>
-                                                <Badge variant={item.isActive ? "default" : "secondary"}>
-                                                    {item.isActive ? "Active" : "Inactive"}
-                                                </Badge>
-                                            </TableCell>
-                                            <TableCell>{item.sales}</TableCell>
-                                            <TableCell className="text-right">
-                                                <Button variant="outline" size="sm">
-                                                    {item.isActive ? "Deactivate" : "Activate"}
-                                                </Button>
+                                    {products.length === 0 ? (
+                                        <TableRow>
+                                            <TableCell colSpan={5} className="text-center py-12">
+                                                <div className="flex flex-col items-center gap-4">
+                                                    <img
+                                                        src="/media/illustrations/24.svg"
+                                                        alt="No products"
+                                                        className="h-32 w-32 object-contain dark:opacity-80"
+                                                    />
+                                                    <div>
+                                                        <p className="text-lg font-medium">No products found</p>
+                                                        <p className="text-sm text-muted-foreground">Add your first product to get started</p>
+                                                    </div>
+                                                    <Link href="/seller/products/add">
+                                                        <Button className="mt-2">Add Product</Button>
+                                                    </Link>
+                                                </div>
                                             </TableCell>
                                         </TableRow>
-                                    ))}
+                                    ) : (
+                                        products.map((item) => (
+                                            <TableRow key={item.id}>
+                                                <TableCell className="font-medium">{item.name}</TableCell>
+                                                <TableCell>{item.category?.name || 'Uncategorized'}</TableCell>
+                                                <TableCell>
+                                                    <Badge variant={item.status === 'PUBLISHED' ? "default" : "secondary"}>
+                                                        {item.status}
+                                                    </Badge>
+                                                </TableCell>
+                                                <TableCell>{item._count?.orders || 0}</TableCell>
+                                                <TableCell className="text-right">
+                                                    <Link href={`/seller/products/edit/${item.id}`}>
+                                                        <Button variant="outline" size="sm">
+                                                            Edit
+                                                        </Button>
+                                                    </Link>
+                                                </TableCell>
+                                            </TableRow>
+                                        ))
+                                    )}
                                 </TableBody>
                             </Table>
                         </CardContent>

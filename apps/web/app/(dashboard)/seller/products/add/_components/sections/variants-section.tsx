@@ -234,31 +234,18 @@ export function VariantsSection({
                                     </div>
                                 </div>
                                 <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                                    <TooltipProvider>
-                                        <Tooltip>
-                                            <TooltipTrigger asChild>
-                                                <Button variant="ghost" size="icon" className="h-7 w-7">
-                                                    <Edit className="h-3.5 w-3.5" />
-                                                </Button>
-                                            </TooltipTrigger>
-                                            <TooltipContent>Edit option</TooltipContent>
-                                        </Tooltip>
-                                    </TooltipProvider>
-                                    <TooltipProvider>
-                                        <Tooltip>
-                                            <TooltipTrigger asChild>
-                                                <Button
-                                                    variant="ghost"
-                                                    size="icon"
-                                                    className="h-7 w-7 text-destructive hover:text-destructive"
-                                                    onClick={() => handleDeleteOption(option.id)}
-                                                >
-                                                    <Trash2 className="h-3.5 w-3.5" />
-                                                </Button>
-                                            </TooltipTrigger>
-                                            <TooltipContent>Remove option</TooltipContent>
-                                        </Tooltip>
-                                    </TooltipProvider>
+                                    <Button variant="ghost" size="icon" className="h-7 w-7" title="Edit option">
+                                        <Edit className="h-3.5 w-3.5" />
+                                    </Button>
+                                    <Button
+                                        variant="ghost"
+                                        size="icon"
+                                        className="h-7 w-7 text-destructive hover:text-destructive"
+                                        onClick={() => handleDeleteOption(option.id)}
+                                        title="Remove option"
+                                    >
+                                        <Trash2 className="h-3.5 w-3.5" />
+                                    </Button>
                                 </div>
                             </div>
                         ))}

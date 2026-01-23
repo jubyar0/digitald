@@ -11,6 +11,13 @@ import {
     PopoverContent,
     PopoverTrigger,
 } from "@/components/ui/popover";
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select";
 import { cn } from "@/lib/utils";
 import { format } from 'date-fns';
 import { CalendarIcon, Clock, CircleCheck, FileEdit, EyeOff, ChevronDown } from 'lucide-react';
@@ -58,71 +65,67 @@ export function StatusCard({ status, onStatusChange }: StatusCardProps) {
     const [scheduledDate, setScheduledDate] = useState<Date | undefined>(undefined);
     const [isScheduling, setIsScheduling] = useState(false);
 
-    const currentStatus = status === 'ACTIVE' ? 'active' : status === 'DRAFT' ? 'draft' : 'archived';
-    const currentOption = STATUS_OPTIONS.find(opt => opt.value === currentStatus) || STATUS_OPTIONS[1];
+    // Map internal status to UI value
+    const getUiStatus = (s: string) => {
+        if (s === 'PUBLISHED' || s === 'ACTIVE') return 'active';
+        if (s === 'DRAFT') return 'draft';
+        if (s === 'SUSPENDED' || s === 'ARCHIVED') return 'unlisted';
+        return 'draft'; // Default
+    };
 
-    const handleStatusChange = (value: ProductStatus) => {
-        const mappedValue = value === 'active' ? 'ACTIVE' : value === 'draft' ? 'DRAFT' : 'ARCHIVED';
+    const currentUiStatus = getUiStatus(status);
+
+    const handleStatusChange = (value: string) => {
+        let mappedValue = 'DRAFT';
+        if (value === 'active') mappedValue = 'PUBLISHED';
+        if (value === 'draft') mappedValue = 'DRAFT';
+        if (value === 'unlisted') mappedValue = 'SUSPENDED';
         onStatusChange(mappedValue);
     };
 
     return (
         <Card className="overflow-hidden">
             <CardHeader className="px-4 py-3 border-b bg-muted/30">
-                <div className="flex items-center justify-between">
-                    <CardTitle className="text-sm font-semibold">Status</CardTitle>
-                    <div className={cn(
-                        "flex items-center gap-1.5 text-xs font-medium px-2 py-0.5 rounded-full",
-                        currentStatus === 'active' && "bg-emerald-50 text-emerald-700",
-                        currentStatus === 'draft' && "bg-amber-50 text-amber-700",
-                        currentStatus === 'archived' && "bg-muted text-muted-foreground"
-                    )}>
-                        <currentOption.icon className="h-3 w-3" />
-                        {currentOption.label}
-                    </div>
-                </div>
+                <CardTitle className="text-sm font-semibold">Status</CardTitle>
             </CardHeader>
-            <CardContent className="p-4">
-                <RadioGroup
-                    value={currentStatus}
-                    onValueChange={(value) => handleStatusChange(value as ProductStatus)}
-                    className="space-y-3"
-                >
-                    {STATUS_OPTIONS.map((option) => (
-                        <div
-                            key={option.value}
-                            className={cn(
-                                "relative flex items-start p-3 rounded-lg border-2 cursor-pointer transition-all hover:bg-muted/30",
-                                currentStatus === option.value
-                                    ? "border-primary bg-primary/5"
-                                    : "border-transparent bg-muted/20"
-                            )}
-                            onClick={() => handleStatusChange(option.value)}
-                        >
-                            <RadioGroupItem
-                                value={option.value}
-                                id={option.value}
-                                className="mt-0.5 shrink-0"
-                            />
-                            <div className="ml-3 flex-1 min-w-0">
-                                <Label
-                                    htmlFor={option.value}
-                                    className="flex items-center gap-2 font-medium text-sm cursor-pointer"
-                                >
-                                    <option.icon className={cn("h-4 w-4", option.iconColor)} />
-                                    {option.label}
-                                </Label>
-                                <p className="text-xs text-muted-foreground mt-0.5 leading-relaxed">
-                                    {option.description}
-                                </p>
+            <CardContent className="p-4 space-y-4">
+                <div className="space-y-2">
+                    <Select
+                        name="status"
+                        value={currentUiStatus}
+                        onValueChange={handleStatusChange}
+                    >
+                        <SelectTrigger className="w-full h-auto py-2">
+                            <div className="flex items-start gap-2 text-left">
+                                <SelectValue placeholder="Select status" />
                             </div>
-                        </div>
-                    ))}
-                </RadioGroup>
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectItem value="active" className="py-2">
+                                <div className="font-medium">Active</div>
+                                <p className="text-xs text-muted-foreground mt-0.5">
+                                    Sell via selected sales channels and markets
+                                </p>
+                            </SelectItem>
+                            <SelectItem value="draft" className="py-2">
+                                <div className="font-medium">Draft</div>
+                                <p className="text-xs text-muted-foreground mt-0.5">
+                                    Not visible on selected sales channels or markets
+                                </p>
+                            </SelectItem>
+                            <SelectItem value="unlisted" className="py-2">
+                                <div className="font-medium">Unlisted</div>
+                                <p className="text-xs text-muted-foreground mt-0.5">
+                                    Accessible only by direct link
+                                </p>
+                            </SelectItem>
+                        </SelectContent>
+                    </Select>
+                </div>
 
                 {/* Schedule Publishing */}
-                {currentStatus === 'draft' && (
-                    <div className="mt-4 pt-4 border-t">
+                {currentUiStatus === 'draft' && (
+                    <div className="pt-2 border-t">
                         <div className="flex items-center justify-between mb-3">
                             <div className="flex items-center gap-2">
                                 <Clock className="h-4 w-4 text-muted-foreground" />
